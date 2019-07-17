@@ -14,138 +14,138 @@
                         <ul>
                             <li style="border-top-left-radius:10px">
                                 <p>翡翠-AG</p>
-                                <img src="../../assets/images/index-con1-1-img-ag.png">
+                                <img src="../../assets/images/index-con1-1-img-ag.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li>
                                 <p>波音馆-BBIN</p>
-                                <img src="../../assets/images/index-con1-1-img-bbin.png">
+                                <img src="../../assets/images/index-con1-1-img-bbin.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li>
                                 <p>铂金馆-EA</p>
-                                <img src="../../assets/images/index-con1-1-img-ea.png">
+                                <img src="../../assets/images/index-con1-1-img-ea.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li style="border-top-right-radius:10px">
                                 <p>夺宝岛-GD</p>
-                                <img src="../../assets/images/index-con1-1-img-gd.png">
+                                <img src="../../assets/images/index-con1-1-img-gd.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                         </ul>
                         <ul>
                             <li style="border-bottom-left-radius:10px">
                                 <p>星耀厅-GPI</p>
-                                <img src="../../assets/images/index-con1-1-img-gpi.png">
+                                <img src="../../assets/images/index-con1-1-img-gpi.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li>
                                 <p>海岛城-OPUS</p>
-                                <img src="../../assets/images/index-con1-1-img-opus.png">
+                                <img src="../../assets/images/index-con1-1-img-opus.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li>
                                 <p>百乐门-PT</p>
-                                <img src="../../assets/images/index-con1-1-img-pt.png">
+                                <img src="../../assets/images/index-con1-1-img-pt.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                             <li style="border-bottom-right-radius:10px">
                                 <p>新铂金馆-N2LIVE</p>
-                                <img src="../../assets/images/N2Live.png">
+                                <img src="../../assets/images/N2Live.png" />
                                 <span class="lightTop">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightRight">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                                 <span class="lightBottom">
-                                    <img src="../../assets/images/index-con1-1-light-1.png">
+                                    <img src="../../assets/images/index-con1-1-light-1.png" />
                                 </span>
                                 <span class="lightLeft">
-                                    <img src="../../assets/images/index-con1-1-light-2.png">
+                                    <img src="../../assets/images/index-con1-1-light-2.png" />
                                 </span>
                             </li>
                         </ul>
                     </div>
                     <div class="con1_shadow">
-                        <img src="../../assets/images/index-con1-1-img-2.png" alt>
+                        <img src="../../assets/images/index-con1-1-img-2.png" alt />
                     </div>
                 </div>
                 <div class="con1-2">
@@ -160,7 +160,7 @@
                         <button>立即投注</button>
                     </div>
                     <div class="con2_shadow">
-                        <img src="../../assets/images/index-con1-2-img-2.png">
+                        <img src="../../assets/images/index-con1-2-img-2.png" />
                     </div>
                 </div>
                 <div class="con1-3">
@@ -175,14 +175,14 @@
                         <button>了解详情</button>
                     </div>
                     <div class="con2_shadow">
-                        <img src="../../assets/images/index-con1-3-img-2.png">
+                        <img src="../../assets/images/index-con1-3-img-2.png" />
                     </div>
                 </div>
             </div>
             <div>
                 <div class="con2-1">
                     <div class="con2_box">
-                        <img src="../../assets/images/index-con1-4-img-3.png">
+                        <img src="../../assets/images/index-con1-4-img-3.png" />
                         <p class="con1_text">{{this.text[3]}}</p>
                         <div class="con1_2_button">
                             <button>了解详情</button>
@@ -190,32 +190,32 @@
                     </div>
 
                     <div class="con2_shadow">
-                        <img src="../../assets/images/index-con1-2-img-2.png">
+                        <img src="../../assets/images/index-con1-2-img-2.png" />
                     </div>
                 </div>
                 <div class="con2-2">
                     <div class="con2_box">
                         <img
                             src="../../assets/images/Template_visual_1eb0373a-8e26-41a7-b77a-a56099d28ef4.jpg"
-                        >
+                        />
                         <div class="con1_2_button">
                             <button>了解详情</button>
                         </div>
                     </div>
 
                     <div class="con2_shadow">
-                        <img src="../../assets/images/index-con1-2-img-2.png">
+                        <img src="../../assets/images/index-con1-2-img-2.png" />
                     </div>
                 </div>
                 <div class="con2-3">
                     <div class="con2_3_box"></div>
                     <div class="con2_shadow">
-                        <img src="../../assets/images/index-con1-2-img-2.png">
+                        <img src="../../assets/images/index-con1-2-img-2.png" />
                     </div>
                 </div>
             </div>
             <div class="con3">
-                <img src="../../assets/images/ac_logo.png" alt>
+                <img src="../../assets/images/ac_logo.png" alt />
                 <div class="con3_title">
                     <p>赞助</p>
                     <p>AC米兰（2017-2020赛季）</p>
@@ -231,7 +231,7 @@
                 </div>
             </div>
             <div class="con3 bg">
-                <img src="../../assets/images/jvt_logo.png" alt>
+                <img src="../../assets/images/jvt_logo.png" alt />
                 <div class="con3_title">
                     <p>赞助</p>
                     <p>尤文图斯（2016-2018赛季）</p>
@@ -268,7 +268,6 @@ export default {
 
 <style lang="stylus" scoped>
 .home_list
-    background #ddd
     padding-top 10px
 .container
     width 1200px

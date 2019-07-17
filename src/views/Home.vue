@@ -1,21 +1,18 @@
 <template>
     <div class="home">
-        <Oswiper/>
-        <Marquee/>
-        <List/>
+        <Oswiper />
+        <List />
     </div>
 </template>
 
 <script>
-import Marquee from '@/components/home/marquee.vue'
-import Oswiper from '@/components/home/swiper'
+import Oswiper from '@/components/home/homeSwiper'
 import List from '../components/home/list'
 export default {
     name: 'home',
     components: {
         List,
-        Oswiper,
-        Marquee
+        Oswiper
     }
 }
 </script>

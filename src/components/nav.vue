@@ -1,53 +1,57 @@
 <template>
     <div class="nav">
-        <div class="nav_top fixed_layout">
-            <ul class="flag">
-                <li>
-                    <i></i>
-                    <span>中国-简体中文</span>
-                </li>
-            </ul>
-            <ul class="line_help">
-                <li class="nowDate">{{nowDate}}</li>
-                <li>PC客户端</li>
-                <li>手机客户端</li>
-                <li>线路中心</li>
-            </ul>
-            <ul class="nav_top_right">
-                <li v-if="this.$store.state.loginCode==0" class="login_content">
-                    <button ref="loginPosition" @click="open('login','loginPosition')">登录</button>
-                    <button
-                        ref="registeredPosition"
-                        @click="open('registered','registeredPosition')"
-                    >注册</button>
-                </li>
-                <li v-else-if="this.$store.state.loginCode==1" class="money_content">
-                    <div>
+        <div class="topBox">
+            <div class="nav_top fixed_layout">
+                <ul class="flag">
+                    <li>
+                        <i></i>
+                        <span>中国-简体中文</span>
+                    </li>
+                </ul>
+                <ul class="line_help">
+                    <li>PC客户端</li>
+                    <li>手机客户端</li>
+                    <li>线路中心</li>
+                    <li>
+                        <Marquee />
+                    </li>
+                </ul>
+                <ul class="nav_top_right">
+                    <li v-if="this.$store.state.loginCode==0" class="login_content">
+                        <button ref="loginPosition" @click="open('login','loginPosition')">登录</button>
+                        <button
+                            ref="registeredPosition"
+                            @click="open('registered','registeredPosition')"
+                        >注册</button>
+                    </li>
+                    <li v-else-if="this.$store.state.loginCode==1" class="money_content">
                         <div>
-                            <span>账号:</span>
-                            <span>{{this.$store.state.nickname}}</span>
-                            <span>高级会员</span>
-                            <Icon type="ios-arrow-down" />
+                            <div>
+                                <span>账号:</span>
+                                <span>{{this.$store.state.nickname}}</span>
+                                <span>高级会员</span>
+                                <Icon type="ios-arrow-down" />
+                            </div>
+                            <div>
+                                <span>余额:</span>
+                                <span>{{this.$store.state.money}}</span>
+                                <Icon
+                                    @click="refresh"
+                                    style="font-size:20px;color:#d49815"
+                                    type="md-refresh-circle"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <span>余额:</span>
-                            <span>{{this.$store.state.money}}</span>
-                            <Icon
-                                @click="refresh"
-                                style="font-size:20px;color:#d49815"
-                                type="md-refresh-circle"
-                            />
-                        </div>
-                    </div>
-                    <button @click="loginOut">退出</button>
-                </li>
-                <li class="border_style">
-                    <span>充值</span>
-                </li>
-                <li class="border_style">
-                    <span>提款</span>
-                </li>
-            </ul>
+                        <button @click="loginOut">退出</button>
+                    </li>
+                    <li class="border_style">
+                        <span>充值</span>
+                    </li>
+                    <li class="border_style">
+                        <span>提款</span>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div style="border-top: 1px solid #424141">
             <div class="nav_bottom fixed_layout">
@@ -57,30 +61,10 @@
                 </div>
                 <ul class="nav_list">
                     <router-link tag="li" to="/">首页</router-link>
-                    <router-link tag="li" to="/test">体育</router-link>
-                    <li>沙巴体育</li>
-                    <router-link
-                        ref="routerLink"
-                        :to="`/lottery?menuId=${this.$store.state.menuId}`"
-                        tag="li"
-                        data-lottery="ture"
-                        event="none"
-                    >
-                        彩票
-                        <Icon type="ios-arrow-down"></Icon>
-                        <div class="lotteryList">
-                            <ul v-for="(item,keys) of this.$store.state.lotteryMenue" :key="keys">
-                                <h5>{{item.title}}</h5>
-                                <li v-for="(element,index) of item.lottery_data" :key="index">
-                                    <span
-                                        @click="jump(element.lotteryid,element.menuid,keys)"
-                                    >{{element.title}}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </router-link>
-                    <li>电子游戏</li>
-                    <li>棋牌</li>
+                    <li>时时彩</li>
+                    <li>快乐彩</li>
+                    <li>快3</li>
+                    <li>低频彩</li>
                     <router-link tag="li" to="/activityList">最新优惠</router-link>
                     <li class="btn-sign">
                         <button @click="openCenter">
@@ -99,6 +83,7 @@
 import Login from '../components/home/login'
 import Fast from '../components/home/fast'
 import Registered from '../components/home/registered'
+import Marquee from '@/components/home/marquee.vue'
 import {
     getbalance,
     loginOut,
@@ -110,7 +95,6 @@ export default {
     name: 'lobby_nav',
     data() {
         return {
-            nowDate: '',
             nickname: '',
             id: '',
             x: 0,
@@ -118,7 +102,6 @@ export default {
         }
     },
     mounted() {
-        this.getTime()
         if (sessionStorage.getItem('token')) {
             this.$store.dispatch('handleLogin', 1)
             this.$store.dispatch(
@@ -201,44 +184,6 @@ export default {
                 this.getElementTop(this.$refs[targetButn]) -
                 this.$refs[targetButn].offsetTop * 2
         },
-        //获取当前时间
-        getTime() {
-            let date = new Date(),
-                year = date.getFullYear(),
-                month = date.getMonth() + 1,
-                day = date.getDate(),
-                hours = date.getHours(),
-                minutes = date.getMinutes(),
-                seconds = date.getSeconds()
-            if (month < 10) {
-                month = '0' + month
-            }
-            if (day < 10) {
-                day = '0' + day
-            }
-            if (hours < 10) {
-                hours = '0' + hours
-            }
-            if (minutes < 10) {
-                minutes = '0' + minutes
-            }
-            if (seconds < 10) {
-                seconds = '0' + seconds
-            }
-            this.nowDate =
-                year +
-                '-' +
-                month +
-                '-' +
-                day +
-                ' ' +
-                hours +
-                ':' +
-                minutes +
-                ':' +
-                seconds
-            setTimeout(this.getTime, 1000)
-        },
         getElementLeft(element) {
             var actualLeft = element.offsetLeft
             var current = element.offsetParent
@@ -267,6 +212,7 @@ export default {
         Login,
         Registered,
         Icon,
+        Marquee,
         Fast
     }
 }
@@ -280,53 +226,59 @@ export default {
     top 0
     width 100%
     z-index 99
-.nav_top
-    width 1200px
-    margin auto
-    overflow hidden
-.flag
-    color defaultColor
-    line-height 40px
-    font-size 13px
-    float left
-    i
-        background url('../assets/images/flag.png')
-        display inline-block
-        height 17px
-        width 17px
-        margin-bottom -4px
-        margin-right 10px
-        background-position -17px 0
-.line_help
-    float left
-    color #fff
-    line-height 40px
-    display flex
-    li
-        white-space nowrap
-        padding 0 7px
-        font-size 12px
-        border-right 1px solid #424141
-        color defaultColor
-.nav_top_right
-    float right
-    overflow hidden
-    li
-        float left
-        color #fff
-        font-size 12px
-        white-space nowrap
-        span
-            padding 0 6px
-            color #f7e6b0
-    .money_content
+.topBox
+    background #1a1a1a
+    .nav_top
+        width 1200px
+        margin auto
         overflow hidden
-        &>div
+        .nav_top_right
+            float right
+            overflow hidden
+            li
+                float left
+                color #fff
+                font-size 12px
+                white-space nowrap
+                span
+                    padding 0 6px
+                    color #f7e6b0
+            .money_content
+                overflow hidden
+                &>div
+                    float left
+                button
+                    margin-top 6px
+                    &.refresh
+                        background #d49815
+        .flag
+            color #aaa
+            line-height 50px
+            font-size 13px
             float left
-        button
-            margin-top 6px
-            &.refresh
-                background #d49815
+            margin-right 10px
+            i
+                background url('../assets/images/flag.png')
+                display inline-block
+                height 17px
+                width 17px
+                margin-bottom -4px
+                margin-right 10px
+                background-position -17px 0
+        .line_help
+            float left
+            color #aaa
+            line-height 50px
+            display flex
+            li
+                white-space nowrap
+                padding 0 7px
+                font-size 12px
+                border-right 1px solid #444444
+                &:first-child
+                    border-left 1px solid #444444
+                &:last-child
+                    border-right none
 button
     background #d83f41
     border none
@@ -347,7 +299,7 @@ button
     overflow hidden
     width 1200px
     margin auto
-    line-height 80px
+    line-height 75px
     .nav_list
         float right
         display flex
@@ -355,7 +307,7 @@ button
             white-space nowrap
             padding 0 20px
             &:hover
-                background #a92c2d
+                background #ea2f4c
                 color #fff
             &:last-child:hover
                 background none
@@ -365,7 +317,7 @@ button
             &[data-lottery='ture']
                 div
                     position absolute
-                    background #000000bd
+                    background #000000
                     overflow hidden
                     line-height 26px
                     left 50%
@@ -384,7 +336,7 @@ button
                                 border-radius 6px
                             &:hover
                                 span
-                                    background #a92c2d
+                                    background #ea2f4c
                                     color #fff
 .btn-sign
     button:hover
@@ -419,7 +371,7 @@ button
         width 182px
         height auto
 .is-active
-    background #a92c2d
+    background #ea2f4c
 .login_content
     position relative
     line-height 40px

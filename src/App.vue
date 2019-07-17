@@ -28,6 +28,7 @@ export default {
 
 #app
     padding-top 121px
+    background url('./assets/images/homeBg.jpg')
     &.adminHidden
         height 100vh
         overflow hidden

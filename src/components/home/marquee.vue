@@ -1,7 +1,7 @@
 <template>
     <div class="marquee">
         <div class="box">
-            <p>公告栏</p>
+            <p>最新公告：</p>
             <p>
                 <marquee-text :duration="speed">{{textList}}</marquee-text>
             </p>
@@ -35,20 +35,19 @@ export default {
 
 <style lang="stylus" scoped>
 .marquee
-    background #000
-    color #fff
+    color #e4d4a2
     font-size 12px
-    line-height 30px
+    line-height 50px
     cursor pointer
     .box
-        width 1200px
+        width 593px
         margin auto
         overflow hidden
+        .marquee-text-wrap
+            width 500px
         p:nth-child(1)
             float left
-            padding-right 14px
         p:nth-child(2)
             overflow hidden
             float left
-            width 1150px
 </style>

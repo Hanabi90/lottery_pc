@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-        <Oswiper/>
+        <!-- <Oswiper/> -->
+        <newSwiper :size="400" />
         <Marquee/>
         <List/>
     </div>
@@ -9,13 +10,15 @@
 <script>
 import Marquee from '@/components/home/marquee.vue'
 import Oswiper from '@/components/home/swiper'
+import newSwiper from '@/components/home/newSwiper'
 import List from '../components/home/list'
 export default {
     name: 'home',
     components: {
         List,
         Oswiper,
-        Marquee
+        Marquee,
+        newSwiper
     }
 }
 </script>

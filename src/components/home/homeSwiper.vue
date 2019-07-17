@@ -11,11 +11,18 @@
             <swiper-slide>
                 <img src="../../assets/images/demo_two.jpg" />
             </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/demo.jpg" />
+            </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/demo_one.jpg" />
+            </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/demo_two.jpg" />
+            </swiper-slide>
 
             <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
             <div class="swiper-scrollbar" slot="scrollbar"></div>
         </swiper>
     </div>
@@ -32,14 +39,20 @@ export default {
                 watchSlidesProgress: true,
                 slidesPerView: 'auto',
                 centeredSlides: true,
-                loop: true,
-                autoplay: true,
-                loopedSlides: 5,
-                autoplay: true,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
+                loop: {
+                    loop: true,
+                    loopedSlides: 3
                 },
+                autoplay: {
+                    autoplay: true,
+                    delay: 3000,
+                    disableOninteraction: true
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                },
+
                 on: {
                     progress: function(progress) {
                         console.log(this.slides.eq(1))
@@ -127,8 +140,17 @@ export default {
         font-size 1.1em
         margin 0
     .swiper-pagination
-        width 100%
         bottom 20px
+        text-align right
+        padding-right 100px
+        >>>.swiper-pagination-bullet
+            width 10px
+            height 10px
+            border-radius 4px
+            background #bbbbbb
+        >>>.swiper-pagination-bullet-active
+            width 18px
+            background #bbbbbb
     .swiper-pagination-bullets
         .swiper-pagination-bullet
             margin 0 5px

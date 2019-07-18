@@ -46,7 +46,7 @@ export default {
                 autoplay: {
                     autoplay: true,
                     delay: 3000,
-                    disableOninteraction: true
+                    disableOnInteraction: false
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -91,19 +91,12 @@ export default {
         }
     },
     methods: {
-        callback() {
-        }
+        callback() {}
     },
     computed: {
         swiper() {
             return this.$refs.mySwiper.swiper
         }
-    },
-    mounted() {
-        // current swiper instance
-        // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-        // console.log('this is current swiper instance object', this.swiper)
-        this.swiper.slideTo(3, 1000, false)
     },
     components: {
         swiper,

@@ -42,7 +42,6 @@ export default {
                 },
                 on: {
                     progress: function(progress) {
-                        console.log(this.slides.eq(1))
                         for (let i = 0; i < this.slides.length; i++) {
                             let slide = this.slides.eq(i)
                             let slideProgress = this.slides[i].progress
@@ -80,7 +79,6 @@ export default {
     },
     methods: {
         callback() {
-            console.log(12132)
         }
     },
     computed: {
@@ -91,7 +89,7 @@ export default {
     mounted() {
         // current swiper instance
         // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-        console.log('this is current swiper instance object', this.swiper)
+        // console.log('this is current swiper instance object', this.swiper)
         this.swiper.slideTo(3, 1000, false)
     },
     components: {
@@ -110,7 +108,7 @@ export default {
         padding-bottom 10px
     .swiper-slide
         width 90%
-        height 500px
+        height 400px
         background #fff
         box-shadow 0px 2px 12px 0px #191919
         img

@@ -12,7 +12,7 @@
                     <li>PC客户端</li>
                     <li>手机客户端</li>
                     <li>线路中心</li>
-                    <li>
+                    <li class="marquee_container">
                         <Marquee />
                     </li>
                 </ul>
@@ -28,7 +28,10 @@
                         <div>
                             <div>
                                 <span>账号:</span>
-                                <span>{{this.$store.state.nickname}}</span>
+                                <span ref="dropDownPosition"
+                                      @mouseenter="open('dropDown','dropDownPosition')">
+                                      {{this.$store.state.nickname}}
+                                </span>
                                 <span>高级会员</span>
                                 <Icon type="ios-arrow-down" />
                             </div>
@@ -42,13 +45,18 @@
                                 />
                             </div>
                         </div>
-                        <button @click="loginOut">退出</button>
                     </li>
-                    <li class="border_style">
-                        <span>充值</span>
-                    </li>
-                    <li class="border_style">
-                        <span>提款</span>
+                    <li class="btns">
+                        <div class="btns_box">
+                            <button class="border_style">
+                                <span>充值</span>
+                            </button>
+                        </div>
+                        <div class="btns_box">
+                            <button class="border_style tikuan">
+                                <span>提款</span>
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -57,7 +65,6 @@
             <div class="nav_bottom fixed_layout">
                 <div class="logo_left">
                     <img id="logo" src="../assets/images/page_logo.png" />
-                    <img id="vwin-logo" src="../assets/images/vwin-logo-acmiland-cn.png" />
                 </div>
                 <ul class="nav_list">
                     <router-link tag="li" to="/">首页</router-link>
@@ -65,11 +72,11 @@
                     <li>快乐彩</li>
                     <li>快3</li>
                     <li>低频彩</li>
-                    <router-link tag="li" to="/activityList">最新优惠</router-link>
+                    <!-- <router-link tag="li" to="/activityList">最新优惠</router-link> -->
                     <li class="btn-sign">
                         <button @click="openCenter">
                             <i></i>
-                            <span>个人中心</span>
+                            <span>最新优惠</span>
                         </button>
                     </li>
                 </ul>
@@ -77,12 +84,14 @@
         </div>
         <Login :style="{left:x+'px'}" ref="login" />
         <Registered :style="{left:x+'px'}" ref="registered" />
+        <dropDown :style="{left:x+'px'}" ref="dropDown"></dropDown>        
     </div>
 </template>
 <script>
 import Login from '../components/home/login'
 import Fast from '../components/home/fast'
 import Registered from '../components/home/registered'
+import dropDown from '../components/home/dropDown'
 import Marquee from '@/components/home/marquee.vue'
 import {
     getbalance,
@@ -155,24 +164,18 @@ export default {
             })
         },
         //退出登录
-        loginOut() {
-            loginOut().then(res => {
-                if (res.code == 0) {
-                    sessionStorage.clear()
-                    this.$Message.success('退出成功')
-                    this.$store.dispatch('handleReset')
-                    this.$router.push('/')
-                }
-            })
-        },
+        
         //打开登录页面
         open(target, targetButn, $event) {
             let e = window.event || $event,
                 domTarget = event.target || event.srcElement
-            for (const iterator in this.$refs) {
-                this.$refs[iterator].onOff = false
-            }
-            this.$refs[target].onOff = true
+            //把所有弹窗都关掉
+            this.$refs.login.onOff = false//登录
+            this.$refs.registered.onOff = false//注册
+            this.$refs.dropDown.onOff = false//
+            //打开目标弹窗
+            this.$refs[target].onOff =true
+            
             this.$nextTick(() => {
                 this.x =
                     this.getElementLeft(this.$refs[targetButn]) +
@@ -211,6 +214,7 @@ export default {
     components: {
         Login,
         Registered,
+        dropDown,
         Icon,
         Marquee,
         Fast
@@ -221,17 +225,22 @@ export default {
 <style lang="stylus" scoped>
 .nav
     position fixed
-    background mainColor
+    background #242424
     cursor pointer
     top 0
     width 100%
     z-index 99
 .topBox
+    height: 50px;
     background #1a1a1a
     .nav_top
         width 1200px
         margin auto
         overflow hidden
+        display flex
+        .marquee_container
+            max-width 460px
+            overflow hidden
         .nav_top_right
             float right
             overflow hidden
@@ -283,23 +292,40 @@ button
     background #d83f41
     border none
     color #fff
-    border-radius 16px
+    border-radius 4px
     padding 0 20px
     margin 0 6px
     outline none
     height 26px
     line-height 26px
+.btns
+    display flex
+    float left
+    align-items center
+    height 100%
+    .btns_box
+        display flex
+        align-items center
+        border-left 1px solid #444444
+        height 100%
 .border_style
-    line-height 40px
     border-left 1px solid #424141
     padding 0 10px
+    background: linear-gradient(#3ee2ea, #5959ab);
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    width: 68px;
+    text-align: center;
+    &.tikuan
+        background: linear-gradient(#fbc434, #f56250);
 .nav_bottom
     color #fff
     font-size 14px
     overflow hidden
     width 1200px
     margin auto
-    line-height 75px
+    line-height 60px
     .nav_list
         float right
         display flex
@@ -361,18 +387,15 @@ button
             margin-bottom -2px
 .logo_left
     float left
-    height 70px
+    height 60px
     #logo
         width 140px
         height auto
         margin-top 6px
         margin-right 20px
-    #vwin-logo
-        width 182px
-        height auto
 .is-active
     background #ea2f4c
 .login_content
     position relative
-    line-height 40px
+    line-height 60px
 </style>

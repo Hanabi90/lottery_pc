@@ -99,7 +99,6 @@ import {
     DatePicker,
     Button,
     Checkbox,
-    Scroll,
     Page,
 } from 'iview'
 import {
@@ -200,7 +199,6 @@ export default {
             })
         },
         handleReachBottom(value) {
-            console.log(value);
             let orderHistoryList = { ...this.orderHistoryList }
             orderHistoryList.starttime = this.dataformat(
                 this.orderHistoryList.starttime[0]
@@ -259,6 +257,7 @@ export default {
                 this.userList = [...res.data]
             }
         })
+        this.handleOrderHistory()
     },
     components: {
         Form,
@@ -268,7 +267,6 @@ export default {
         DatePicker,
         Button,
         Checkbox,
-        Scroll,
         Page,
     }
 }

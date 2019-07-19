@@ -23,7 +23,6 @@
                                 <span>账号:</span>
                                 <span
                                     ref="dropDownPosition"
-<<<<<<< HEAD
                                     style="padding: 0;"
                                     @mouseenter="open('dropDown','dropDownPosition')"
                                 >{{this.$store.state.nickname}}</span>
@@ -32,12 +31,6 @@
                                     style="font-size:16px;color:#ecc04a;height: 25px;"
                                 />
                                 <span class="member"></span>
-=======
-                                    @mouseenter="open('dropDown','dropDownPosition')"
-                                >{{this.$store.state.nickname}}</span>
-                                <span>高级会员</span>
-                                <Icon type="ios-arrow-down" />
->>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
                             </div>
                             <div class="money_content_div">
                                 <span>余额:</span>
@@ -281,14 +274,10 @@ export default {
         Registered,
         Icon,
         Marquee,
-<<<<<<< HEAD
-        Fast,
         Dropdown,
         DropdownMenu,
-        DropdownItem
-=======
+        DropdownItem,
         PersonalManagement
->>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
     }
 }
 </script>
@@ -410,20 +399,6 @@ button
         align-items center
         border-left 1px solid #444444
         height 100%
-<<<<<<< HEAD
-=======
-.border_style
-    border-left 1px solid #424141
-    padding 0 10px
-    background linear-gradient(#3ee2ea, #5959ab)
-    border-radius 4px
-    height 30px
-    line-height 30px
-    width 68px
-    text-align center
-    &.tikuan
-        background linear-gradient(#fbc434, #f56250)
->>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
 .nav_bottom
     color #fff
     font-size 14px

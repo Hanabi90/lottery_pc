@@ -126,13 +126,6 @@ export default {
     top 45px
     line-height normal
     animation fadeInDown ease 1s
-    .arrow
-        width 0
-        height 0
-        border-style solid
-        border-width 0 10px 10px 5px
-        border-color transparent transparent #fff transparent
-        margin auto
     .container
         border-radius 10px
         background #202020

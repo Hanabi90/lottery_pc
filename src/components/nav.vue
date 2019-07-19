@@ -23,6 +23,7 @@
                                 <span>账号:</span>
                                 <span
                                     ref="dropDownPosition"
+<<<<<<< HEAD
                                     style="padding: 0;"
                                     @mouseenter="open('dropDown','dropDownPosition')"
                                 >{{this.$store.state.nickname}}</span>
@@ -31,6 +32,12 @@
                                     style="font-size:16px;color:#ecc04a;height: 25px;"
                                 />
                                 <span class="member"></span>
+=======
+                                    @mouseenter="open('dropDown','dropDownPosition')"
+                                >{{this.$store.state.nickname}}</span>
+                                <span>高级会员</span>
+                                <Icon type="ios-arrow-down" />
+>>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
                             </div>
                             <div class="money_content_div">
                                 <span>余额:</span>
@@ -145,14 +152,13 @@
         </div>
         <Login :style="{left:x+'px'}" ref="login" />
         <Registered :style="{left:x+'px'}" ref="registered" />
-        <dropDown :style="{left:x+'px'}" ref="dropDown"></dropDown>
+        <PersonalManagement :style="{left:x+'px'}" ref="dropDown" />
     </div>
 </template>
 <script>
 import Login from '../components/home/login'
-import Fast from '../components/home/fast'
 import Registered from '../components/home/registered'
-import dropDown from '../components/home/dropDown'
+import PersonalManagement from '../components/home/personalManagement'
 import Marquee from '@/components/home/marquee.vue'
 import { Dropdown, DropdownMenu, DropdownItem, Icon } from 'iview'
 import {
@@ -193,8 +199,6 @@ export default {
         //个人中心
         openCenter() {
             if (this.$store.state.loginCode) {
-                let onOff = this.$store.state.userCenter
-                this.$store.dispatch('handleUserCenter', !onOff)
                 getunreadmessageamount().then(res => {
                     this.$store.dispatch(
                         'handleUnReadAmount',
@@ -275,13 +279,16 @@ export default {
     components: {
         Login,
         Registered,
-        dropDown,
         Icon,
         Marquee,
+<<<<<<< HEAD
         Fast,
         Dropdown,
         DropdownMenu,
         DropdownItem
+=======
+        PersonalManagement
+>>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
     }
 }
 </script>
@@ -403,6 +410,20 @@ button
         align-items center
         border-left 1px solid #444444
         height 100%
+<<<<<<< HEAD
+=======
+.border_style
+    border-left 1px solid #424141
+    padding 0 10px
+    background linear-gradient(#3ee2ea, #5959ab)
+    border-radius 4px
+    height 30px
+    line-height 30px
+    width 68px
+    text-align center
+    &.tikuan
+        background linear-gradient(#fbc434, #f56250)
+>>>>>>> 8d8d18c7338c8aafe1e77a12f754a010b1508111
 .nav_bottom
     color #fff
     font-size 14px

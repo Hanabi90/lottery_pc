@@ -1,18 +1,19 @@
 <template>
     <div>
+        <div class="navTitle">游戏账变记录</div>
         <Form :model="orderHistoryList" :label-width="72" inline>
             <FormItem label="彩种名称">
-                <Select v-model="orderHistoryList.lottery" style="width:110px">
+                <Select v-model="orderHistoryList.lottery" style="width:140px">
                     <Option v-for="(item,value) of lotteryList" :key="value" :value="value">{{item}}</Option>
                 </Select>
             </FormItem>
             <FormItem label="投注模式">
-                <Select v-model="orderHistoryList.modes" style="width:120px">
+                <Select v-model="orderHistoryList.modes" style="width:140px">
                     <Option v-for="(item,key) of lotteryModes" :key="key" :value="key">{{item}}</Option>
                 </Select>
             </FormItem>
             <FormItem label="帐变类型">
-                <Select v-model="orderHistoryList.ordertypeid" style="width:100px">
+                <Select v-model="orderHistoryList.ordertypeid" style="width:140px">
                     <Option value="-1">所有类型</Option>
                     <Option
                         v-for="item of ordertypeid"
@@ -27,14 +28,14 @@
                     format="yyyy-MM-dd HH:mm:ss"
                     type="datetimerange"
                     placeholder="请选择日期"
-                    style="width: 280px"
+                    style="width: 190px"
                 ></DatePicker>
             </FormItem>
             <FormItem label="下级用户名">
                 <Select
                     placeholder="查询下级信息"
                     v-model="orderHistoryList.username"
-                    style="width:120px"
+                    style="width:140px"
                 >
                     <Option
                         v-for="(item,value) of userList"
@@ -46,7 +47,7 @@
             <FormItem label="下级">
                 <Checkbox true-value="1" false-value="0" v-model="orderHistoryList.includechild"></Checkbox>
             </FormItem>
-            <Button style="width:160px" @click="handleOrderHistory" type="primary">查询</Button>
+            <Button class="button" @click="handleOrderHistory">查询</Button>
         </Form>
         <div class="content">
             <div class="title">
@@ -60,32 +61,43 @@
                 <h5>余额</h5>
                 <h5>状态</h5>
             </div>
-            <Scroll
-                v-if="scroll"
-                :on-reach-bottom="handleReachBottom"
-                :distance-to-edge="-10"
-                height="410"
-            >
-                <ul class="list">
-                    <li v-for="(item,value) of userHistory" :key="value">
-                        <span>{{item.username}}</span>
-                        <span>{{item.times}}</span>
-                        <span>{{item.cntitle}}</span>
-                        <span>{{item.cnname}}</span>
-                        <span class="code">{{item.methodname}}</span>
-                        <span>{{item.modes}}</span>
-                        <span>{{item.amount}}</span>
-                        <span>{{item.money}}</span>
-                        <span>{{item.transferstatus}}</span>
-                    </li>
-                    <li v-if="pages<=orderHistoryList.p">
-                        <span>{{datafinish}}</span>
-                    </li>
-                </ul>
-            </Scroll>
+
+            <ul class="list">
+                <li v-for="(item,value) of userHistory" :key="value">
+                    <span>{{item.username}}</span>
+                    <span>{{item.times}}</span>
+                    <span
+                        :class="{add:item.cntitle.indexOf('-')!='-1',less:item.cntitle.indexOf('-')=='-1'}"
+                    >{{item.cntitle}}</span>
+                    <span>{{item.cnname}}</span>
+                    <Tooltip
+                        max-width="400"
+                        :content="item.methodname"
+                    >{{item.methodname?item.methodname.slice(0,6):''}}{{(item.methodname&&item.methodname.length)>6?"...":''}}</Tooltip>
+                    <span>{{item.modes}}</span>
+                    <span>{{item.amount}}</span>
+                    <span>{{item.money}}</span>
+                    <span>{{item.transferstatus}}</span>
+                </li>
+            </ul>
             <div class="total">
                 <span style="margin-left:20px;margin-right:420px">余额变动总计</span>
                 <span>{{totalMoney}}</span>
+            </div>
+            <div class="pageBox">
+                <Page
+                    show-total
+                    :show-sizer="true"
+                    show-elevator
+                    size="small"
+                    transfer
+                    :page-size="this.orderHistoryList.pn"
+                    @on-change="handleReachBottom"
+                    @on-page-size-change="changePn"
+                    :total="Number(total)"
+                    class="page"
+                />
+                <Button @click="handleGo" class="btn">Go</Button>
             </div>
         </div>
     </div>
@@ -100,7 +112,8 @@ import {
     DatePicker,
     Button,
     Checkbox,
-    Scroll
+    Page,
+    Tooltip
 } from 'iview'
 import {
     getuserlottery,
@@ -120,7 +133,7 @@ export default {
                 modes: '0', //投注模式
                 lottery: '-1', //彩种名称
                 starttime: '', //起始时间
-                pn: 18, //请求的数据记录数量
+                pn: 10, //请求的数据记录数量
                 p: 1 //请求的页面序号
             },
             lotteryList: {}, //彩票id
@@ -133,18 +146,56 @@ export default {
             userList: [],
             ordertypeid: [],
             userHistory: [],
-            pages: 1, //页数
-            scroll: true, //把滚动条置顶
+            total: 0, //页数
             datafinish: '数据已加载完',
             totalMoney: 0 //余额变动
         }
     },
     methods: {
+        //跳转按钮
+        //跳转按钮
+        handleGo() {
+            let pageInput = this.$refs.page.$el
+                    .getElementsByClassName('ivu-page-options-elevator')[0]
+                    .getElementsByTagName('input')[0],
+                evtObj
+            if (window.KeyEvent) {
+                //firefox 浏览器下模拟事件
+                evtObj = document.createEvent('KeyEvents')
+                evtObj.initKeyEvent(
+                    'keyup',
+                    true,
+                    true,
+                    window,
+                    true,
+                    false,
+                    false,
+                    false,
+                    13,
+                    0
+                )
+            } else {
+                //chrome 浏览器下模拟事件
+                evtObj = document.createEvent('UIEvents')
+                evtObj.initUIEvent('keyup', true, true, window, 1)
+                delete evtObj.keyCode
+                if (typeof evtObj.keyCode === 'undefined') {
+                    //为了模拟keycode
+                    Object.defineProperty(evtObj, 'keyCode', { value: 13 })
+                } else {
+                    evtObj.key = String.fromCharCode(13)
+                }
+            }
+            pageInput.dispatchEvent(evtObj)
+
+            // this.$refs.page.changePage()
+        },
+        //切换显示条数
+        changePn(value) {
+            this.$set(this.orderHistoryList, 'pn', value)
+            this.handleOrderHistory()
+        },
         handleOrderHistory() {
-            this.scroll = false
-            this.$nextTick(() => {
-                this.scroll = true
-            })
             let orderHistoryList = { ...this.orderHistoryList }
             orderHistoryList.starttime = this.dataformat(
                 this.orderHistoryList.starttime[0]
@@ -157,18 +208,15 @@ export default {
             getorderhistory({ ...orderHistoryList }).then(res => {
                 if (res.data.page_data) {
                     this.userHistory = [...res.data.page_data] //当前数据
-                    this.pages = Math.ceil(
-                        res.data.total_count / this.orderHistoryList.pn
-                    ) //页数
-                    this.totalMoney = res.data.money_change.toFixed(2)
+                    this.total = res.data.total_count //总条数
+                    this.totalMoney = res.data.money_change.toFixed(2) //金额格式化
                 } else {
                     this.userHistory = []
-                    this.pages = 1
                     this.totalMoney = 0
                 }
             })
         },
-        handleReachBottom() {
+        handleReachBottom(value) {
             let orderHistoryList = { ...this.orderHistoryList }
             orderHistoryList.starttime = this.dataformat(
                 this.orderHistoryList.starttime[0]
@@ -176,23 +224,18 @@ export default {
             orderHistoryList.endtime = this.dataformat(
                 this.orderHistoryList.starttime[1]
             )
-            if (orderHistoryList.p < this.pages) {
-                return new Promise(resolve => {
-                    orderHistoryList.p = this.orderHistoryList.p + 1
-                    this.$set(
-                        this.orderHistoryList,
-                        'p',
-                        this.orderHistoryList.p + 1
-                    )
-                    getorderhistory({ ...orderHistoryList }).then(res => {
-                        this.userHistory = [
-                            ...this.userHistory,
-                            ...res.data.page_data
-                        ]
-                        resolve()
-                    })
-                })
-            }
+            orderHistoryList.p = value
+            getorderhistory({ ...orderHistoryList }).then(res => {
+                if (res.data.page_data) {
+                    this.userHistory = [...res.data.page_data] //当前数据
+                    this.total = res.data.total_count
+                    this.totalMoney = res.data.money_change.toFixed(2)
+                } else {
+                    this.userHistory = []
+                    this.total = 0
+                    this.totalMoney = 0
+                }
+            })
         },
         dataformat(str) {
             let time = new Date(str)
@@ -234,10 +277,7 @@ export default {
                 this.userList = [...res.data]
             }
         })
-        this.orderHistoryList.username = this.username
-        if (this.username) {
-            this.handleOrderHistory()
-        }
+        this.handleOrderHistory()
     },
     components: {
         Form,
@@ -247,40 +287,114 @@ export default {
         DatePicker,
         Button,
         Checkbox,
-        Scroll
+        Page,
+        Tooltip
     }
 }
 </script>
 
 <style lang="stylus" scoped>
+.navTitle
+    background #ea2f4c
+    width 150px
+    line-height 50px
+    color #ffffff
+    font-size 16px
+    border-bottom-right-radius 20px
+    text-align center
+    margin-bottom 20px
+>>>.ivu-form .ivu-form-item-label
+    color #fff
 .content
-    box-shadow inset 0px 3px 20px 1px #d0d0d0
     border-radius 3px
     overflow hidden
     .title
-        background #2d8cf0
+        background #000
         display flex
         padding-right 20px
         h5
             flex 1
-            line-height 30px
+            line-height 45px
             text-align center
             color #fff
+            font-size 14px
+            &:nth-child(1)
+                flex 0.8
+            &:nth-child(2)
+                flex 1.8
     .list
+        height 590px
+        overflow-y scroll
         li
             display flex
             margin-bottom 10px
-            span
+            span, >div
                 flex 1
                 text-align center
-                font-size 12px
-                line-height 18px
+                font-size 14px
+                line-height 50px
+                color #fff
+                &:nth-child(1)
+                    flex 0.8
+                &:nth-child(2)
+                    flex 1.8
+            .add
+                color #f00
+            .less
+                color #00ceff
             .code
                 overflow hidden
                 text-overflow ellipsis
                 white-space nowrap
     .total
-        background #112840
-        line-height 30px
+        background #ea2f4c
+        line-height 46px
+        font-size 14px
+        color #fff
+.button
+    border-radius 17px
+    background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
+    width 107px
+    line-height 35px
+    height 35px
+    padding 0
+    margin 0
+    color #fff
+    border none
+    font-size 14px
+    text-indent 10px
+    letter-spacing 10px
+.pageBox
+    overflow hidden
+    text-align center
+    .page
+        font-size 14px
+        color #fff
+        text-align center
+        padding 20px 0
+        display inline-block
+        vertical-align middle
+        >>>.ivu-page-item
+            border-radius 200px
+            margin 0 4px
+        >>>.ivu-page-item-active
+            background #ea2f4c
+            a
+                color #fff
+    .btn
+        display inline-block
+        width 33px
+        line-height 20px
+        font-size 14px
+        text-align center
+        border-radius 5px
+        padding 0
+        maring 0
+        background-color rgb(234, 47, 76)
+        border none
         color #fff
 </style>
+
+
+
+

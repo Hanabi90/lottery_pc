@@ -3,7 +3,7 @@
         <div class="box"></div>
         <div class="title">你好，你这个糟老头子</div>
         <ul>
-            <li>个人中心</li>
+            <router-link tag="li" to="/userCenter/openAccountLine">个人中心</router-link>
             <li>代理管理</li>
             <li>我的消息</li>
         </ul>
@@ -20,15 +20,13 @@
 </template>
 
 <script>
-import {
-    loginOut
-} from '@/api/index.js'
-import {Icon } from 'iview'
+import { loginOut } from '@/api/index.js'
+import { Icon } from 'iview'
 export default {
     name: 'dropDown',
     data() {
         return {
-            onOff: false,
+            onOff: false
         }
     },
     methods: {
@@ -45,11 +43,9 @@ export default {
                     this.close()
                 }
             })
-        },
+        }
     },
-    mounted() {
-        
-    },
+    mounted() {},
     components: {
         Icon
     }
@@ -76,11 +72,11 @@ export default {
         top -10px
         left 50%
         transform translateX(-50%)
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 10px 10px 10px;
-        border-color: transparent transparent #f7c858 transparent;
+        width 0
+        height 0
+        border-style solid
+        border-width 0 10px 10px 10px
+        border-color transparent transparent #f7c858 transparent
     ul
         display flex
         justify-content center

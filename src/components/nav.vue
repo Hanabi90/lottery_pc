@@ -28,10 +28,10 @@
                         <div>
                             <div>
                                 <span>账号:</span>
-                                <span ref="dropDownPosition"
-                                      @mouseenter="open('dropDown','dropDownPosition')">
-                                      {{this.$store.state.nickname}}
-                                </span>
+                                <span
+                                    ref="dropDownPosition"
+                                    @mouseenter="open('dropDown','dropDownPosition')"
+                                >{{this.$store.state.nickname}}</span>
                                 <span>高级会员</span>
                                 <Icon type="ios-arrow-down" />
                             </div>
@@ -72,7 +72,6 @@
                     <li>快乐彩</li>
                     <li>快3</li>
                     <li>低频彩</li>
-                    <!-- <router-link tag="li" to="/activityList">最新优惠</router-link> -->
                     <li class="btn-sign">
                         <button @click="openCenter">
                             <i></i>
@@ -84,14 +83,13 @@
         </div>
         <Login :style="{left:x+'px'}" ref="login" />
         <Registered :style="{left:x+'px'}" ref="registered" />
-        <dropDown :style="{left:x+'px'}" ref="dropDown"></dropDown>        
+        <PersonalManagement :style="{left:x+'px'}" ref="dropDown" />
     </div>
 </template>
 <script>
 import Login from '../components/home/login'
-import Fast from '../components/home/fast'
 import Registered from '../components/home/registered'
-import dropDown from '../components/home/dropDown'
+import PersonalManagement from '../components/home/personalManagement'
 import Marquee from '@/components/home/marquee.vue'
 import {
     getbalance,
@@ -132,8 +130,6 @@ export default {
         //个人中心
         openCenter() {
             if (this.$store.state.loginCode) {
-                let onOff = this.$store.state.userCenter
-                this.$store.dispatch('handleUserCenter', !onOff)
                 getunreadmessageamount().then(res => {
                     this.$store.dispatch(
                         'handleUnReadAmount',
@@ -164,18 +160,18 @@ export default {
             })
         },
         //退出登录
-        
+
         //打开登录页面
         open(target, targetButn, $event) {
             let e = window.event || $event,
                 domTarget = event.target || event.srcElement
             //把所有弹窗都关掉
-            this.$refs.login.onOff = false//登录
-            this.$refs.registered.onOff = false//注册
-            this.$refs.dropDown.onOff = false//
+            this.$refs.login.onOff = false //登录
+            this.$refs.registered.onOff = false //注册
+            this.$refs.dropDown.onOff = false //
             //打开目标弹窗
-            this.$refs[target].onOff =true
-            
+            this.$refs[target].onOff = true
+
             this.$nextTick(() => {
                 this.x =
                     this.getElementLeft(this.$refs[targetButn]) +
@@ -214,10 +210,9 @@ export default {
     components: {
         Login,
         Registered,
-        dropDown,
         Icon,
         Marquee,
-        Fast
+        PersonalManagement
     }
 }
 </script>
@@ -231,7 +226,7 @@ export default {
     width 100%
     z-index 99
 .topBox
-    height: 50px;
+    height 50px
     background #1a1a1a
     .nav_top
         width 1200px
@@ -311,14 +306,14 @@ button
 .border_style
     border-left 1px solid #424141
     padding 0 10px
-    background: linear-gradient(#3ee2ea, #5959ab);
-    border-radius: 4px;
-    height: 30px;
-    line-height: 30px;
-    width: 68px;
-    text-align: center;
+    background linear-gradient(#3ee2ea, #5959ab)
+    border-radius 4px
+    height 30px
+    line-height 30px
+    width 68px
+    text-align center
     &.tikuan
-        background: linear-gradient(#fbc434, #f56250);
+        background linear-gradient(#fbc434, #f56250)
 .nav_bottom
     color #fff
     font-size 14px

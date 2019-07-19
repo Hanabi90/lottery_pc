@@ -2,7 +2,7 @@
     <div class="userCenterBox">
         <ul class="userNav">
             <li>团队管理</li>
-            <router-link tag="li" to="openAccountLine">团队推广</router-link>
+            <router-link tag="li" to="agentManagement">团队推广</router-link>
             <li>彩票日工资契约</li>
             <li>彩票分红契约</li>
             <li>个人管理</li>

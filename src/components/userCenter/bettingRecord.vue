@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="navTitle">投注记录</div>
         <Form :model="bettingRecord" :label-width="72" inline>
             <FormItem label="彩种名称">
                 <Select
@@ -359,6 +360,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.navTitle
+    background #ea2f4c
+    width 150px
+    line-height 50px
+    color #ffffff
+    font-size 16px
+    border-bottom-right-radius 20px
+    text-align center
+    margin-bottom 20px
 >>>.ivu-form .ivu-form-item-label
     color #fff
 .content

@@ -1,26 +1,18 @@
 <template>
     <div style="position:relative">
-        <GameHistory v-if="gameHistory" :username="username" />
+        <div class="navTitle">团队推广</div>
+        <!-- <GameHistory v-if="gameHistory" :username="username" />
         <TeamAccount v-else-if="teamAccount" :uid="pointUserId" />
         <SetPoint v-else-if="setPoint" :uid="pointUserId" />
         <Reputation v-else-if="reputation" :uid="pointUserId" />
-        <SubordinateRecharge v-else-if="subordinateRecharge" :uid="pointUserId" />
-        <div v-else>
-            <Menu
-                mode="horizontal"
-                active-name="1"
-                @on-select="changeContent"
-                style="margin-bottom:10px"
-            >
-                <MenuItem name="1">团队管理</MenuItem>
-                <MenuItem name="2">开户中心</MenuItem>
-                <MenuItem name="3">团队盈亏报表</MenuItem>
-            </Menu>
+        <SubordinateRecharge v-else-if="subordinateRecharge" :uid="pointUserId" />-->
+        <div>
             <div class="content" style="padding:15px">
                 <div v-if="navIndex==1" class="team">
                     <Form ref="teamGroup" :model="teamGroup" :label-width="80" inline>
-                        <FormItem label="用户名">
+                        <FormItem :label-width="60" label="用户名">
                             <Input
+                                style="width:140px"
                                 type="text"
                                 :readonly="readonly"
                                 @on-focus="removeInputReadonly"
@@ -29,12 +21,22 @@
                             ></Input>
                         </FormItem>
                         <FormItem label="用户余额">
-                            <Input type="text" v-model="teamGroup.bank_min" placeholder="最少金额"></Input>
+                            <Input
+                                style="width:140px"
+                                type="text"
+                                v-model="teamGroup.bank_min"
+                                placeholder="最少金额"
+                            ></Input>
                         </FormItem>
                         <FormItem :label-width="0">
-                            <Input type="text" v-model="teamGroup.bank_max" placeholder="最大金额"></Input>
+                            <Input
+                                style="width:140px"
+                                type="text"
+                                v-model="teamGroup.bank_max"
+                                placeholder="最大金额"
+                            ></Input>
                         </FormItem>
-                        <Button type="primary" @click="getGroupList">查询</Button>
+                        <Button class="button" type="primary" @click="getGroupList">查询</Button>
                         <FormItem :label-width="20">
                             <Breadcrumb separator="<b class='demo-breadcrumb-separator'>=></b>">
                                 <BreadcrumbItem
@@ -54,82 +56,93 @@
                             <li style="flex:4">用户操作</li>
                         </ul>
 
-                        <Scroll
-                            :on-reach-bottom="handleReachBottom"
-                            :distance-to-edge="-10"
-                            height="400"
-                        >
-                            <ul class="teamList">
-                                <li v-for="(item, index) in teamList" :key="index">
-                                    <span>{{item.username}}</span>
-                                    <span>{{item.groupname}}</span>
-                                    <span>{{item.prizeGroup.toFixed()}}</span>
-                                    <span>{{item.money}}</span>
-                                    <span style="flex:4">
-                                        <Button
-                                            v-if="systemtype!=1"
-                                            type="primary"
-                                            size="small"
-                                            :disabled="istop!=1"
-                                            @click="handleSubordinateRecharge(item.userid)"
-                                        >充值</Button>
-                                        <Button
-                                            type="primary"
-                                            size="small"
-                                            @click="handleTeamAccount(item.userid)"
-                                        >团队余额</Button>
-                                        <Button
-                                            v-if="systemtype==1"
-                                            type="primary"
-                                            size="small"
-                                            :disabled="systemtype!=1||item.userid!=item.parentid"
-                                            @click="handleReputation(item.userid)"
-                                        >信用设置</Button>
-                                        <Button
-                                            type="primary"
-                                            size="small"
-                                            :disabled="systemtype!=0||buttonPoint||item.userid!=item.parentid"
-                                            @click="handlePoint(item.userid)"
-                                        >返点设置</Button>
-                                        <Button
-                                            @click="getGameHistory(item.username)"
-                                            type="primary"
-                                            size="small"
-                                        >游戏帐变</Button>
-                                        <Button
-                                            type="primary"
-                                            size="small"
-                                            :disabled="item.usertype!=1"
-                                            @click="getGroupList({uid:item.userid})"
-                                        >查询下级</Button>
-                                    </span>
-                                </li>
-                            </ul>
-                        </Scroll>
+                        <ul class="teamList">
+                            <li v-for="(item, index) in teamList" :key="index">
+                                <span>{{item.username}}</span>
+                                <span>{{item.groupname}}</span>
+                                <span>{{item.prizeGroup.toFixed()}}</span>
+                                <span>{{item.money}}</span>
+                                <span style="flex:4">
+                                    <Button
+                                        v-if="systemtype!=1"
+                                        type="primary"
+                                        size="small"
+                                        :disabled="istop!=1"
+                                        @click="handleSubordinateRecharge(item.userid)"
+                                    >充值</Button>
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        @click="handleAlert(item.userid,'TeamAccount','团队余额')"
+                                    >团队余额</Button>
+                                    <Button
+                                        v-if="systemtype==1"
+                                        type="primary"
+                                        size="small"
+                                        :disabled="systemtype!=1||item.userid!=item.parentid"
+                                        @click="handleReputation(item.userid)"
+                                    >信用设置</Button>
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        :disabled="systemtype!=0||buttonPoint||item.userid!=item.parentid"
+                                        @click="handlePoint(item.userid)"
+                                    >返点设置</Button>
+                                    <Button
+                                        @click="getGameHistory(item.username)"
+                                        type="primary"
+                                        size="small"
+                                    >游戏帐变</Button>
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        :disabled="item.usertype!=1"
+                                        @click="getGroupList({uid:item.userid})"
+                                    >查询下级</Button>
+                                </span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div v-if="navIndex==2" class="addUser">
-                    <OpenAccountLine />
-                </div>
-                <div v-if="navIndex==3" class="addUser">
-                    <TeamProfitLossStatement />
+                <div class="pageBox">
+                    <Page
+                        ref="page"
+                        show-total
+                        :show-sizer="true"
+                        show-elevator
+                        size="small"
+                        transfer
+                        :page-size="this.teamGroup.pn"
+                        @on-change="handleReachBottom"
+                        @on-page-size-change="changePn"
+                        :total="Number(total)"
+                        class="page"
+                    />
+                    <Button @click="handleGo" class="btn">Go</Button>
                 </div>
             </div>
         </div>
-        <Button v-if="backOnoff" @click="back" type="primary" class="black">返回</Button>
+        <Modal v-model="alert">
+            <p slot="header" class="alertHeader">
+                <span>{{alertTitle}}</span>
+            </p>
+            <div>
+                <component :is="alertComponent"></component>
+            </div>
+            <div slot="footer"></div>
+        </Modal>
     </div>
 </template>
 <script>
 import {
-    Menu,
-    MenuItem,
     Form,
     FormItem,
     Input,
     Button,
-    Scroll,
+    Page,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Modal
 } from 'iview'
 import { getgrouplist } from '@/api/index'
 import GameHistory from './gameHistory'
@@ -143,6 +156,9 @@ export default {
     name: 'agentManagement',
     data() {
         return {
+            alert: false, //弹窗开关
+            alertTitle: '', //弹窗标题
+            alertComponent: '', //弹窗内容组件
             subordinateRecharge: false, //充值
             reputation: false, //信誉设置
             buttonPoint: true, //按钮是否可以点击
@@ -167,17 +183,62 @@ export default {
             istop: '', //是否是vip类型
             systemtype: JSON.parse(sessionStorage.getItem('userSeting'))
                 .systemtype,
+            total: 0, //总条数
             teamGroupUpdate: true, //下拉是否加载完
             userTree: [] //用户树结构
         }
     },
     methods: {
-        //查看团队余额
-        handleTeamAccount(value) {
-            this.pointUserId = value
-            this.teamAccount = true
-            this.backOnoff = true
+        //跳转按钮
+        handleGo() {
+            let pageInput = this.$refs.page.$el
+                    .getElementsByClassName('ivu-page-options-elevator')[0]
+                    .getElementsByTagName('input')[0],
+                evtObj
+            if (window.KeyEvent) {
+                //firefox 浏览器下模拟事件
+                evtObj = document.createEvent('KeyEvents')
+                evtObj.initKeyEvent(
+                    'keyup',
+                    true,
+                    true,
+                    window,
+                    true,
+                    false,
+                    false,
+                    false,
+                    13,
+                    0
+                )
+            } else {
+                //chrome 浏览器下模拟事件
+                evtObj = document.createEvent('UIEvents')
+                evtObj.initUIEvent('keyup', true, true, window, 1)
+                delete evtObj.keyCode
+                if (typeof evtObj.keyCode === 'undefined') {
+                    //为了模拟keycode
+                    Object.defineProperty(evtObj, 'keyCode', { value: 13 })
+                } else {
+                    evtObj.key = String.fromCharCode(13)
+                }
+            }
+            pageInput.dispatchEvent(evtObj)
+
+            // this.$refs.page.changePage()
         },
+        //切换显示条数
+        changePn(value) {
+            this.$set(this.teamGroup, 'pn', value)
+            this.getgrouplist()
+        },
+        //弹窗
+        handleAlert(value, target, title) {
+            this.alert = true
+            this.alertTitle = title
+            this.alertComponent = target
+            this.pointUserId = value
+        },
+
         //设置充值
         handleSubordinateRecharge(value) {
             this.backOnoff = true
@@ -221,65 +282,43 @@ export default {
             } else {
                 this.buttonPoint = false
             }
-            this.teamGroupUpdate = true //打开下拉加载
             getgrouplist({ ...this.teamGroup, ...obj }).then(res => {
                 this.istop = res.data.istop
                 this.teamList = res.data.page_data
+                this.total = res.data.total_count
                 if (res.data.usertree) {
                     this.userTree = res.data.usertree
                 } else {
-                    this.teamGroup.p = 1
+                    this.teamGroup.p = 0
                     this.userTree = []
                 }
             })
         },
         //下拉加载
-        handleReachBottom() {
-            if (
-                this.teamGroupUpdate &&
-                this.teamList.length >= this.teamGroup.pn
-            ) {
-                return new Promise(resolve => {
-                    this.teamGroup.p += 1
-                    getgrouplist(this.teamGroup).then(res => {
-                        this.istop = res.data.istop
-                        this.teamList = [
-                            ...this.teamList,
-                            ...res.data.page_data
-                        ]
-                        if (res.data.page_data.length != this.teamGroup.pn) {
-                            this.teamGroupUpdate = false
-                        }
-                        resolve()
-                    })
-                })
-            }
+        handleReachBottom(value) {
+            this.$set(this.teamGroup, 'p', value)
+            getgrouplist(this.teamGroup).then(res => {
+                this.istop = res.data.istop
+                this.teamList = res.data.page_data
+                this.total = res.data.total_count
+                if (res.data.usertree) {
+                    this.userTree = res.data.usertree
+                } else {
+                    this.teamGroup.p = 0
+                    this.userTree = []
+                }
+            })
         },
         removeInputReadonly() {
             this.readonly = false
-        },
-        //切换内容
-        changeContent(index) {
-            this.navIndex = index
-            if (index == 1) {
-                this.teamGroup = {
-                    username: '',
-                    bank_min: '',
-                    bank_max: '',
-                    p: 1,
-                    pn: 15
-                }
-            }
         }
     },
     components: {
-        Menu,
-        MenuItem,
         Form,
         FormItem,
         Input,
         Button,
-        Scroll,
+        Page,
         Breadcrumb,
         BreadcrumbItem,
         GameHistory,
@@ -288,38 +327,103 @@ export default {
         Reputation,
         SubordinateRecharge,
         OpenAccountLine,
-        TeamProfitLossStatement
+        TeamProfitLossStatement,
+        Modal
     }
 }
 </script>
 
 <style lang="stylus" scoped>
+.navTitle
+    background #ea2f4c
+    width 150px
+    line-height 50px
+    color #ffffff
+    font-size 16px
+    border-bottom-right-radius 20px
+    text-align center
+    margin-bottom 20px
+>>>.ivu-form .ivu-form-item-label
+    color #fff
 .teamCenter
-    box-shadow inset 0px 3px 20px 1px #d0d0d0
     border-radius 3px
     overflow hidden
     .teamGroupListTitle
-        background #2d8cf0
+        background #000
         display flex
         color #fff
-        line-height 30px
+        line-height 45px
         text-align center
         li
             flex 1
     .teamList
+        height 590px
+        overflow-y scroll
+        background #131313
         li
             display flex
             text-align center
-            line-height 40px
+            line-height 44px
+            font-size 14px
+            color #fff
             span
                 flex 1
                 button
                     margin 0 4px
-.black
-    position absolute
-    top 0px
-    right -15px
-    width 40px
+                    color #fff
+                    width 76px
+                    height 30px
+                    padding 0
+                    text-align center
+                    background #ea2f4c
+                    border-radius 15px
+                    border none
+                    font-size 14px
+.button
+    border-radius 17px
+    background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
+    width 107px
+    line-height 35px
+    height 35px
     padding 0
-    line-height 30px
+    margin 0
+    color #fff
+    border none
+    font-size 14px
+    text-indent 10px
+    letter-spacing 10px
+.pageBox
+    overflow hidden
+    text-align center
+    .page
+        font-size 14px
+        color #fff
+        text-align center
+        padding 20px 0
+        display inline-block
+        vertical-align middle
+        >>>.ivu-page-item
+            border-radius 200px
+            margin 0 4px
+        >>>.ivu-page-item-active
+            background #ea2f4c
+            a
+                color #fff
+    .btn
+        display inline-block
+        width 33px
+        line-height 20px
+        font-size 14px
+        text-align center
+        border-radius 5px
+        padding 0
+        maring 0
+        background-color rgb(234, 47, 76)
+        border none
+        color #fff
+>>>.ivu-modal-header
+    background #000
+    p
+        color #fff
+        text-align center
 </style>

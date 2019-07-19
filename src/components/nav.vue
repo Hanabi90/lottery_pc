@@ -21,13 +21,15 @@
                         <div>
                             <div class="money_content_div">
                                 <span>账号:</span>
-                                <span ref="dropDownPosition"
+                                <span
+                                    ref="dropDownPosition"
                                     style="padding: 0;"
-                                      @mouseenter="open('dropDown','dropDownPosition')">
-                                      {{this.$store.state.nickname}}
-                                </span>
-                                <Icon type="md-arrow-dropdown"
-                                      style="font-size:16px;color:#ecc04a;height: 25px;" />
+                                    @mouseenter="open('dropDown','dropDownPosition')"
+                                >{{this.$store.state.nickname}}</span>
+                                <Icon
+                                    type="md-arrow-dropdown"
+                                    style="font-size:16px;color:#ecc04a;height: 25px;"
+                                />
                                 <span class="member"></span>
                             </div>
                             <div class="money_content_div">
@@ -43,14 +45,18 @@
                     </li>
                     <li v-if="this.$store.state.loginCode==0" class="btns login_box">
                         <div class="btns_box">
-                            <button ref="loginPosition"  class="border_style login" @click="open('login','loginPosition')">登录</button>
-
+                            <button
+                                ref="loginPosition"
+                                class="border_style login"
+                                @click="open('login','loginPosition')"
+                            >登录</button>
                         </div>
                         <div class="btns_box">
-                        <button  class="border_style register"
-                            ref="registeredPosition"
-                            @click="open('registered','registeredPosition')"
-                        >注册</button>
+                            <button
+                                class="border_style register"
+                                ref="registeredPosition"
+                                @click="open('registered','registeredPosition')"
+                            >注册</button>
                         </div>
                     </li>
                     <li class="btns login_box" v-else>
@@ -73,25 +79,73 @@
                 <div class="logo_left">
                     <img id="logo" src="../assets/images/page_logo.png" />
                 </div>
-                <ul class="nav_list">
+                <!-- <ul class="nav_list">
                     <router-link tag="li" to="/">首页</router-link>
                     <li>时时彩</li>
                     <li>快乐彩</li>
                     <li>快3</li>
                     <li>低频彩</li>
-                    <!-- <router-link tag="li" to="/activityList">最新优惠</router-link> -->
                     <li class="btn-sign">
                         <button @click="openCenter">
                             <i></i>
                             <span>最新优惠</span>
                         </button>
                     </li>
-                </ul>
+                </ul> -->
+                <div class="nav_list">
+                    <router-link class="home" to="/">首页</router-link>
+                    <Dropdown>
+                        <a href="javascript:void(0)">
+                            时时彩
+                        </a>
+                        <ul slot="list">
+                            <li>asd</li>
+                            <li>asd</li>
+                            <li>asd</li>
+                        </ul>
+                    </Dropdown>
+                    <Dropdown>
+                        <a href="javascript:void(0)">
+                            快乐彩
+                        </a>
+                        <ul slot="list">
+                            <li>asd</li>
+                            <li>asd</li>
+                            <li>asd</li>
+                        </ul>
+                    </Dropdown>
+                    <Dropdown>
+                        <a href="javascript:void(0)">
+                            快3
+                        </a>
+                        <ul slot="list">
+                            <li>asd</li>
+                            <li>asd</li>
+                            <li>asd</li>
+                        </ul>
+                    </Dropdown>
+                    <Dropdown>
+                        <a href="javascript:void(0)">
+                            低频彩
+                        </a>
+                        <ul slot="list">
+                            <li>asd</li>
+                            <li>asd</li>
+                            <li>asd</li>
+                        </ul>
+                    </Dropdown>
+                    <div class="btn-sign">
+                        <button @click="openCenter">
+                            <i></i>
+                            <span>最新优惠</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <Login :style="{left:x+'px'}" ref="login" />
         <Registered :style="{left:x+'px'}" ref="registered" />
-        <dropDown :style="{left:x+'px'}" ref="dropDown"></dropDown>        
+        <dropDown :style="{left:x+'px'}" ref="dropDown"></dropDown>
     </div>
 </template>
 <script>
@@ -100,13 +154,13 @@ import Fast from '../components/home/fast'
 import Registered from '../components/home/registered'
 import dropDown from '../components/home/dropDown'
 import Marquee from '@/components/home/marquee.vue'
+import { Dropdown, DropdownMenu, DropdownItem, Icon } from 'iview'
 import {
     getbalance,
     loginOut,
     getMenu,
     getunreadmessageamount
 } from '@/api/index.js'
-import { Icon } from 'iview'
 export default {
     name: 'lobby_nav',
     data() {
@@ -171,18 +225,18 @@ export default {
             })
         },
         //退出登录
-        
+
         //打开登录页面
         open(target, targetButn, $event) {
             let e = window.event || $event,
                 domTarget = event.target || event.srcElement
             //把所有弹窗都关掉
-            this.$refs.login.onOff = false//登录
-            this.$refs.registered.onOff = false//注册
-            this.$refs.dropDown.onOff = false//
+            this.$refs.login.onOff = false //登录
+            this.$refs.registered.onOff = false //注册
+            this.$refs.dropDown.onOff = false //
             //打开目标弹窗
-            this.$refs[target].onOff =true
-            
+            this.$refs[target].onOff = true
+
             this.$nextTick(() => {
                 this.x =
                     this.getElementLeft(this.$refs[targetButn]) +
@@ -224,7 +278,10 @@ export default {
         dropDown,
         Icon,
         Marquee,
-        Fast
+        Fast,
+        Dropdown,
+        DropdownMenu,
+        DropdownItem
     }
 }
 </script>
@@ -238,7 +295,7 @@ export default {
     width 100%
     z-index 99
 .topBox
-    height: 50px;
+    height 50px
     background #1a1a1a
     .nav_top
         width 1200px
@@ -252,24 +309,24 @@ export default {
         .nav_top_right
             float right
             overflow hidden
-            width: 394px;
+            width 394px
             .border_style
                 border-left 1px solid #424141
                 padding 0 10px
-                background: linear-gradient(#3ee2ea, #5959ab);
-                border-radius: 4px;
-                height: 30px;
-                line-height: 30px;
-                width: 68px;
-                text-align: center;
+                background linear-gradient(#3ee2ea, #5959ab)
+                border-radius 4px
+                height 30px
+                line-height 30px
+                width 68px
+                text-align center
                 &>span
                     color #fff
                 &.tikuan
-                    background: linear-gradient(#fbc434, #f56250);
+                    background linear-gradient(#fbc434, #f56250)
                 &.login
-                    background: linear-gradient(rgb(255,106,129) 0%,  rgb(234,47,76) 100%);
+                    background linear-gradient(rgb(255, 106, 129) 0%, rgb(234, 47, 76) 100%)
                 &.register
-                    background: linear-gradient(rgb(251,196,52) 0%,  rgb(245,96,81) 100%);
+                    background linear-gradient(rgb(251, 196, 52) 0%, rgb(245, 96, 81) 100%)
             li
                 float left
                 color #fff
@@ -278,16 +335,15 @@ export default {
                 span
                     padding 0 6px
                     color #ecc04a
-                    
             .money_content
                 overflow hidden
-                height: 100%;
+                height 100%
                 .member
                     background-image url('../assets/images/member_1.png')
-                    width: 70px;
-                    display: inline-block;
+                    width 70px
+                    display inline-block
                     height 20px
-                    float: right;
+                    float right
                     margin-top 4px
                     background-repeat no-repeat
                 &>div
@@ -347,7 +403,6 @@ button
         align-items center
         border-left 1px solid #444444
         height 100%
-
 .nav_bottom
     color #fff
     font-size 14px
@@ -355,12 +410,34 @@ button
     width 1200px
     margin auto
     line-height 60px
+    >>>.ivu-select-dropdown
+        border-radius 0
+        padding 0
+        margin 0
+        ul
+            li
+                background: #222222;
+                border-bottom: 2px dotted #444444;
+                color: #fff;
+                text-align: center;
+                width 150px
+                &:hover
+                    background #444444
+                    color #f7c858
     .nav_list
         float right
         display flex
-        &>li
+        text-align center
+        a.home
+            color #fff
+            width 82px
+            &:hover
+                background #ea2f4c
+        &>div
             white-space nowrap
             padding 0 20px
+            &>>>.ivu-dropdown-rel>a
+                color #fff
             &:hover
                 background #ea2f4c
                 color #fff

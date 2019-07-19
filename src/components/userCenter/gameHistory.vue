@@ -86,6 +86,7 @@
             </div>
             <div class="pageBox">
                 <Page
+                    ref="page"
                     show-total
                     :show-sizer="true"
                     show-elevator

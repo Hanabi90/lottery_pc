@@ -45,10 +45,10 @@ export default new Router({
                 import(/* webpackChunkName: "userCenter" */ './views/userCenter.vue'),
             children: [
                 {
-                    path: 'openAccountLine',
-                    name: 'openAccountLine',
+                    path: 'agentManagement',
+                    name: 'agentManagement',
                     component: () =>
-                        import(/* webpackChunkName: "openAccountLine" */ '@/components/userCenter/openAccountLine.vue')
+                        import(/* webpackChunkName: "openAccountLine" */ '@/components/userCenter/agentManagement.vue')
                 },
                 {
                     path: 'noGameHistory',

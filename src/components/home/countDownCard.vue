@@ -1,5 +1,5 @@
 <template>
-  <div class="countDownCard">
+  <div class="countDownCard" @click="goto()">
       <div class="timer" v-if="timer">
           {{countDown}}
       </div>
@@ -29,6 +29,9 @@ export default {
     },
   },
   methods: {
+      goto(){
+          this.$router.push({})
+      },
       handleIssues() {
             let lotteryid = this.timer
             getissue({
@@ -93,6 +96,9 @@ export default {
       if(this.timer){
         this.handleIssues()
       }
+  },
+  beforeDestroy(){
+      clearInterval(this.timer)
   }
 }
 </script>

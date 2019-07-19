@@ -20,7 +20,7 @@
                         :src="img"
                         alt
                     />
-                    <input type="text" v-model="login.imgCode" placeholder="请输入验证码" />
+                    <input class="yanzhengma" type="text" v-model="login.imgCode" placeholder="请输入验证码" />
                 </div>
                 <button class="submint_button" @click="handlelogin">立即登录</button>
                 <div class="remanber">
@@ -135,12 +135,13 @@ export default {
         margin auto
     .container
         border-radius 10px
-        background #fff
+        background #202020
         padding 10px
         h5
             text-align center
             font-size 20px
-            color #000
+            color #fff
+            line-height 60px
         p
             text-align center
             font-size 13px
@@ -167,13 +168,15 @@ export default {
                 vertical-align top
             input
                 display inline-block
-                height 42px
+                height 45px
                 width calc(100% - 40px)
                 border none
                 vertical-align top
-                background none
+                background #fff
                 outline none
                 text-indent 20px
+                &.yanzhengma
+                    width 220px
     .submint_button
         background linear-gradient(#c74546, #a92c2d)
         border none
@@ -186,7 +189,7 @@ export default {
         &:hover
             background linear-gradient(#a41c1d, #7c1212)
     .remanber
-        color #000
+        color #fff
         margin-top 10px
         overflow hidden
         &>div:first-child

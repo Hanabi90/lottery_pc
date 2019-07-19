@@ -5,9 +5,7 @@
             <countDownCard :backgroundImageIndex="'new_henei.png'" />
             <countDownCard :backgroundImageIndex="'new_beijing.png'" />
             <countDownCard :backgroundImageIndex="'new_mangu.png'" :timer=25 />
-            <div class="rank">
-                <img src="../../assets/images/new_paihang.png" alt="">
-            </div>
+            <winnerlist/>
             <countDownCard :backgroundImageIndex="'new_jiangsu.png'" :timer=23 />
             <countDownCard :backgroundImageIndex="'new_dongjing.png'" />
         </div>
@@ -16,15 +14,20 @@
 
 <script>
 import countDownCard from './countDownCard'
+import winnerlist from '@/components/home/winnerlist'
 export default {
     name: 'home_list',
     components:{
-        countDownCard
+        countDownCard,
+        winnerlist
     },
     data() {
         return {
             
         }
+    },
+    methods:{
+        
     }
 }
 </script>

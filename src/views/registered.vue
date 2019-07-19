@@ -178,7 +178,7 @@ export default {
         margin auto
     .container
         border-radius 10px
-        background #fff
+        background #202020
         padding 10px
         h5
             text-align center

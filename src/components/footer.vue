@@ -1,116 +1,60 @@
 <template>
     <div class="page_footer">
         <div class="container">
-            <div class="list">
-                <h5>牌照</h5>
-                <div></div>
-            </div>
-            <div class="list">
-                <h5>赞助</h5>
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <h5>存款</h5>
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <h5>合作伙伴</h5>
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <h5>博彩责任</h5>
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <div></div>
-            </div>
-            <div class="list">
-                <h5>信息安全</h5>
-                <div></div>
+            <div class="list_container">
+                <div class="top">
+                    <div class="list">
+                        <h5>牌照</h5>
+                        <div></div>
+                    </div>
+                    <div class="list">
+                        <h5>存款</h5>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="list">
+                        <h5>合作伙伴</h5>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="list">
+                        <h5>博彩责任</h5>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="list">
+                        <h5>信息安全</h5>
+                        <div></div>
+                    </div>
+                </div>
             </div>
             <div class="footer_border"></div>
             <ul class="about">
                 <li>
                     <h5>产品下载</h5>
-                    <p>EA铂金馆PC端</p>
-                    <p>AG翡翠厅PC端</p>
-                    <p>AG翡翠厅APP</p>
-                    <p>PT小游戏PC端</p>
-                </li>
-                <li>
-                    <h5>关于我们</h5>
-                    <p>关于Vwin</p>
-                    <p>责任博彩</p>
-                    <p>优惠规则与条款</p>
-                    <p>隐私权政策</p>
-                    <p>联系我们</p>
+                    <p>PC客户端</p>
+                    <p>手机客户端</p>
+                    <p>快速登录器</p>
+                    <p>防劫持教程</p>
                 </li>
                 <li>
                     <h5>使用帮助</h5>
-                    <p>存款流程</p>
-                    <p>提款流程</p>
+                    <p>如何存款</p>
                     <p>常见问题</p>
-                    <p>体育规则</p>
-                    <p>沙巴体育规则</p>
-                    <p>娱乐场规则</p>
-                </li>
-                <li style="margin-top:24px">
-                    <p>电子游戏规则</p>
-                    <p>快乐彩规则</p>
-                    <p>世界乐透规则</p>
-                    <p>时时彩规则</p>
-                    <p>PK拾规则</p>
-                </li>
-                <li>
-                    <h5>关注我们</h5>
-                    <div class="wechat">
-                        <div class="icon"></div>
-                        <p>微信</p>
-                    </div>
-                    <div class="webo">
-                        <div class="icon"></div>
-                        <p>微博</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="youku">
-                        <div class="icon"></div>
-                        <p>优酷</p>
-                    </div>
+                    <p>玩法介绍</p>
                 </li>
                 <li class="proxy">
-                    <h5>加盟合作</h5>
-                    <button>
-                        <i class="button_icon"></i>
-                        <span>代理合作共创辉煌</span>
-                    </button>
                     <div class="contact">
                         <i></i>
                         <p>
@@ -118,24 +62,13 @@
                             <span>国内24小时服务电话</span>
                         </p>
                     </div>
-                    <h5 class="visitor">
-                        <i>
-                            <span>24小时访客数量</span>
-                            <strong>1</strong>
-                            <strong>4</strong>
-                            <strong>6</strong>
-                            <strong>5</strong>
-                            <strong>6</strong>
-                            <strong>8</strong>
-                        </i>
-                    </h5>
+                    <div>
+                        <p>2009-2019  奥赛德娱乐 Odyssey Entertainment 版权所有 菲律宾政府 PAGCOR 博彩拍照认证</p>
+                        <p>奥德赛娱乐郑重提示：彩票有风险，投注须谨慎。不向未满18岁的青年出手彩票</p>
+                        <p>建议使用Google Chorome浏览器，并将屏幕解析度设定为1920x1080，以获得最佳浏览效果</p>
+                    </div>
                 </li>
             </ul>
-            <div class="footer_border"></div>
-            <div class="fc">
-                <h6>Vwin 隶属于 KINGHONOS LTD located in No. 35 New Road, Belize City, Belize, C. A.</h6>
-                <h6>&copy;2013-2019 Vwin.com版权所有</h6>
-            </div>
         </div>
     </div>
 </template>
@@ -155,109 +88,89 @@ export default {
     margin auto
     margin-top 20px
     overflow hidden
-.list
-    color #fff
-    font-size 12px
-    float left
-    height 82px
-    margin-right 56px
-    margin-bottom 30px
-    overflow hidden
-    &:nth-child(1)
-        div
-            width 152px
-            background url('../assets/images/GAMING.png') no-repeat 0 0
-    &:nth-child(2)
-        div
-            width 152px
-            background url('../assets/images/ACmilan_hover.png') no-repeat 0 0
-    &:nth-child(3)
-        div
-            margin-top 20px
-            width 152px
-            background url('../assets/images/juventus_hover.png') no-repeat 0 0
-    &:nth-child(4)
-        div
-            width 84px
-            background url('../assets/images/visa_hover.png') no-repeat 0 0
-    &:nth-child(5)
-        div
-            width 66px
-            margin-top 20px
-            background url('../assets/images/mastercard_hover.png') no-repeat 0 0
-    &:nth-child(6)
-        div
-            width 127px
-            margin-top 20px
-            background url('../assets/images/unionPay_hover.png') no-repeat 0 0
-    &:nth-child(7)
-        margin-right 0
-        div
-            width 127px
-            margin-top 20px
-            background url('../assets/images/bitcoin_hover.png') no-repeat 0 0
-    &:nth-child(8)
-        margin-right 29px
-        div
-            width 127px
-            margin-top 20px
-            background url('../assets/images/oneworks_hover.png') no-repeat 0 0
-    &:nth-child(9)
-        margin-right 29px
-        div
-            width 92px
-            margin-top 35px
-            background url('../assets/images/AG_hover.png') no-repeat 0 0
-    &:nth-child(10)
-        margin-right 29px
-        div
-            width 127px
-            margin-top 35px
-            background url('../assets/images/playtech_hover.png') no-repeat 0 0
-    &:nth-child(11)
-        margin-right 29px
-        div
-            width 154px
-            margin-top 35px
-            background url('../assets/images/entwinetech_hover.png') no-repeat 0 0
-    &:nth-child(12)
-        margin-right 29px
-        div
-            width 166px
-            margin-top 35px
-            background url('../assets/images/jockeyclub_hover.png') no-repeat 0 0
-    &:nth-child(13)
-        margin-right 29px
-        div
-            width 49px
-            margin-top 25px
-            background url('../assets/images/GAMCARE_hover.png') no-repeat 0 0
-    &:nth-child(14)
-        margin-right 29px
-        div
-            width 44px
-            margin-top 35px
-            background url('../assets/images/18_hover.png') no-repeat 0 0
-    &:nth-child(15)
-        margin-right 29px
-        div
-            width 44px
-            margin-top 35px
-            background url('../assets/images/stop_hover.png') no-repeat 0 0
-    &:nth-child(16)
-        margin-right 0
-        div
-            width 160px
-            margin-top 25px
-            background url('../assets/images/iovation_hover.png') no-repeat 0 0
-    div
-        height 50px
-        margin-top 10px
-        background-size auto 50px
-        filter grayscale(1) opacity(0.5)
-        transition all 0.2s linear
-        &:hover
-            filter grayscale(0) opacity(1)
+.list_container
+    display flex
+    flex-direction column
+    .top,.bottom
+        display flex
+.top
+    .list
+        color #fff
+        font-size 12px
+        height 82px
+        margin-bottom 30px
+        margin-right 10px
+        &:nth-child(1)
+            div
+                height 82px
+                width 152px
+                background url('../assets/images/GAMING.png') no-repeat 0 0
+        &:nth-child(2)
+            ul
+                display flex
+                li
+                    height 82px
+                    float left
+                    margin-right 10px
+                    &:nth-child(1)
+                        width 84px
+                        background url('../assets/images/visa_hover.png') no-repeat 0 0
+                    &:nth-child(2)
+                        width 84px
+                        background url('../assets/images/mastercard_hover.png') no-repeat 0 0
+                    &:nth-child(3)
+                        width 125px
+                        background url('../assets/images/unionPay_hover.png') no-repeat 0 0
+.bottom
+    .list
+        color #fff
+        font-size 12px
+        height 82px
+        margin-bottom 30px
+        margin-right: 30px;
+        &:nth-child(1)
+            ul
+                li
+                    height 82px
+                    float left
+                    margin-right 10px
+                    &:nth-child(1)
+                        width 84px
+                        margin-top 10px
+                        background url('../assets/images/iapp.png') no-repeat 0 0
+                    &:nth-child(2)
+                        width 150px
+                        background url('../assets/images/page_logo.png') no-repeat 0 0
+                    &:nth-child(3)
+                        width 164px
+                        background url('../assets/images/jockeyclub_hover.png') no-repeat 0 0
+        &:nth-child(2)
+            ul
+                li
+                    height 82px
+                    float left
+                    margin-right 10px
+                    &:nth-child(1)
+                        width 84px
+                        background url('../assets/images/GAMCARE_hover.png') no-repeat 0 0
+                    &:nth-child(2)
+                        width 84px
+                        background url('../assets/images/18_hover.png') no-repeat 0 0
+                    &:nth-child(3)
+                        width 84px
+                        background url('../assets/images/stop_hover.png') no-repeat 0 0
+        &:nth-child(3)
+            margin-right 29px
+            div
+                width 160px
+                height 82px
+                background url('../assets/images/iovation_hover.png') no-repeat 0 0
+div.bottom>div,div.top>div,ul>li
+    background-size auto 50px
+    filter grayscale(1) opacity(0.5)
+    transition all 0.2s linear
+    &:hover
+        filter grayscale(0) opacity(1)
 .footer_border
     clear both
     border-bottom 1px dashed #545556
@@ -269,7 +182,7 @@ export default {
     li
         cursor pointer
         float left
-        margin-right 80px
+        margin-right 140px
         overflow hidden
         h5
             font-size 14px
@@ -283,8 +196,10 @@ export default {
             &:hover
                 color #fff
     li.proxy
-        width 300px
         margin-right 0
+        .contact
+            width 300px
+            margin-bottom 20px
 .wechat, .webo, .youku
     .icon
         width 27px

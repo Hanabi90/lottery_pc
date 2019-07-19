@@ -17,36 +17,43 @@
                     </li>
                 </ul>
                 <ul class="nav_top_right">
-                    <li v-if="this.$store.state.loginCode==0" class="login_content">
-                        <button ref="loginPosition" @click="open('login','loginPosition')">登录</button>
-                        <button
-                            ref="registeredPosition"
-                            @click="open('registered','registeredPosition')"
-                        >注册</button>
-                    </li>
-                    <li v-else-if="this.$store.state.loginCode==1" class="money_content">
+                    <li v-if="this.$store.state.loginCode==1" class="money_content">
                         <div>
-                            <div>
+                            <div class="money_content_div">
                                 <span>账号:</span>
                                 <span ref="dropDownPosition"
+                                    style="padding: 0;"
                                       @mouseenter="open('dropDown','dropDownPosition')">
                                       {{this.$store.state.nickname}}
                                 </span>
-                                <span>高级会员</span>
-                                <Icon type="ios-arrow-down" />
+                                <Icon type="md-arrow-dropdown"
+                                      style="font-size:16px;color:#ecc04a;height: 25px;" />
+                                <span class="member"></span>
                             </div>
-                            <div>
+                            <div class="money_content_div">
                                 <span>余额:</span>
                                 <span>{{this.$store.state.money}}</span>
                                 <Icon
                                     @click="refresh"
-                                    style="font-size:20px;color:#d49815"
-                                    type="md-refresh-circle"
+                                    style="font-size:16px;color:#ecc04a"
+                                    type="ios-sync"
                                 />
                             </div>
                         </div>
                     </li>
-                    <li class="btns">
+                    <li v-if="this.$store.state.loginCode==0" class="btns login_box">
+                        <div class="btns_box">
+                            <button ref="loginPosition"  class="border_style login" @click="open('login','loginPosition')">登录</button>
+
+                        </div>
+                        <div class="btns_box">
+                        <button  class="border_style register"
+                            ref="registeredPosition"
+                            @click="open('registered','registeredPosition')"
+                        >注册</button>
+                        </div>
+                    </li>
+                    <li class="btns login_box" v-else>
                         <div class="btns_box">
                             <button class="border_style">
                                 <span>充值</span>
@@ -238,12 +245,31 @@ export default {
         margin auto
         overflow hidden
         display flex
+        height 100%
         .marquee_container
             max-width 460px
             overflow hidden
         .nav_top_right
             float right
             overflow hidden
+            width: 394px;
+            .border_style
+                border-left 1px solid #424141
+                padding 0 10px
+                background: linear-gradient(#3ee2ea, #5959ab);
+                border-radius: 4px;
+                height: 30px;
+                line-height: 30px;
+                width: 68px;
+                text-align: center;
+                &>span
+                    color #fff
+                &.tikuan
+                    background: linear-gradient(#fbc434, #f56250);
+                &.login
+                    background: linear-gradient(rgb(255,106,129) 0%,  rgb(234,47,76) 100%);
+                &.register
+                    background: linear-gradient(rgb(251,196,52) 0%,  rgb(245,96,81) 100%);
             li
                 float left
                 color #fff
@@ -251,11 +277,22 @@ export default {
                 white-space nowrap
                 span
                     padding 0 6px
-                    color #f7e6b0
+                    color #ecc04a
+                    
             .money_content
                 overflow hidden
+                height: 100%;
+                .member
+                    background-image url('../assets/images/member_1.png')
+                    width: 70px;
+                    display: inline-block;
+                    height 20px
+                    float: right;
+                    margin-top 4px
+                    background-repeat no-repeat
                 &>div
                     float left
+                    line-height 25px
                 button
                     margin-top 6px
                     &.refresh
@@ -303,22 +340,14 @@ button
     float left
     align-items center
     height 100%
+    &.login_box
+        float right !important
     .btns_box
         display flex
         align-items center
         border-left 1px solid #444444
         height 100%
-.border_style
-    border-left 1px solid #424141
-    padding 0 10px
-    background: linear-gradient(#3ee2ea, #5959ab);
-    border-radius: 4px;
-    height: 30px;
-    line-height: 30px;
-    width: 68px;
-    text-align: center;
-    &.tikuan
-        background: linear-gradient(#fbc434, #f56250);
+
 .nav_bottom
     color #fff
     font-size 14px
@@ -397,5 +426,5 @@ button
     background #ea2f4c
 .login_content
     position relative
-    line-height 60px
+    line-height 50px
 </style>

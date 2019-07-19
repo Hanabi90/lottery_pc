@@ -3,7 +3,7 @@
         <div class="arrow"></div>
         <div class="container">
             <h5>注册您的账户</h5>
-            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="80">
+            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="70">
                 <FormItem prop="user" label="用户名称">
                     <Input
                         type="text"
@@ -163,21 +163,21 @@ export default {
     top 45px
     line-height normal
     animation fadeInDown ease 1s
-    .arrow
-        width 0
-        height 0
-        border-style solid
-        border-width 0 10px 10px 5px
-        border-color transparent transparent #fff transparent
-        margin auto
     .container
         border-radius 10px
-        background #fff
+        background #202020
         padding 10px
         h5
             text-align center
             font-size 20px
-            color #000
+            color #fff
+            line-height: 50px;
+        >>>.ivu-form-item-label
+            color #fff
+        >>>.ivu-btn.ivu-btn-primary
+            background #ea2f4c
+            border none
+
     .remanber
         color #000
         margin-top 10px
@@ -195,7 +195,7 @@ export default {
         height 24px
         position absolute
         right 20px
-        top 24px
+        top 16px
         background url('../../assets/images/btn-close.png') no-repeat 0 0
         background-size 24px
         filter grayscale(1) opacity(0.5)
@@ -207,6 +207,7 @@ export default {
         transform translate3d(0, -100%, 0)
     to
         transform translate3d(0, 0, 0)
+
 </style>
 
 

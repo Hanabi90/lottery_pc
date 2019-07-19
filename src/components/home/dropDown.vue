@@ -3,7 +3,7 @@
         <div class="box"></div>
         <div class="title">你好，你这个糟老头子</div>
         <ul>
-            <li>个人中心</li>
+            <router-link tag="li" to="/usercenter">个人中心</router-link>
             <li>代理管理</li>
             <li>我的消息</li>
         </ul>

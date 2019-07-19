@@ -440,3 +440,10 @@ export const updateuserbankcard = formData =>
         url: 'user/updateuserbankcard',
         data: qs.stringify(formData)
     })
+//获取中奖人
+export const getwinner = formData =>
+    service.request({
+        method: 'post',
+        url: 'default/getwinnerlist',
+        data: qs.stringify(formData)
+    })

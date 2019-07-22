@@ -1,14 +1,5 @@
 <template>
     <div>
-        <Menu
-            mode="horizontal"
-            active-name="1"
-            @on-select="changeContent"
-            style="margin-bottom:10px"
-        >
-            <MenuItem name="1">登录密码重置</MenuItem>
-            <MenuItem name="2">资金密码重置</MenuItem>
-        </Menu>
         <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
             <FormItem label="旧密码" prop="oldPasswd">
                 <Input type="password" v-model="formCustom.oldPasswd" string></Input>
@@ -20,8 +11,8 @@
                 <Input type="password" v-model="formCustom.passwdCheck" string></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('formCustom')">修改</Button>
-                <Button @click="handleReset('formCustom')" style="margin-left: 8px">清空</Button>
+                <Button shape="circle" type="primary"  @click="handleSubmit('formCustom')">修改</Button>
+                <Button shape="circle" @click="handleReset('formCustom')" style="margin-left: 8px">清空</Button>
             </FormItem>
         </Form>
     </div>
@@ -80,6 +71,10 @@ export default {
             navIndex: 1
         }
     },
+    created(){
+        this.navIndex = this.params
+    },
+    props:['params'],
     methods: {
         handleSubmit(name) {
             this.$refs[name].validate(valid => {
@@ -130,4 +125,12 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+>>>.ivu-btn-primary
+    background #f85654
+    border-color #f85654
+    outline none
+    color #fff
+>>>.ivu-btn
+    width 108px
+</style>

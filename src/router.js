@@ -73,6 +73,12 @@ export default new Router({
                     name: 'bettingRecord',
                     component: () =>
                         import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/bettingRecord.vue')
+                },
+                {
+                    path: 'personalManagement',
+                    name: 'personalManagement',
+                    component: () =>
+                        import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/personalManagement.vue')
                 }
             ]
         }

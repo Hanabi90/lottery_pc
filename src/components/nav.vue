@@ -38,7 +38,7 @@
                                 <Icon
                                     @click="refresh"
                                     style="font-size:16px;color:#ecc04a"
-                                    type="ios-sync"
+                                    type="ios-refresh"
                                 />
                             </div>
                         </div>

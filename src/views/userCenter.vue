@@ -10,10 +10,10 @@
             </router-link>
             <li>彩票日工资契约</li>
             <li>彩票分红契约</li>
-            <li>
+            <router-link tag="li" to="personalManagement">
                 <Icon type="md-person" size="20"/>
                 个人管理
-            </li>
+            </router-link>
             <li>
                 <Icon type="ios-paper" size="20"/>
                 彩票报表
@@ -64,6 +64,7 @@ export default {
             color #ffffff
             padding-left 48px
             position relative
+            cursor pointer
             &.is-active
                 background #ffd100
                 color #333333
@@ -72,6 +73,8 @@ export default {
                 top: 50%;
                 left: 20px;
                 transform: translateY(-50%);
+            &:nth-child(1),&:nth-child(5)
+                cursor: initial;
     .container
         margin-left 20px
         min-height 1020px

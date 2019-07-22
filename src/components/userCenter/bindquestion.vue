@@ -16,7 +16,7 @@
                 <Input type="text" v-model="answerInline.answer" placeholder="请输入答案"></Input>
             </FormItem>
             <FormItem>
-                <Button @click="handleSubmit('answerInline')" type="primary">确定</Button>
+                <Button shape="circle" @click="handleSubmit('answerInline')" type="primary">确定</Button>
             </FormItem>
         </Form>
         <div v-show="!listIndex">
@@ -257,5 +257,13 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+>>>.ivu-btn-primary
+    background #f85654
+    border-color #f85654
+    outline none
+    color #fff
+>>>.ivu-btn
+    width 80px
+</style>
 

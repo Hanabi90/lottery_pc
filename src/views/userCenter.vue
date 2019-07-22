@@ -1,12 +1,23 @@
 <template>
     <div class="userCenterBox">
         <ul class="userNav">
-            <li>团队管理</li>
-            <router-link tag="li" to="agentManagement">团队推广</router-link>
+            <li>
+                <Icon type="md-people" size="20"/>
+                团队管理
+            </li>
+            <router-link tag="li" to="agentManagement">
+                团队推广
+            </router-link>
             <li>彩票日工资契约</li>
             <li>彩票分红契约</li>
-            <li>个人管理</li>
-            <li>彩票报表</li>
+            <li>
+                <Icon type="md-person" size="20"/>
+                个人管理
+            </li>
+            <li>
+                <Icon type="ios-paper" size="20"/>
+                彩票报表
+            </li>
             <router-link tag="li" to="bettingRecord">投注记录</router-link>
             <router-link tag="li" to="traceHistory">游戏追号记录</router-link>
             <router-link tag="li" to="gameHistory">游戏账变记录</router-link>
@@ -19,13 +30,16 @@
 </template>
 
 <script>
+import {Icon} from 'iview'
 export default {
     name: 'userCenter',
     data() {
         return {}
     },
     methods: {},
-    components: {}
+    components: {
+        Icon
+    }
 }
 </script>
 
@@ -49,9 +63,15 @@ export default {
             line-height 40px
             color #ffffff
             padding-left 48px
+            position relative
             &.is-active
                 background #ffd100
                 color #333333
+            &>>>.ivu-icon
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
     .container
         margin-left 20px
         min-height 1020px

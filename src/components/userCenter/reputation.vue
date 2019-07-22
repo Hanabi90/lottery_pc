@@ -101,6 +101,7 @@ export default {
             }).then(res => {
                 this.creditavailable = res.data.userCredit.creditavailable
                 this.parentCreditavailable = res.data.parentCreditAvailable
+                this.$Message.success(res.msg)
             })
         }
     },

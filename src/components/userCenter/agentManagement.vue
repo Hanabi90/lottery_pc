@@ -37,10 +37,17 @@
                             ></Input>
                         </FormItem>
                         <Button class="button" type="primary" @click="getGroupList">查询</Button>
+                        <Button
+                            class="button"
+                            style="margin:0 10px;letter-spacing:0"
+                            type="primary"
+                        >注册用户</Button>
+                        <Button class="button" style="letter-spacing:0" type="primary">推广链接</Button>
                         <FormItem :label-width="20">
-                            <Breadcrumb separator="<b class='demo-breadcrumb-separator'>=></b>">
+                            <Breadcrumb separator="<b class='demo-breadcrumb-separator'>></b>">
                                 <BreadcrumbItem
                                     v-for="(item,index) of userTree"
+                                    style="color:#ea2f4c"
                                     :key="index"
                                     @click.native="getGroupList({uid:item.userid})"
                                 >{{item.username}}</BreadcrumbItem>
@@ -79,20 +86,15 @@
                                         v-if="systemtype==1"
                                         type="primary"
                                         size="small"
-                                        :disabled="systemtype!=1||item.userid!=item.parentid"
-                                        @click="handleReputation(item.userid)"
+                                        :disabled="systemtype!=1||userId!=item.parentid"
+                                        @click="handleAlert(item.userid,'Reputation','信誉设置')"
                                     >信用设置</Button>
                                     <Button
                                         type="primary"
                                         size="small"
-                                        :disabled="systemtype!=0||buttonPoint||item.userid!=item.parentid"
-                                        @click="handlePoint(item.userid)"
+                                        :disabled="systemtype!=0||userId!=item.parentid "
+                                        @click="handleAlert(item.userid,'SetPoint','返点设置')"
                                     >返点设置</Button>
-                                    <Button
-                                        @click="getGameHistory(item.username)"
-                                        type="primary"
-                                        size="small"
-                                    >游戏帐变</Button>
                                     <Button
                                         type="primary"
                                         size="small"
@@ -122,12 +124,12 @@
                 </div>
             </div>
         </div>
-        <Modal v-model="alert">
+        <Modal v-model="alert" @on-visible-change="updateList">
             <p slot="header" class="alertHeader">
                 <span>{{alertTitle}}</span>
             </p>
             <div>
-                <component :is="alertComponent"></component>
+                <component v-if="alert" :uid="pointUserId" :is="alertComponent"></component>
             </div>
             <div slot="footer"></div>
         </Modal>
@@ -161,7 +163,6 @@ export default {
             alertComponent: '', //弹窗内容组件
             subordinateRecharge: false, //充值
             reputation: false, //信誉设置
-            buttonPoint: true, //按钮是否可以点击
             teamAccount: false, //显示团队余额
             backOnoff: false, //返回按钮开关
             pointUserId: '', //设置返点的id
@@ -185,10 +186,17 @@ export default {
                 .systemtype,
             total: 0, //总条数
             teamGroupUpdate: true, //下拉是否加载完
-            userTree: [] //用户树结构
+            userTree: [], //用户树结构
+            userId: JSON.parse(sessionStorage.getItem('userSeting')).userid
         }
     },
     methods: {
+        //关闭弹窗更新数据
+        updateList(blo) {
+            if (!blo) {
+                this.getGroupList()
+            }
+        },
         //跳转按钮
         handleGo() {
             let pageInput = this.$refs.page.$el
@@ -251,19 +259,12 @@ export default {
             this.pointUserId = value
             this.backOnoff = true
         },
-        //信誉设置
-        handleReputation(value) {
-            this.reputation = true
-            this.pointUserId = value
-            this.backOnoff = true
-        },
         //返回
         back() {
             this.teamAccount = false
             this.gameHistory = false
             this.setPoint = false
             this.backOnoff = false
-            this.buttonPoint = false
             this.reputation = false
             this.subordinateRecharge = false
         },
@@ -275,13 +276,6 @@ export default {
         },
         //查询团队列表
         getGroupList(obj) {
-            let myself = JSON.parse(sessionStorage.getItem('userSeting')).userid
-            if (obj.uid && obj.uid != myself) {
-                //如果查看下级，关闭掉返点设置
-                this.buttonPoint = true
-            } else {
-                this.buttonPoint = false
-            }
             getgrouplist({ ...this.teamGroup, ...obj }).then(res => {
                 this.istop = res.data.istop
                 this.teamList = res.data.page_data
@@ -312,6 +306,9 @@ export default {
         removeInputReadonly() {
             this.readonly = false
         }
+    },
+    mounted() {
+        this.getGroupList()
     },
     components: {
         Form,
@@ -379,6 +376,9 @@ export default {
                     border-radius 15px
                     border none
                     font-size 14px
+                    &[disabled]
+                        color #ffffff
+                        background-color #999999
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
@@ -392,6 +392,8 @@ export default {
     font-size 14px
     text-indent 10px
     letter-spacing 10px
+    &:nth-child(3)
+        background-image linear-gradient(0, rgb(111, 135, 250) 0%, rgb(95, 245, 233) 100%)
 .pageBox
     overflow hidden
     text-align center

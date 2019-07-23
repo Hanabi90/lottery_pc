@@ -155,8 +155,8 @@ export default {
                 if(res.data.page_data){
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
-                    this.lost_amount = res.data.total_count['lost_amount']
-                    this.gift_amount = res.data.total_count['gift_amount']
+                    this.lost_amount = isNaN(Number(res.data.total_count['lost_amount']))?0:res.data.total_count['lost_amount']
+                    this.gift_amount = isNaN(Number(res.data.total_count['gift_amount']))?0:res.data.total_count['gift_amount']
                 }else{
                     this.sharelist = []
                     this.total = 0 //总条数
@@ -286,6 +286,8 @@ export default {
         line-height 46px
         font-size 14px
         color #fff
+        display flex
+        justify-content space-evenly
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

@@ -161,9 +161,9 @@ export default {
                 if(res.data.page_data){
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
-                    this.official_bet = res.data.total_count['official_bet']
-                    this.self_bet = res.data.total_count['self_bet']
-                    this.total_bet = res.data.total_count['total_bet']
+                    this.official_bet = isNaN(Number(res.data.total_count['official_bet']))?0:res.data.total_count['official_bet']
+                    this.self_bet = isNaN(Number(res.data.total_count['self_bet']))?0:res.data.total_count['self_bet']
+                    this.total_bet = isNaN(Number(res.data.total_count['total_bet']))?0:res.data.total_count['total_bet']
                 }else{
                     this.sharelist = []
                     this.total = 0 //总条数
@@ -294,6 +294,8 @@ export default {
         line-height 46px
         font-size 14px
         color #fff
+        display flex
+        justify-content space-evenly
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

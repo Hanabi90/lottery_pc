@@ -192,7 +192,7 @@ export default {
                     this.total_pay = res.data.total_pay //支出
                 } else {
                     this.noGameList = []
-                    this.total = res.data.total_count //总条数
+                    this.total = 0 //总条数
                     this.total_income = 0 //收入
                     this.total_pay = 0 //支出
                 }
@@ -326,6 +326,8 @@ export default {
         line-height 46px
         font-size 14px
         color #fff
+        display flex
+        justify-content space-evenly
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

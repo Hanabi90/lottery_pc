@@ -14,7 +14,7 @@
                 <Icon type="md-person" size="20"/>
                 个人管理
             </router-link>
-            <li>
+            <li @click="test">
                 <Icon type="ios-paper" size="20"/>
                 彩票报表
             </li>
@@ -23,7 +23,7 @@
             <router-link tag="li" to="gameHistory">游戏账变记录</router-link>
             <router-link tag="li" to="noGameHistory">非游戏账变记录</router-link>
         </ul>
-        <div class="container" >
+        <div class="container" :class="{personalManagement:$route.name=='personalManagement'}">
             <router-view></router-view>
         </div>
     </div>
@@ -36,7 +36,11 @@ export default {
     data() {
         return {}
     },
-    methods: {},
+    methods: {
+        test(){
+            console.log(this.$route);
+        }
+    },
     components: {
         Icon
     }
@@ -79,4 +83,6 @@ export default {
         margin-left 20px
         min-height 1020px
         background #202020
+        &.personalManagement
+            background transparent
 </style>

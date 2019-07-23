@@ -174,8 +174,8 @@ export default {
                 starttime: '', //起始时间
                 pn: 18, //请求的数据记录数量
                 p: 1, //请求的页面序号
-                total:0
             },
+            total:0,
             tasksList: [
                 { value: '-1', text: '所有状态' },
                 { value: '0', text: '进行中' },

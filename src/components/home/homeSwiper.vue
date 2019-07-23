@@ -1,26 +1,10 @@
 <template>
     <div id="certify">
-        <swiper :options="swiperOption" ref="mySwiper">
+        <swiper v-if="list.length" :options="swiperOption" ref="mySwiper">
             <!-- slides -->
-            <swiper-slide>
-                <img src="../../assets/images/demo.jpg" />
+            <swiper-slide v-for="(item,index) of list" :key="index">
+                <img :src="item.frontend_banner_picture" :data-index="index" />
             </swiper-slide>
-            <swiper-slide>
-                <img src="../../assets/images/demo_one.jpg" />
-            </swiper-slide>
-            <swiper-slide>
-                <img src="../../assets/images/demo_two.jpg" />
-            </swiper-slide>
-            <swiper-slide>
-                <img src="../../assets/images/demo.jpg" />
-            </swiper-slide>
-            <swiper-slide>
-                <img src="../../assets/images/demo_one.jpg" />
-            </swiper-slide>
-            <swiper-slide>
-                <img src="../../assets/images/demo_two.jpg" />
-            </swiper-slide>
-
             <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-scrollbar" slot="scrollbar"></div>
@@ -31,10 +15,14 @@
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { getactivitylist } from '@/api/index'
+import { EventBus } from '@/api/eventBus.js'
 export default {
     name: 'homeSwiper',
     data() {
+        let that = this
         return {
+            list: [],
             swiperOption: {
                 watchSlidesProgress: true,
                 slidesPerView: 'auto',
@@ -52,7 +40,9 @@ export default {
                     el: '.swiper-pagination',
                     clickable: true
                 },
-
+                preventLinksPropagation: false,
+                preventClicks: true,
+                slideToClickedSlide: true,
                 on: {
                     progress: function(progress) {
                         for (let i = 0; i < this.slides.length; i++) {
@@ -85,13 +75,30 @@ export default {
                             let slide = this.slides.eq(i)
                             slide.transition(transition)
                         }
+                    },
+                    click(event) {
+                        if (event.target.dataset.index) {
+                            sessionStorage.setItem('navIndex', 5)
+                            that.handleJump(this.realIndex)
+                            EventBus.$emit('updateNaveIndex')
+                        }
                     }
                 }
             }
         }
     },
     methods: {
-        callback() {}
+        handleJump(index) {
+            this.$router.push({
+                path: '/activityList',
+                query: { index: index }
+            })
+        }
+    },
+    mounted() {
+        getactivitylist().then(res => {
+            this.list = res.data.activitylist
+        })
     },
     computed: {
         swiper() {
@@ -101,6 +108,9 @@ export default {
     components: {
         swiper,
         swiperSlide
+    },
+    beforeDestroy() {
+        this.swiper.destroy()
     }
 }
 </script>
@@ -109,6 +119,7 @@ export default {
 #certify
     position relative
     width 1200px
+    height 410px
     margin 20px auto
     .swiper-container
         padding-bottom 10px

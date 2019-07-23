@@ -10,7 +10,6 @@ let oState = {
     drawerRight: true, //个人中心开关
     userCenter: false, //用户中心
     lotteryId: '', //彩种id
-    menuId: '', //彩票菜单id
     lotteryNumber: '', //选择的号码
     hackReset: true, //利用v-if 重组组件lottery 组件
     issue: '', //当前奖期
@@ -46,9 +45,7 @@ export default new Vuex.Store({
         lotteryId(state, data) {
             state.lotteryId = data
         },
-        menuId(state, data) {
-            state.menuId = data
-        },
+
         userCenter(state, data) {
             state.userCenter = data
         },
@@ -110,9 +107,6 @@ export default new Vuex.Store({
         },
         handleLotteryId(context, data) {
             context.commit('lotteryId', data)
-        },
-        handleMenuId(context, data) {
-            context.commit('menuId', data)
         },
         handleUserCenter(context, data) {
             context.commit('userCenter', data)

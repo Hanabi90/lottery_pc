@@ -21,11 +21,11 @@ export default {
 
 <style lang="stylus" scoped>
 .prizeList
-    background #383737
+    background #202020
     padding-bottom 20px
     height 305px
     h5
-        background #505050
+        background #000
         color #fff
         text-indent 20px
         line-height 44px
@@ -42,18 +42,25 @@ export default {
             font-size 14px
             line-height 30px
             padding-top 2px
+            &:first-child
+                .time
+                    color #fff
+                span
+                    color #fff
             .time
                 float left
+                color #bbbbbb
             .prizeNumber
                 float right
                 max-width 140px
                 word-wrap break-word
                 overflow hidden
+                color #bbb
                 span
                     margin-right 3px
             &:first-child
-                background #ff8f00
+                background #ea314e
                 font-size 14px
                 font-weight bold
-                color #000
+                color #fff
 </style>

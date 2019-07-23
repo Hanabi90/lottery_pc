@@ -15,7 +15,7 @@
                 <span>第{{lotteryNumber.issue}}期</span>
                 <span>
                     <a
-                        style="color:#fff"
+                        style="color:#ffdc00"
                         :href="`http://tapi.hoyibet.com/?controller=game&action=bonuscode&crumid=${this.$route.query.menuId}&issuecount=100`"
                         target="_blank"
                     >号码走势</a>
@@ -172,9 +172,9 @@ export default {
 <style lang="stylus" scoped>
 .lottery_show
     height 92px
-    border 5px solid #5a5a5a
-    border-radius 16px
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    border 2px solid #5a5a5a
+    border-radius 6px
+    background #202020
     overflow hidden
     box-shadow Boxshaow
     li
@@ -193,6 +193,7 @@ export default {
         div
             margin-left 20px
             margin-top 11px
+            color #bbb
     li:nth-child(3)
         width 259px
         text-align center
@@ -216,14 +217,14 @@ export default {
             span:first-child
                 float left
                 margin-left 14px
-                color #b5b5b5
+                color #ffdc00
             span:last-child
                 float right
-                color #fdf707
+                color #ffdc00
         .lottery_num_box
             font-size 24px
             font-weight bold
-            color #8c5a8e
+            color #ffdc00
             line-height 62px
             margin-left 20px
             span
@@ -232,10 +233,10 @@ export default {
                 line-height 40px
                 text-align center
                 display inline-block
-                border 1px solid #fff
+                border 1px solid #ffdc00
                 border-radius 40px
                 margin-right 28px
-                color #fff
+                color #ffdc00
                 box-shadow 0 0 0 #000
                 &:first-child
                     margin-left 5px

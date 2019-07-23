@@ -25,11 +25,13 @@
                 <span>{{item.totalprice}}</span>
                 <span>{{item.bonus}}</span>
                 <span>{{item.taskid==0?'未追号':'追号'}}</span>
-                <Button
-                    :disabled="!item.canCancel"
-                    @click="handleCancel(item.projectid)"
-                    type="warning"
-                >撤单</Button>
+                <span>
+                    <Button
+                        :disabled="!item.canCancel"
+                        @click="handleCancel(item.projectid)"
+                        type="warning"
+                    >撤单</Button>
+                </span>
             </li>
         </ul>
         <p>暂无数据</p>
@@ -61,10 +63,10 @@ export default {
 <style lang="stylus" scoped>
 .orderHistory
     margin-top 20px
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    background #202020
     .title
-        background #505050
-        border-bottom 1px solid #313131
+        background #000
+        border-bottom 1px solid #000
         display flex
         li
             line-height 44px
@@ -79,7 +81,6 @@ export default {
             padding 10px 0
             text-align center
             border-bottom 1px solid #313131
-            border-top 1px solid #464646
             span
                 flex 1
                 color #e8e8e8
@@ -90,10 +91,15 @@ export default {
                 text-overflow ellipsis
                 white-space nowrap
             button
-                flex 1
                 padding 0
                 line-height 26px
                 margin-top -4px
+                background #ea2f4c
+                border none
+                width 60px
+                &[disabled]
+                    background #f7f7f7
+                    color #c5c8ce
     p
         text-align center
         line-height 60px

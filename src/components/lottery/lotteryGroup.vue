@@ -29,19 +29,29 @@
                         :active-change="false"
                         v-model="nowPrizeGroup"
                         @on-blur="handleGroupMinValue"
+                        style="margin-bottom:10px"
                     ></InputNumber>
                 </div>
                 <div>
                     <span>单注返点:</span>
                     <span>{{rebate}}</span>
                 </div>
-                <!-- <div>
-                    <span>单注返点:</span>
-                    <RadioGroup v-model="iWalletType">
-                        <Radio label="1">现金</Radio>
-                        <Radio label="2">信用</Radio>
-                    </RadioGroup>
-                </div>-->
+                <div class="numberTitle">
+                    <div>
+                        <p>
+                            <Tooltip transfer max-width="300" :content="methodList.methoddesc">
+                                <i></i>
+                                <span>说明</span>
+                            </Tooltip>
+                        </p>
+                        <p>
+                            <Tooltip transfer max-width="300" :content="methodList.methodexample">
+                                <i></i>
+                                <span>示例</span>
+                            </Tooltip>
+                        </p>
+                    </div>
+                </div>
             </li>
         </ul>
         <Lotterynumber :order="this.$refs.order" ref="lotterynumber" :method-list="methodList" />
@@ -60,7 +70,7 @@
 </template>
 
 <script>
-import { InputNumber } from 'iview'
+import { InputNumber, Tooltip } from 'iview'
 import Lotterynumber from './lotteryNumber'
 import Order from '@/components/lottery/order.vue'
 import { MethodCrowd, getmethod, getLotteryInfo } from '@/api/index.js'
@@ -101,7 +111,7 @@ export default {
         }
     },
     mounted() {
-        getLotteryInfo({ memnuid: this.$store.state.menuId }).then(res => {
+        getLotteryInfo({ memnuid: this.$route.query.menuId }).then(res => {
             this.infoList = res.data
             this.getmethod = res.data[0].label
             this.methodList = {
@@ -158,7 +168,8 @@ export default {
     components: {
         Lotterynumber,
         Order,
-        InputNumber
+        InputNumber,
+        Tooltip
     }
 }
 </script>
@@ -166,15 +177,15 @@ export default {
 .lotteryGroup
     color #fff
     cursor pointer
+    margin-top 10px
     .nav
         overflow hidden
-        background #505050
+        background #000
         display flex
         li
             height 44px
             text-align center
-            border-right 1px solid #5a5a5a
-            border-left 1px solid #3e3d3d
+            border-right 1px solid #363636
             line-height 44px
             flex 1
             font-size 12px
@@ -186,27 +197,25 @@ export default {
                     width 18px
                     height 18px
             &.active
-                background #ff8f00
-                border-top 1px solid #ffe0b8
+                background #ea314e
+                border-top 1px solid #ea314e
     .navTwo
         padding-top 20px
         min-height 140px
         font-size 12px
         position relative
         padding-right 190px
-        background #383838
+        background #202020
         overflow hidden
         li
             margin-bottom 10px
             margin-left 10px
             span, i
                 text-align center
-                min-width 66px
                 padding 5px 4px
                 display inline-block
-                border 1px solid #383838
             i
-                color #a78c6a
+                color #ffa700
             span.active
                 color #ffa700
                 border 1px solid #ffa700
@@ -215,4 +224,28 @@ export default {
                 position absolute
                 right 20px
                 top 16px
+                .numberTitle
+                    padding-left 6px
+                    overflow hidden
+                    p
+                        float left
+                        .ivu-tooltip
+                            color #ccc
+                            margin-right 16px
+                            display inline-block
+                            line-height 28px
+                            font-size 14px
+                        i
+                            background url('../../assets/images/icon_sm_group.png') no-repeat
+                            display inline-block
+                            width 17px
+                            height 17px
+                            margin-bottom -4px
+                            margin-right 5px
+                        button
+                            background #a96b94
+                            border none
+                            padding 4px 10px
+                            color #fff
+                            border-radius 3px
 </style>

@@ -79,63 +79,51 @@
                 <div class="logo_left">
                     <img id="logo" src="../assets/images/page_logo.png" />
                 </div>
-                <!-- <ul class="nav_list">
-                    <router-link tag="li" to="/">首页</router-link>
-                    <li>时时彩</li>
-                    <li>快乐彩</li>
-                    <li>快3</li>
-                    <li>低频彩</li>
-                    <li class="btn-sign">
-                        <button @click="openCenter">
-                            <i></i>
-                            <span>最新优惠</span>
-                        </button>
-                    </li>
-                </ul> -->
-                <div class="nav_list">
-                    <router-link class="home" to="/">首页</router-link>
+                <div class="nav_list" ref="navList">
+                    <div @click="clearActive" class="navAcitve">首页</div>
                     <Dropdown>
-                        <a href="javascript:void(0)">
-                            时时彩
-                        </a>
+                        <a href="javascript:void(0)">时时彩</a>
                         <ul slot="list">
-                            <li>asd</li>
-                            <li>asd</li>
-                            <li>asd</li>
+                            <li
+                                v-for="(item,index) of timesLottery"
+                                :key="index"
+                                @click="jump(item.lotteryid,item.menuid,1)"
+                            >{{item.title}}</li>
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">
-                            快乐彩
-                        </a>
+                        <a href="javascript:void(0)">11选五</a>
                         <ul slot="list">
-                            <li>asd</li>
-                            <li>asd</li>
-                            <li>asd</li>
+                            <li
+                                v-for="(item,index) of selected11"
+                                :key="index"
+                                @click="jump(item.lotteryid,item.menuid,2)"
+                            >{{item.title}}</li>
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">
-                            快3
-                        </a>
+                        <a href="javascript:void(0)">快乐彩</a>
                         <ul slot="list">
-                            <li>asd</li>
-                            <li>asd</li>
-                            <li>asd</li>
+                            <li
+                                v-for="(item,index) of happyLottery"
+                                :key="index"
+                                @click="jump(item.lotteryid,item.menuid,3)"
+                            >{{item.title}}</li>
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">
-                            低频彩
-                        </a>
+                        <a href="javascript:void(0)">快3</a>
                         <ul slot="list">
-                            <li>asd</li>
-                            <li>asd</li>
-                            <li>asd</li>
+                            <li
+                                v-for="(item,index) of fast3"
+                                :key="index"
+                                @click="jump(item.lotteryid,item.menuid,4)"
+                            >{{item.title}}</li>
                         </ul>
                     </Dropdown>
+
                     <div class="btn-sign">
-                        <button @click="openCenter">
+                        <button ref="openActivity" @click="openActivity">
                             <i></i>
                             <span>最新优惠</span>
                         </button>
@@ -153,13 +141,14 @@ import Login from '../components/home/login'
 import Registered from '../components/home/registered'
 import PersonalManagement from '../components/home/personalManagement'
 import Marquee from '@/components/home/marquee.vue'
-import { Dropdown, DropdownMenu, DropdownItem, Icon } from 'iview'
+import { Dropdown, Icon } from 'iview'
 import {
     getbalance,
     loginOut,
     getMenu,
     getunreadmessageamount
 } from '@/api/index.js'
+import { EventBus } from '@/api/eventBus.js'
 export default {
     name: 'lobby_nav',
     data() {
@@ -168,6 +157,38 @@ export default {
             id: '',
             x: 0,
             y: 0
+        }
+    },
+    computed: {
+        timesLottery() {
+            if (this.$store.state.lotteryMenue.times_lottery) {
+                return this.$store.state.lotteryMenue.times_lottery.lottery_data
+            } else {
+                return []
+            }
+        },
+        selected11() {
+            if (this.$store.state.lotteryMenue['11selected5']) {
+                return this.$store.state.lotteryMenue['11selected5']
+                    .lottery_data
+            } else {
+                return []
+            }
+        },
+        fast3() {
+            if (this.$store.state.lotteryMenue['fast3']) {
+                return this.$store.state.lotteryMenue['fast3'].lottery_data
+            } else {
+                return []
+            }
+        },
+        happyLottery() {
+            if (this.$store.state.lotteryMenue['happy_lottery']) {
+                return this.$store.state.lotteryMenue['happy_lottery']
+                    .lottery_data
+            } else {
+                return []
+            }
         }
     },
     mounted() {
@@ -184,28 +205,82 @@ export default {
                 this.$store.dispatch('handleLotteryMenue', { ...res.data })
             })
         }
-        this.$router.onReady(() => {
-            this.$store.dispatch('handleMenuId', this.$route.query.menuId)
+
+        EventBus.$on('updateNaveIndex', () => {
+            this.changeNavIndex()
         })
     },
+    beforeDestroy() {
+        EventBus.$off('updateNaveIndex')
+    },
     methods: {
-        //个人中心
-        openCenter() {
-            if (this.$store.state.loginCode) {
-                getunreadmessageamount().then(res => {
-                    this.$store.dispatch(
-                        'handleUnReadAmount',
-                        res.data.unreadamount
+        //加载时更新激活导航
+        changeNavIndex() {
+            //导航样式调整
+            let index = sessionStorage.getItem('navIndex')
+            for (
+                let index = 0;
+                index < this.$refs.navList.childNodes.length;
+                index++
+            ) {
+                let item = this.$refs.navList.childNodes[index]
+                item.classList.remove('navAcitve')
+            }
+            this.$refs['openActivity'].classList.remove('navAcitve')
+            if (index != 5) {
+                if (index) {
+                    this.$refs.navList.childNodes[index].classList.add(
+                        'navAcitve'
                     )
-                })
+                } else {
+                    this.$refs.navList.childNodes[0].classList.add('navAcitve')
+                }
             } else {
-                this.open('login', 'loginPosition')
+                this.$refs['openActivity'].classList.add('navAcitve')
             }
         },
+        //清除激活样式
+        clearActive() {
+            for (
+                let index = 0;
+                index < this.$refs.navList.childNodes.length;
+                index++
+            ) {
+                let item = this.$refs.navList.childNodes[index]
+                item.classList.remove('navAcitve')
+            }
+            this.$refs['openActivity'].classList.remove('navAcitve')
+            this.$router.push({ path: '/' })
+            this.$refs.navList.childNodes[0].classList.add('navAcitve')
+        },
+        //个人中心
+        openActivity() {
+            for (
+                let index = 0;
+                index < this.$refs.navList.childNodes.length;
+                index++
+            ) {
+                let item = this.$refs.navList.childNodes[index]
+                item.classList.remove('navAcitve')
+            }
+            this.$refs['openActivity'].classList.add('navAcitve')
+            this.$router.push({ path: '/activityList' })
+            sessionStorage.setItem('navIndex', 5)
+        },
         //跳转
-        jump(lotteryId, menuId, group) {
-            this.$store.dispatch('handleMenuId', menuId)
-            this.$router.push({ path: 'lottery', query: { menuId: menuId } })
+        jump(lotteryId, menuId, index) {
+            sessionStorage.setItem('navIndex', index)
+            for (
+                let index = 0;
+                index < this.$refs.navList.childNodes.length;
+                index++
+            ) {
+                let item = this.$refs.navList.childNodes[index]
+                item.classList.remove('navAcitve')
+            }
+            this.$refs['openActivity'].classList.remove('navAcitve')
+            this.$refs.navList.childNodes[index].classList.add('navAcitve')
+            this.$router.push({ path: '/lottery', query: { menuId: menuId } })
             sessionStorage.setItem('lotteryId', lotteryId)
             this.$store.dispatch('handleHackReset', false)
             this.$nextTick(() => {
@@ -213,7 +288,20 @@ export default {
                 this.$store.dispatch('handleOrderList', { type: 'clear' })
                 this.$store.dispatch('handleTrace', false)
             })
-            sessionStorage.setItem('group', group)
+            switch (index) {
+                case 1:
+                    sessionStorage.setItem('group', 'times_lottery')
+                    break
+                case 2:
+                    sessionStorage.setItem('group', '11selected5')
+                    break
+                case 3:
+                    sessionStorage.setItem('group', 'happy_lottery')
+                    break
+                case 4:
+                    sessionStorage.setItem('group', 'fast3')
+                    break
+            }
         },
         //刷新金额
         refresh() {
@@ -221,7 +309,6 @@ export default {
                 this.$router.go()
             })
         },
-        //退出登录
 
         //打开登录页面
         open(target, targetButn, $event) {
@@ -275,8 +362,6 @@ export default {
         Icon,
         Marquee,
         Dropdown,
-        DropdownMenu,
-        DropdownItem,
         PersonalManagement
     }
 }
@@ -412,10 +497,10 @@ button
         margin 0
         ul
             li
-                background: #222222;
-                border-bottom: 2px dotted #444444;
-                color: #fff;
-                text-align: center;
+                background #222222
+                border-bottom 2px dotted #444444
+                color #fff
+                text-align center
                 width 150px
                 &:hover
                     background #444444
@@ -471,8 +556,6 @@ button
         i
             background url('../assets/images/ic-nav-gift-2.png') bottom no-repeat
             background-size 16px auto
-        span
-            color #ff0000
     button
         background #fff
         color #000
@@ -497,6 +580,9 @@ button
         margin-right 20px
 .is-active
     background #ea2f4c
+.navAcitve
+    background #ea2f4c !important
+    color #fff !important
 .login_content
     position relative
     line-height 50px

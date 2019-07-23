@@ -80,7 +80,7 @@
                     <Tooltip
                         max-width="400"
                         :content="item.code"
-                    >{{item.code.slice(0,16)}}{{item.code.length>16?"...":''}}</Tooltip>
+                    >{{item.code.slice(0,4)}}{{item.code.length>4?"...":''}}</Tooltip>
                     <Tooltip
                         max-width="400"
                         :content="item.methodname"
@@ -91,7 +91,7 @@
                     <Tooltip
                         max-width="400"
                         :content="item.nocode"
-                    >{{item.nocode?item.nocode.slice(0,16):''}}{{(item.nocode&&item.nocode.length)>16?"...":''}}</Tooltip>
+                    >{{item.nocode?item.nocode.slice(0,4):''}}{{(item.nocode&&item.nocode.length)>4?"...":''}}</Tooltip>
                     <span>{{handleStatus(item.iscancel,item.isgetprize,item.prizestatus)}}</span>
                     <span>
                         <Button

@@ -101,8 +101,7 @@
                             >详情</Button>
                         </span>
                     </li>
-                    <li v-if="pages<=orderHistoryList.p">
-                    </li>
+                    
                 </ul>
                 <div class="totalList">
                 <span>取消总金额：{{total_cancelprice}}</span>
@@ -483,7 +482,7 @@ export default {
                     this.total_taskprice = res.data.total_taskprice //追号总金额
                 } else {
                     this.userHistory = []
-                    this.total = res.data.total_count //总条数
+                    this.total = 0 //总条数
                     this.total_cancelprice = 0 //取消总结
                     this.total_finishprice = 0 //完成总金额
                     this.total_taskprice = 0 //追号总金额
@@ -640,6 +639,7 @@ export default {
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
+    background-color #fbc434
     width 107px
     line-height 35px
     height 35px

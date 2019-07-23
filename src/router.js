@@ -79,6 +79,18 @@ export default new Router({
                     name: 'personalManagement',
                     component: () =>
                         import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/personalManagement.vue')
+                },
+                {
+                    path: 'daySalary',
+                    name: 'daySalary',
+                    component: () =>
+                        import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/daySalary.vue')
+                },
+                {
+                    path: 'lotteryShare',
+                    name: 'lotteryShare',
+                    component: () =>
+                        import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/lotteryShare.vue')
                 }
             ]
         }

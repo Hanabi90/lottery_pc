@@ -8,8 +8,8 @@
             <router-link tag="li" to="agentManagement">
                 团队推广
             </router-link>
-            <li>彩票日工资契约</li>
-            <li>彩票分红契约</li>
+            <router-link tag="li" to="daySalary">彩票日工资契约</router-link>
+            <router-link tag="li" to="lotteryShare">彩票分红契约</router-link>
             <router-link tag="li" to="personalManagement">
                 <Icon type="md-person" size="20"/>
                 个人管理
@@ -23,7 +23,7 @@
             <router-link tag="li" to="gameHistory">游戏账变记录</router-link>
             <router-link tag="li" to="noGameHistory">非游戏账变记录</router-link>
         </ul>
-        <div class="container">
+        <div class="container" >
             <router-view></router-view>
         </div>
     </div>

@@ -382,6 +382,7 @@ export default {
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
+    background-color #fbc434
     width 107px
     line-height 35px
     height 35px

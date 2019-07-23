@@ -1,89 +1,46 @@
 <template>
     <div>
-        <div class="navTitle">游戏账变记录</div>
-        <Form :model="orderHistoryList" :label-width="72" inline>
-            <FormItem label="彩种名称">
-                <Select v-model="orderHistoryList.lottery" style="width:140px">
-                    <Option v-for="(item,value) of lotteryList" :key="value" :value="value">{{item}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="投注模式">
-                <Select v-model="orderHistoryList.modes" style="width:140px">
-                    <Option v-for="(item,key) of lotteryModes" :key="key" :value="key">{{item}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="帐变类型">
-                <Select v-model="orderHistoryList.ordertypeid" style="width:140px">
-                    <Option value="-1">所有类型</Option>
-                    <Option
-                        v-for="item of ordertypeid"
-                        :key="item.id"
-                        :value="item.id"
-                    >{{item.cntitle}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="请选择日期">
+        <div class="navTitle">彩票契约分红</div>
+        <Form :model="orderHistoryList" :label-width="100" inline>
+            <FormItem >
+                <span slot="label">
+                    <Icon type="ios-search"/>
+                    查询:&nbsp&nbsp&nbsp日期:
+                </span>
                 <DatePicker
                     v-model="orderHistoryList.starttime"
                     format="yyyy-MM-dd HH:mm:ss"
                     type="datetimerange"
                     placeholder="请选择日期"
-                    style="width: 190px"
+                    style="width: 280px"
                 ></DatePicker>
-            </FormItem>
-            <FormItem label="下级用户名">
-                <Select
-                    placeholder="查询下级信息"
-                    v-model="orderHistoryList.username"
-                    style="width:140px"
-                >
-                    <Option
-                        v-for="(item,value) of userList"
-                        :key="value"
-                        :value="item.username"
-                    >{{item.username}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="下级">
-                <Checkbox true-value="1" false-value="0" v-model="orderHistoryList.includechild"></Checkbox>
             </FormItem>
             <Button class="button" @click="handleOrderHistory">查询</Button>
         </Form>
-
         <div class="content">
             <div class="title">
                 <h5>用户名</h5>
-                <h5>时间</h5>
-                <h5>帐变类型</h5>
-                <h5>彩种</h5>
-                <h5>玩法</h5>
-                <h5>投注模式</h5>
-                <h5>余额变动</h5>
-                <h5>余额</h5>
+                <h5>日期</h5>
+                <h5>亏损金额</h5>
+                <h5>获得工资百分比</h5>
+                <h5>分红金额</h5>
                 <h5>状态</h5>
             </div>
-
-            <ul class="list">
-                <li v-for="(item,value) of userHistory" :key="value">
-                    <span>{{item.username}}</span>
-                    <span>{{item.times}}</span>
-                    <span
-                        :class="{add:item.cntitle.indexOf('-')!='-1',less:item.cntitle.indexOf('-')=='-1'}"
-                    >{{item.cntitle}}</span>
-                    <span>{{item.cnname}}</span>
-                    <Tooltip
-                        max-width="400"
-                        :content="item.methodname"
-                    >{{item.methodname?item.methodname.slice(0,6):''}}{{(item.methodname&&item.methodname.length)>6?"...":''}}</Tooltip>
-                    <span>{{item.modes}}</span>
-                    <span>{{item.amount}}</span>
-                    <span>{{item.money}}</span>
-                    <span>{{item.transferstatus}}</span>
-                </li>
-            </ul>
+                <ul class="list">
+                    <li v-for="(item,value) of sharelist" :key="value">
+                        <span>{{item.username}}</span>
+                        <span>{{item.addtime}}</span>
+                        <span>{{item.lost_amount}}</span>
+                        <span>{{item.bonus}}</span>
+                        <span>{{item.gift_amount}}</span>
+                        <span>{{item.verify_status==1?'已领取':'-'}}</span>
+                    </li>
+                    <li v-if="pages<=orderHistoryList.p">
+                    </li>
+                </ul>
             <div class="total">
-                <span style="margin-left:20px;margin-right:420px">余额变动总计</span>
-                <span>{{totalMoney}}</span>
+                <span>亏损合计：{{`${Number(lost_amount).toFixed(2)}`}}</span>
+                <span>分红合计：{{`${Number(gift_amount).toFixed(2)}`}}</span>
             </div>
             <div class="pageBox">
                 <Page
@@ -115,47 +72,31 @@ import {
     Button,
     Checkbox,
     Page,
-    Tooltip
+    Icon
 } from 'iview'
 import {
-    getuserlottery,
-    getchildlist,
-    getorderhistory,
-    getallordertype
+    getmonthlycontractrecord,
 } from '@/api/index'
 export default {
-    name: 'gameHistory',
-    props: ['username'],
+    name: 'noGameHistory',
     data() {
         return {
             orderHistoryList: {
-                includechild: 0, //是否包含下級（0：不包含，1包含）
-                username: '', //用户名
-                ordertypeid: '-1', //帐变类型id
-                modes: '0', //投注模式
-                lottery: '-1', //彩种名称
                 starttime: '', //起始时间
-                pn: 10, //请求的数据记录数量
+                pn: 18, //请求的数据记录数量
                 p: 1 //请求的页面序号
             },
-            lotteryList: {}, //彩票id
-            lotteryModes: {
-                0: '所有模式',
-                1: '元',
-                2: '角',
-                3: '分'
-            }, //玩法id
-            userList: [],
             ordertypeid: [],
-            userHistory: [],
-            total: 0, //页数
-            datafinish: '数据已加载完',
-            totalMoney: 0 //余额变动
+            sharelist: [],
+            pages: 1, //页数
+            scroll: true, //把滚动条置顶
+            gift_amount: 0, //收入
+            lost_amount: 0,
+            total:0//页数
         }
     },
+
     methods: {
-        //跳转按钮
-        //跳转按钮
         handleGo() {
             let pageInput = this.$refs.page.$el
                     .getElementsByClassName('ivu-page-options-elevator')[0]
@@ -192,12 +133,15 @@ export default {
 
             // this.$refs.page.changePage()
         },
-        //切换显示条数
         changePn(value) {
             this.$set(this.orderHistoryList, 'pn', value)
             this.handleOrderHistory()
         },
         handleOrderHistory() {
+            this.scroll = false
+            this.$nextTick(() => {
+                this.scroll = true
+            })
             let orderHistoryList = { ...this.orderHistoryList }
             orderHistoryList.starttime = this.dataformat(
                 this.orderHistoryList.starttime[0]
@@ -207,15 +151,19 @@ export default {
             )
             orderHistoryList.p = 1
             this.$set(this.orderHistoryList, 'p', 1)
-            getorderhistory({ ...orderHistoryList }).then(res => {
-                if (res.data.page_data) {
-                    this.userHistory = [...res.data.page_data] //当前数据
-                    this.total = res.data.total_count //总条数
-                    this.totalMoney = res.data.money_change.toFixed(2) //金额格式化
-                } else {
-                    this.userHistory = []
-                    this.totalMoney = 0
+            getmonthlycontractrecord({ ...orderHistoryList }).then(res => {
+                if(res.data.page_data){
+                    this.sharelist = res.data.page_data
+                    this.total = res.data.record_count //总条数
+                    this.lost_amount = res.data.total_count['lost_amount']
+                    this.gift_amount = res.data.total_count['gift_amount']
+                }else{
+                    this.sharelist = []
+                    this.total = 0 //总条数
+                    this.lost_amount = 0
+                    this.gift_amount = 0
                 }
+                
             })
         },
         handleReachBottom(value) {
@@ -227,16 +175,19 @@ export default {
                 this.orderHistoryList.starttime[1]
             )
             orderHistoryList.p = value
-            getorderhistory({ ...orderHistoryList }).then(res => {
-                if (res.data.page_data) {
-                    this.userHistory = [...res.data.page_data] //当前数据
-                    this.total = res.data.total_count
-                    this.totalMoney = res.data.money_change.toFixed(2)
-                } else {
-                    this.userHistory = []
-                    this.total = 0
-                    this.totalMoney = 0
+            getmonthlycontractrecord({ ...orderHistoryList }).then(res => {
+                if(res.data.page_data){
+                    this.sharelist = res.data.page_data
+                    this.total = res.data.record_count //总条数
+                    this.lost_amount = res.data.total_count['lost_amount']
+                    this.gift_amount = res.data.total_count['gift_amount']
+                }else{
+                    this.sharelist = []
+                    this.total = 0 //总条数
+                    this.lost_amount = 0
+                    this.gift_amount = 0
                 }
+                
             })
         },
         dataformat(str) {
@@ -265,20 +216,6 @@ export default {
         }
     },
     mounted() {
-        //获取游戏帐变类型
-        getallordertype().then(res => {
-            this.ordertypeid = [...res.data]
-        })
-        getuserlottery().then(res => {
-            this.lotteryList = { ...res.data }
-            this.$set(this.lotteryList, -1, '所有游戏')
-        })
-        //获取用户下级
-        getchildlist().then(res => {
-            if (res.data) {
-                this.userList = [...res.data]
-            }
-        })
         this.handleOrderHistory()
     },
     components: {
@@ -290,7 +227,7 @@ export default {
         Button,
         Checkbox,
         Page,
-        Tooltip
+        Icon
     }
 }
 </script>
@@ -320,26 +257,22 @@ export default {
             text-align center
             color #fff
             font-size 14px
-            &:nth-child(1)
-                flex 0.8
-            &:nth-child(2)
-                flex 1.8
+            &:nth-child(1),&:nth-child(3)
+                flex 1.6
     .list
         height 590px
         overflow-y scroll
         li
             display flex
             margin-bottom 10px
+            align-items: center;
             span, >div
                 flex 1
                 text-align center
                 font-size 14px
-                line-height 50px
                 color #fff
-                &:nth-child(1)
-                    flex 0.8
-                &:nth-child(2)
-                    flex 1.8
+                &:nth-child(1),&:nth-child(3)
+                    flex 1.6
             .add
                 color #f00
             .less
@@ -397,7 +330,3 @@ export default {
         border none
         color #fff
 </style>
-
-
-
-

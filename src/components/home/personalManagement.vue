@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.onOff" class="dropDown" @mouseleave="close">
         <div class="box"></div>
-        <div class="title">你好，你这个糟老头子</div>
+        <div class="title">你好，{{$store.state.nickname}}</div>
         <ul>
             <router-link tag="li" to="/userCenter/agentManagement">个人中心</router-link>
             <li>代理管理</li>

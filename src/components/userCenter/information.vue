@@ -79,7 +79,7 @@
             <div v-show="!messageSendList.length">暂无数据...</div>
         </div>
         <div v-show="navIndex==3" class="content" style="padding:10px">
-            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="60">
+            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100" label-position="left">
                 <FormItem prop="childid" label="下级用户">
                     <Select v-model="formInline.childid">
                         <Option
@@ -89,7 +89,7 @@
                         >{{item.username}}</Option>
                     </Select>
                 </FormItem>
-                <FormItem prop="subject" label="信息标题">
+                <FormItem prop="subject" label="信息标题" >
                     <Input type="text" v-model="formInline.subject" placeholder="请输入标题" />
                 </FormItem>
                 <FormItem prop="content" label="消息内容">
@@ -101,13 +101,13 @@
                     ></Input>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" @click="handleSubmit('formInline')">发送</Button>
-                    <Button style="margin-left:20px" type="primary" @click="handleInit">重置</Button>
+                    <Button size="large" shape="circle" type="error" @click="handleSubmit('formInline')">发送</Button>
+                    <Button style="margin-left:20px"  @click="handleInit">重置</Button>
                 </FormItem>
             </Form>
         </div>
         <div v-show="navIndex==4" class="content" style="padding:10px">
-            <Form ref="parentsLine" :model="parentsLine" :rules="ruleParents" :label-width="60">
+            <Form ref="parentsLine" :model="parentsLine" :rules="ruleParents" :label-width="100">
                 <FormItem prop="subject" label="信息标题">
                     <Input type="text" v-model="parentsLine.subject" placeholder="请输入标题" />
                 </FormItem>
@@ -120,8 +120,8 @@
                     ></Input>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" @click="handleSubmitLine('parentsLine')">发送</Button>
-                    <Button style="margin-left:20px" type="primary" @click="handleParentsLine">重置</Button>
+                    <Button shape="circle" type="error" @click="handleSubmitLine('parentsLine')">发送</Button>
+                    <Button shape="circle" style="margin-left:20px" @click="handleParentsLine">重置</Button>
                 </FormItem>
             </Form>
         </div>
@@ -131,7 +131,7 @@
                 ref="replyLine"
                 :model="replyLine"
                 :rules="ruleReplyLine"
-                :label-width="60"
+                :label-width="100"
             >
                 <Icon @click="close" class="close" type="md-close-circle" />
                 <FormItem prop="subject" label="信息标题">
@@ -146,8 +146,8 @@
                     ></Input>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" @click="handleReply('replyLine')">发送</Button>
-                    <Button style="margin-left:20px" type="primary" @click="handleInitReply">重置</Button>
+                    <Button shape="circle"  type="primary" @click="handleReply('replyLine')">发送</Button>
+                    <Button shape="circle"  style="margin-left:20px" type="primary" @click="handleInitReply">重置</Button>
                 </FormItem>
             </Form>
         </div>
@@ -578,6 +578,23 @@ export default {
 <style lang="stylus" scoped>
 .information
     position relative
+    >>>.ivu-menu-item
+        background #000
+        color #fff !important
+        margin-right 8px
+        height 40px
+        line-height 40px
+        width 130px
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+        text-align center
+        &.ivu-menu-item-active
+            background #ea2f4c
+            border-bottom none
+    >>>.ivu-menu
+        height 40px
+    >>>.ivu-btn
+        width 100px
     .reply
         position absolute
         z-index 100
@@ -598,9 +615,12 @@ export default {
             position relative
             overflow hidden
 .content
-    background #f2f2f2
     height 500px
     overflow-y auto
+    >>>.ivu-collapse
+        background #fff
+    >>>.ivu-form-item-label
+        text-align left
     .box
         display inline-block
         width 15px
@@ -628,4 +648,5 @@ export default {
     position absolute
     right 0
     top 0
+
 </style>

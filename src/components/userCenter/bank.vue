@@ -6,6 +6,7 @@
                     <Icon type="ios-card"></Icon>我的银行卡
                 </p>
                 <Button
+                    shape="circle"
                     v-if="item.islock==1"
                     type="error"
                     href="#"
@@ -90,7 +91,7 @@
                 </Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" long @click="handleSubmit('formInline')">设置银行卡</Button>
+                <Button shape="circle" type="error" long @click="handleSubmit('formInline')">设置银行卡</Button>
             </FormItem>
         </Form>
     </div>
@@ -241,6 +242,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.bank
+    padding: 20px 
 .contentText
     padding 10px
 </style>

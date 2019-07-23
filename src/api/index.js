@@ -447,3 +447,17 @@ export const getwinner = formData =>
         url: 'default/getwinnerlist',
         data: qs.stringify(formData)
     })
+//获取彩票日工资契约
+export const getdailycontractrecord = formData =>
+    service.request({
+        method: 'post',
+        url: 'contract/getdailycontractrecord',
+        data: qs.stringify(formData)
+    })
+//获取分红契约记录
+export const getmonthlycontractrecord = formData =>
+    service.request({
+        method: 'post',
+        url: 'contract/getmonthlycontractrecord',
+        data: qs.stringify(formData)
+    })

@@ -2,14 +2,14 @@
   <div class="personalMangagement">
     <div class="title">
         <div>
-            <span class="name">devpeter</span>
+            <span class="name">{{$store.state.nickname}}</span>
             <div>
                 <span>彩票返点：</span>
                 <span>7.8%</span>
             </div>
             <div>
                 <span>彩票余额：</span>
-                <span>0.00000%</span>
+                <span>{{$store.state.money}}</span>
                 <Icon style="margin-top: -5px;margin-left: 5px;" type="ios-refresh" size="20" color="#fff"/>
             </div>
         </div>
@@ -121,7 +121,7 @@
               </div>
           </li>
       </ul>
-        <Modal v-model="alert" @on-visible-change="updateList">
+        <Modal :class="{notice:alertComponent=='notice'}" width="640" v-model="alert">
             <p slot="header" class="alertHeader">
                 <span>{{alertTitle}}</span>
             </p>
@@ -173,6 +173,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.notice
+    >>>.ivu-modal
+        width: 1040px !important
+        position: relative;
+        .ivu-modal-body
+            padding 0
+            max-width: 370px
+        .ivu-modal-header
+            max-width: 370px
+>>>.ivu-modal-content
+    border-radius 0
 >>>.ivu-modal-header
     background #000
     p

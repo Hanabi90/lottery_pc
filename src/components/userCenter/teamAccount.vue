@@ -1,5 +1,5 @@
 <template>
-    <div style="width:90%" class="teamAccount">
+    <div class="teamAccount">
         <Table :columns="columns1" :data="data1"></Table>
     </div>
 </template>
@@ -46,4 +46,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.teamAccount
+    width 500px
+</style>

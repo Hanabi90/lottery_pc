@@ -78,7 +78,7 @@
                     <span>{{item.modes}}</span>
                     <span>{{item.amount}}</span>
                     <span>{{item.money}}</span>
-                    <span>{{item.transferstatus}}</span>
+                    <span>{{item.transferstatus==2?'成功':'- -'}}</span>
                 </li>
             </ul>
             <div class="total">

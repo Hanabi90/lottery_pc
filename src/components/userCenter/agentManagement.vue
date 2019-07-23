@@ -1,11 +1,6 @@
 <template>
     <div style="position:relative">
         <div class="navTitle">团队推广</div>
-        <!-- <GameHistory v-if="gameHistory" :username="username" />
-        <TeamAccount v-else-if="teamAccount" :uid="pointUserId" />
-        <SetPoint v-else-if="setPoint" :uid="pointUserId" />
-        <Reputation v-else-if="reputation" :uid="pointUserId" />
-        <SubordinateRecharge v-else-if="subordinateRecharge" :uid="pointUserId" />-->
         <div>
             <div class="content" style="padding:15px">
                 <div v-if="navIndex==1" class="team">
@@ -41,8 +36,14 @@
                             class="button"
                             style="margin:0 10px;letter-spacing:0"
                             type="primary"
+                            @click="handleAlert('','OpenAccount','注册用户')"
                         >注册用户</Button>
-                        <Button class="button" style="letter-spacing:0" type="primary">推广链接</Button>
+                        <Button
+                            @click="handleAlert('','OpenLine','推广链接')"
+                            class="button"
+                            style="letter-spacing:0"
+                            type="primary"
+                        >推广链接</Button>
                         <FormItem :label-width="20">
                             <Breadcrumb separator="<b class='demo-breadcrumb-separator'>></b>">
                                 <BreadcrumbItem
@@ -124,12 +125,12 @@
                 </div>
             </div>
         </div>
-        <Modal v-model="alert" @on-visible-change="updateList">
+        <Modal v-model="alert" @on-visible-change="updateList" :width="60">
             <p slot="header" class="alertHeader">
                 <span>{{alertTitle}}</span>
             </p>
             <div>
-                <component v-if="alert" :uid="pointUserId" :is="alertComponent"></component>
+                <component style="margin:auto" v-if="alert" :uid="pointUserId" :is="alertComponent"></component>
             </div>
             <div slot="footer"></div>
         </Modal>
@@ -152,7 +153,8 @@ import SetPoint from './setPoint'
 import TeamAccount from './teamAccount'
 import Reputation from './reputation'
 import SubordinateRecharge from './subordinateRecharge'
-import OpenAccountLine from './openAccountLine'
+import OpenAccount from './openAccount'
+import OpenLine from './openLine'
 import TeamProfitLossStatement from './teamProfitLossStatement'
 export default {
     name: 'agentManagement',
@@ -323,9 +325,10 @@ export default {
         TeamAccount,
         Reputation,
         SubordinateRecharge,
-        OpenAccountLine,
+        OpenAccount,
         TeamProfitLossStatement,
-        Modal
+        Modal,
+        OpenLine
     }
 }
 </script>
@@ -342,6 +345,10 @@ export default {
     margin-bottom 20px
 >>>.ivu-form .ivu-form-item-label
     color #fff
+>>>.ivu-modal
+    width -webkit-max-content !important
+    width -moz-max-content !important
+    width max-content !important
 .teamCenter
     border-radius 3px
     overflow hidden

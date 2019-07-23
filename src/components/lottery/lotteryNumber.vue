@@ -1,46 +1,5 @@
 <template>
     <div class="lotteryNumber">
-        <div class="numberTitle">
-            <h5>{{methodList.title}}：{{methodList.name}}</h5>
-            <!-- <p class="switcher">
-                <span
-                    :class="value==switcherNow?'active':''"
-                    v-for=" (item,value) of switcher"
-                    :key="value"
-                    @click="change(value)"
-                >{{value}}</span>
-            </p>
-            <p class="switcherList">
-                <span
-                    :class="value==0?'activeList':''"
-                    v-for="(item,value) of switcher[switcherNow]"
-                    :key="item"
-                >{{item}}</span>
-            </p>-->
-            <div>
-                <p>
-                    <Tooltip transfer max-width="300" :content="methodList.methoddesc">
-                        <i></i>
-                        <span>说明</span>
-                    </Tooltip>
-                </p>
-                <p>
-                    <Tooltip transfer max-width="300" :content="methodList.methodexample">
-                        <i></i>
-                        <span>示例</span>
-                    </Tooltip>
-                </p>
-                <p>
-                    <Tooltip transfer max-width="300" :content="methodList.methodhelp">
-                        <i></i>
-                        <span>帮助</span>
-                    </Tooltip>
-                </p>
-                <p>
-                    <button>经典版</button>
-                </p>
-            </div>
-        </div>
         <ul class="number_container">
             <li
                 v-if="quickUpload.has(methodList.name)||quickUpload.has(methodList.title)"
@@ -65,11 +24,24 @@
                     ></Input>
                 </div>
                 <div>
-                    <Button type="warning" icon="ios-nuclear">删除重复号码</Button>
+                    <Button
+                        style="color:#fff;background:#666666;border:none"
+                        type="warning"
+                        icon="ios-nuclear"
+                    >删除重复号码</Button>
                     <Upload action :before-upload="handleUpload" :show-upload-list="false">
-                        <Button type="warning" icon="ios-cloud-upload-outline">导入文件</Button>
+                        <Button
+                            style="color:#fff;background:#666666;border:none"
+                            type="warning"
+                            icon="ios-cloud-upload-outline"
+                        >导入文件</Button>
                     </Upload>
-                    <Button @click="handleClear" type="warning" icon="ios-trash">清空</Button>
+                    <Button
+                        style="color:#fff;background:#666666;border:none"
+                        @click="handleClear"
+                        type="warning"
+                        icon="ios-trash"
+                    >清空</Button>
                 </div>
             </li>
             <!-- 五组 -->
@@ -120,7 +92,7 @@
 </template>
 
 <script>
-import { Tooltip, Input, Upload, Button, Checkbox } from 'iview'
+import { Input, Upload, Button, Checkbox } from 'iview'
 export default {
     name: 'lotteryNumber',
     props: {
@@ -702,6 +674,7 @@ export default {
             } else {
                 arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
             }
+            console.log(this.groupType, this.menuId)
             switch (lable) {
                 case '全':
                     let count = []
@@ -756,7 +729,6 @@ export default {
         }
     },
     components: {
-        Tooltip,
         Input,
         Upload,
         Button,
@@ -768,82 +740,10 @@ export default {
 <style lang="stylus" scoped>
 .lotteryNumber
     min-height 320px
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    background #333
     border-bottom 1px solid #1a1a1a
-    .numberTitle
-        padding 10px 20px
-        border-top 1px solid #424242
-        overflow hidden
-        h5
-            float left
-            background #ff632c
-            color #fff
-            padding 4px 10px
-            border-radius 3px
-            position relative
-            &::after
-                content ''
-                display block
-                position absolute
-                width 0
-                height 0
-                border-style solid
-                border-width 10px 10px 0 10px
-                border-color #ff632c transparent transparent transparent
-                bottom -8px
-                left calc(50% - 10px)
-        .switcher
-            display flex
-            border-top 1px solid #191919
-            border-bottom 1px solid #424242
-            border-radius 3px
-            background #313131
-            float left
-            margin-left 20px
-            height 26px
-            width 100px
-            line-height 26px
-            color #c4c4c4
-            &>span
-                flex 1
-                text-align center
-            &>span.active
-                background #ff632c
-                color #fff
-        .switcherList
-            float left
-            height 26px
-            line-height 26px
-            margin-left 10px
-            &>span
-                margin-right 10px
-            &>span.activeList
-                color #ff632c
-        &>div
-            float right
-            overflow hidden
-            p
-                float left
-                .ivu-tooltip
-                    color #ccc
-                    margin-right 16px
-                    display inline-block
-                    line-height 28px
-                    font-size 14px
-                i
-                    background url('../../assets/images/icon_sm_group.png') no-repeat
-                    display inline-block
-                    width 17px
-                    height 17px
-                    margin-bottom -4px
-                    margin-right 5px
-                button
-                    background #a96b94
-                    border none
-                    padding 4px 10px
-                    color #fff
-                    border-radius 3px
     .number_container
+        overflow hidden
         padding 0 20px 20px
         li
             margin-top 16px
@@ -864,7 +764,7 @@ export default {
             font-size 14px
             margin-bottom 10px
             h5
-                flex 0.1
+                flex 0.15
             &>div
                 flex 1
                 display flex
@@ -880,7 +780,7 @@ export default {
                     margin-right 8px
                     text-align center
                     &.active
-                        background #3f74b5
+                        background #ea314e
         .supplement
             overflow hidden
             margin-bottom 10px

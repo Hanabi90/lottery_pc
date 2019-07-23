@@ -55,10 +55,10 @@
             </span>
             <span>
                 <i>追号总金额</i>
-                <i>{{total.totalMoney}}</i>
+                <i style="margin:0 10px">{{total.totalMoney}}</i>
                 <i>元</i>
                 <i style="margin-left:10px">总期数</i>
-                <i>{{total.totalIssue}}</i>
+                <i style="margin:0 10px">{{total.totalIssue}}</i>
                 <i>期</i>
             </span>
         </div>
@@ -165,10 +165,11 @@ export default {
                     const item = this.list[index]
                     if (item.active) {
                         total.totalIssue++
-                        total.totalMoney += item.money
+                        total.totalMoney += Number(item.money)
                     }
                 }
             }
+            total.totalMoney = total.totalMoney.toFixed(2)
             return total
         }
     },
@@ -218,7 +219,7 @@ export default {
                             issue: issue[index],
                             multiple: multiple,
                             money: this.orderList.totalMoney * multiple,
-                            totalNowMoney: total //累计金额
+                            totalNowMoney: total.toFixed(2) //累计金额
                         })
                     }
                     this.list = [...list]
@@ -269,7 +270,8 @@ export default {
                 if (index) {
                     item.money = item.multiple * this.orderList.totalMoney
                     item.totalNowMoney =
-                        this.list[index - 1].totalNowMoney + item.money
+                        Number(this.list[index - 1].totalNowMoney) +
+                        Number(item.money)
                     if (this.zhuihao == 1) {
                         item.bonues = (
                             this.$store.state.bonues * item.multiple
@@ -285,6 +287,7 @@ export default {
                 } else {
                     item.money = item.totalNowMoney =
                         item.multiple * this.orderList.totalMoney
+
                     if (this.zhuihao == 1) {
                         item.bonues = (
                             this.$store.state.bonues * item.multiple
@@ -298,19 +301,22 @@ export default {
                         ).toFixed(2)}%`
                     }
                 }
+                item.money = item.money.toFixed(2)
+                item.totalNowMoney = item.totalNowMoney.toFixed(2)
             })
+
             this.$set(this.list, this.list)
         },
         //处理利润路追号
         handleProfitMargin(issue, leg, multiple, index, list) {
             //单笔金额
-            let itemMoney = this.orderList.totalMoney,
+            let itemMoney = Number(this.orderList.totalMoney),
                 //利润率
-                lt_trace_margin = this.lt_trace_margin,
+                lt_trace_margin = Number(this.lt_trace_margin),
                 //累计总金额
                 totalNowMoney = list.length
-                    ? list[index - 1].totalNowMoney
-                    : itemMoney,
+                    ? Number(list[index - 1].totalNowMoney)
+                    : Number(itemMoney),
                 times = 0
             this.$store.state.orderList.forEach(item => {
                 times += item.times
@@ -344,7 +350,10 @@ export default {
                     )
                 }
                 let itemTotalNowMoney = index
-                        ? itemMoney * multiple + list[index - 1].totalNowMoney
+                        ? Number(
+                              itemMoney * multiple +
+                                  Number(list[index - 1].totalNowMoney)
+                          )
                         : itemMoney * multiple,
                     itemProfit = index
                         ? bonues * multiple -
@@ -356,8 +365,8 @@ export default {
                     issue: issue[index],
                     multiple: multiple,
                     bonues: (bonues * multiple).toFixed(2),
-                    money: itemMoney * multiple,
-                    totalNowMoney: itemTotalNowMoney,
+                    money: (itemMoney * multiple).toFixed(2),
+                    totalNowMoney: itemTotalNowMoney.toFixed(2),
                     profit: itemProfit.toFixed(2),
                     profitability: `${(
                         (itemProfit / itemTotalNowMoney) *
@@ -386,7 +395,7 @@ export default {
 <style lang="stylus" scoped>
 .trace
     clear both
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    background #202020
     .content
         overflow hidden
         padding 10px 0

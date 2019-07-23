@@ -20,15 +20,15 @@
         </div>
         <div class="order_right">
             <span>已选</span>
-            <span>{{orders}}</span>
+            <span style="color:#ea314e">{{orders}}</span>
             <span>注</span>
             <span>共</span>
-            <span>{{money}}</span>
+            <span style="color:#ea314e">{{money}}</span>
             <span>元</span>
             <span>奖金</span>
-            <span>{{bonus.prizeSort?(bonus.prizeSort[0]+'-'+bonus.prizeSort[bonus.prizeSort.length-1]):bonus}}</span>
+            <span style="color:#ea314e">{{bonus.prizeSort?(bonus.prizeSort[0]+'-'+bonus.prizeSort[bonus.prizeSort.length-1]):bonus}}</span>
             <button class="buttonColor" @click="submint">一键投注</button>
-            <button @click="addOrder">添加投注</button>
+            <button style="background:#6e8df9" @click="addOrder">添加投注</button>
         </div>
     </div>
 </template>
@@ -1379,7 +1379,7 @@ export default {
 
 <style lang="stylus" scoped>
 .order
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    background #202020
     height 100px
     border-top 1px solid #464646
     overflow hidden
@@ -1403,18 +1403,17 @@ export default {
             box-shadow 0 3px 4px #1f1d1d
             &.active
                 color #fff
-                background #ff632c
+                background #ea314e
         .multiple
             float left
             margin-left 20px
             position relative
             overflow hidden
-            box-shadow 0 3px 4px #1f1d1d
             input, div
                 float left
             input
                 background #312e2e
-                border 1px solid #ff632c
+                border 1px solid #ea314e
                 color #fff
                 height 26px
                 width 80px
@@ -1436,7 +1435,7 @@ export default {
                 line-height 13px
                 width 40px
                 text-align center
-                background #ff632c
+                background #ea314e
                 &:first-child
                     border-bottom 1px solid #e24c17
     .order_right

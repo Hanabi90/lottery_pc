@@ -1,7 +1,13 @@
 <template>
     <div class="box">
         <div class="activityList">
-            <Menu class="user" ref="user" mode="vertical" :active-name="0" @on-select="handleInfo">
+            <Menu
+                class="user"
+                ref="user"
+                mode="vertical"
+                :active-name="activeName"
+                @on-select="handleInfo"
+            >
                 <MenuItem
                     v-for="(item,index) of activityList"
                     :key="index"
@@ -25,7 +31,8 @@ export default {
         return {
             activityList: [], //活动列表
             activityInfo: '', //活动详情
-            onOff: false
+            onOff: false,
+            activeName: 0
         }
     },
     mounted() {
@@ -35,7 +42,12 @@ export default {
                 this.$refs.user.updateOpened()
                 this.$refs.user.updateActiveName()
             })
-            this.handleInfo(0)
+            if (this.$route.query.index) {
+                this.handleInfo(this.$route.query.index)
+                this.activeName = Number(this.$route.query.index)
+            } else {
+                this.handleInfo(0)
+            }
         })
     },
     methods: {
@@ -60,6 +72,7 @@ export default {
     width 1200px
     margin auto
     overflow hidden
+    margin-bottom 40px
     .activityList
         border-radius 3px
         overflow hidden
@@ -69,6 +82,20 @@ export default {
         padding-top 20px
         .user
             flex 0.2
+        >>>.ivu-menu-light
+            background none
+            &::after
+                width 0
+                height 0
+            .ivu-menu-item
+                border 1px solid #333333
+                border-radius 5px
+                margin-bottom 10px
+                background #202020
+                color #fff
+        >>>.ivu-menu-item-active:not(.ivu-menu-submenu)
+            background #ea2f4c
+            color #fff
         .info
             flex 0.8
             line-height 30px
@@ -76,6 +103,8 @@ export default {
             overflow hidden
             font-size 14px
             padding 20px
+            margin-left 10px
+            background #202020
             .infoContent>>>table
                 width 100%
 </style>

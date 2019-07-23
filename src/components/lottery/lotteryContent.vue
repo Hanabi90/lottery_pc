@@ -1,29 +1,24 @@
 <template>
     <div class="lottery">
-        <Sidebar v-if="false"/>
+        <Sidebar v-if="false" />
         <div class="container">
             <div>
                 <div class="lottery_show_container">
-                    <LotteryShow/>
+                    <LotteryShow />
+                    <LotteryGroup ref="lotteryGroup" />
                 </div>
                 <div class="tools_container">
-                    <Tool/>
-                </div>
-                <div class="lottery_show_container">
-                    <LotteryGroup ref="lotteryGroup"/>
-                </div>
-                <div class="tools_container">
-                    <PrizeList/>
-                    <Bulletin/>
+                    <PrizeList />
+                    <Bulletin />
                 </div>
             </div>
-            <LotteryOrderList ref="orderList"/>
+            <LotteryOrderList ref="orderList" />
             <Trace
                 ref="traceList"
                 :order-list="this.$refs.orderList"
                 v-if="this.$store.state.trace"
             />
-            <OrderHistory/>
+            <OrderHistory />
         </div>
     </div>
 </template>
@@ -31,7 +26,6 @@
 <script>
 import Sidebar from '@/components/lottery/sidebar.vue'
 import LotteryShow from '@/components/lottery/lotteryShow.vue'
-import Tool from '@/components/lottery/tool.vue'
 import LotteryGroup from '@/components/lottery/lotteryGroup.vue'
 import PrizeList from '@/components/lottery/prizeList.vue'
 import Bulletin from '@/components/lottery/bulletin.vue'
@@ -46,7 +40,6 @@ export default {
     components: {
         Sidebar,
         LotteryShow,
-        Tool,
         LotteryGroup,
         PrizeList,
         Bulletin,
@@ -61,7 +54,6 @@ export default {
 .lottery
     overflow hidden
     padding-bottom 40px
-    background url('../../assets/images/main_bg_001.png')
 .container
     width 1200px
     margin auto

@@ -9,7 +9,11 @@
             <li>注数</li>
             <li>金额</li>
             <li>
-                <Button @click="handleClear" type="primary">清空</Button>
+                <Button
+                    style="background:#ea314e;border-color:#ea314e"
+                    @click="handleClear"
+                    type="primary"
+                >删除</Button>
             </li>
         </ul>
         <div class="content">
@@ -197,7 +201,7 @@ export default {
 <style lang="stylus" scoped>
 .lotteryOrderList
     clear both
-    background url('../../assets/images/ssc-repeat_001.jpg')
+    background #202020
     .content
         max-height 200px
         overflow-y scroll
@@ -217,7 +221,7 @@ export default {
                 &:first-child
                     flex 1.5
     .orderTitle
-        background #505050
+        background #000
         border-bottom 1px solid #313131
         display flex
         padding-right 18px
@@ -264,7 +268,7 @@ export default {
             button
                 height 42px
                 border none
-                background #ff6000
+                background #ea2f4c
                 margin 0 10px
                 color #fff
                 padding 0 20px

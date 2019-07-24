@@ -243,7 +243,7 @@ export default {
 
 <style lang="stylus" scoped>
 .bank
-    padding: 20px 
+    padding 20px
 .contentText
     padding 10px
 </style>

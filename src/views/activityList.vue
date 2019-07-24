@@ -27,6 +27,7 @@ import { getactivitylist, getactivityinfo } from '@/api/index'
 import { Menu, MenuItem } from 'iview'
 export default {
     name: 'activityList',
+    props: ['navindex'],
     data() {
         return {
             activityList: [], //活动列表

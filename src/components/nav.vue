@@ -30,7 +30,7 @@
                                     type="md-arrow-dropdown"
                                     style="font-size:16px;color:#ecc04a;height: 25px;"
                                 />
-                                <span class="member"></span>
+                                <!-- <span class="member"></span> -->
                             </div>
                             <div class="money_content_div">
                                 <span>余额:</span>
@@ -205,7 +205,7 @@ export default {
                 this.$store.dispatch('handleLotteryMenue', { ...res.data })
             })
         }
-
+        this.changeNavIndex()
         EventBus.$on('updateNaveIndex', () => {
             this.changeNavIndex()
         })
@@ -241,6 +241,7 @@ export default {
         },
         //清除激活样式
         clearActive() {
+            sessionStorage.setItem('navIndex', 0)
             for (
                 let index = 0;
                 index < this.$refs.navList.childNodes.length;

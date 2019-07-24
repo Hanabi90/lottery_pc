@@ -357,7 +357,8 @@ export default {
                         : itemMoney * multiple,
                     itemProfit = index
                         ? bonues * multiple -
-                          (itemMoney * multiple + list[index - 1].totalNowMoney)
+                          (itemMoney * multiple +
+                              Number(list[index - 1].totalNowMoney))
                         : bonues * multiple - itemMoney * multiple
                 list[index] = {
                     active: true,

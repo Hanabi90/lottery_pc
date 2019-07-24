@@ -180,7 +180,7 @@ export default {
                 bank_min: '',
                 bank_max: '',
                 p: 1,
-                pn: 15
+                pn: 10
             },
             teamList: [],
             istop: '', //是否是vip类型

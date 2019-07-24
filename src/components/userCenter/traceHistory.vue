@@ -1,86 +1,91 @@
 <template>
     <div>
         <div class="navTitle">游戏追号记录</div>
-        <Form :model="orderHistoryList" :label-width="72" inline>
-            <FormItem label="彩种名称">
-                <Select
-                    v-model="orderHistoryList.lotteryid"
-                    style="width:110px"
-                    @on-change="getMethods"
-                >
-                    <Option v-for="(item,value) of lotteryList" :key="value" :value="value">{{item}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="游戏玩法">
-                <Select v-model="orderHistoryList.methodid" style="width:120px">
-                    <Option value="0">所有玩法</Option>
-                    <Option
-                        v-for="(item,index) of lotteryMethodList"
-                        :key="index"
-                        :value="item.methodid"
-                    >{{item.methodname}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="追号状态">
-                <Select v-model="orderHistoryList.taskstatus" style="width:100px">
-                    <Option
-                        v-for="item of tasksList"
-                        :key="item.value"
-                        :value="item.value"
-                    >{{item.text}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="类型">
-                <Select v-model="orderHistoryList.userpointtype" style="width:100px">
-                    <Option
-                        v-for="item of userpointtypeList"
-                        :key="item.value"
-                        :value="item.value"
-                    >{{item.text}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="下级用户名">
-                <Select
-                    placeholder="查询下级信息"
-                    v-model="orderHistoryList.username"
-                    style="width:120px"
-                >
-                    <Option
-                        v-for="(item,value) of userList"
-                        :key="value"
-                        :value="item.username"
-                    >{{item.username}}</Option>
-                </Select>
-            </FormItem>
-            <FormItem label="彩种奖期">
-                <Input v-model="orderHistoryList.issue" placeholder="请选择"></Input>
-            </FormItem>
-            <FormItem label="请选择日期">
-                <DatePicker
-                    v-model="orderHistoryList.starttime"
-                    format="yyyy-MM-dd HH:mm:ss"
-                    type="datetimerange"
-                    placeholder="请选择日期"
-                    style="width: 280px"
-                ></DatePicker>
-            </FormItem>
-            <FormItem label="下级">
-                <Checkbox true-value="1" false-value="0" v-model="orderHistoryList.include"></Checkbox>
-            </FormItem>
-            <Button class="button" @click="handleOrderHistory">查询</Button>
-        </Form>
-        <div class="content">
-            <div class="title">
-                <h5>追号时间</h5>
-                <h5>用户</h5>
-                <h5>彩种</h5>
-                <h5>开始期数</h5>
-                <h5>追号内容</h5>
-                <h5>追号总金额</h5>
-                <h5>中奖后终止</h5>
-                <h5>追号状态</h5>
-                <h5>操作</h5>
-            </div>
+        <div v-if="!detailedOnoff">
+            <Form :model="orderHistoryList" :label-width="72" inline>
+                <FormItem label="彩种名称">
+                    <Select
+                        v-model="orderHistoryList.lotteryid"
+                        style="width:110px"
+                        @on-change="getMethods"
+                    >
+                        <Option
+                            v-for="(item,value) of lotteryList"
+                            :key="value"
+                            :value="value"
+                        >{{item}}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="游戏玩法">
+                    <Select v-model="orderHistoryList.methodid" style="width:120px">
+                        <Option value="0">所有玩法</Option>
+                        <Option
+                            v-for="(item,index) of lotteryMethodList"
+                            :key="index"
+                            :value="item.methodid"
+                        >{{item.methodname}}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="追号状态">
+                    <Select v-model="orderHistoryList.taskstatus" style="width:100px">
+                        <Option
+                            v-for="item of tasksList"
+                            :key="item.value"
+                            :value="item.value"
+                        >{{item.text}}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="类型">
+                    <Select v-model="orderHistoryList.userpointtype" style="width:100px">
+                        <Option
+                            v-for="item of userpointtypeList"
+                            :key="item.value"
+                            :value="item.value"
+                        >{{item.text}}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="下级用户名">
+                    <Select
+                        placeholder="查询下级信息"
+                        v-model="orderHistoryList.username"
+                        style="width:120px"
+                    >
+                        <Option
+                            v-for="(item,value) of userList"
+                            :key="value"
+                            :value="item.username"
+                        >{{item.username}}</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="彩种奖期">
+                    <Input v-model="orderHistoryList.issue" placeholder="请选择"></Input>
+                </FormItem>
+                <FormItem label="请选择日期">
+                    <DatePicker
+                        v-model="orderHistoryList.starttime"
+                        format="yyyy-MM-dd HH:mm:ss"
+                        type="datetimerange"
+                        placeholder="请选择日期"
+                        style="width: 280px"
+                    ></DatePicker>
+                </FormItem>
+                <FormItem label="下级">
+                    <Checkbox true-value="1" false-value="0" v-model="orderHistoryList.include"></Checkbox>
+                </FormItem>
+                <Button class="button" @click="handleOrderHistory">查询</Button>
+            </Form>
+            <div class="content">
+                <div class="title">
+                    <h5>追号时间</h5>
+                    <h5>用户</h5>
+                    <h5>彩种</h5>
+                    <h5>开始期数</h5>
+                    <h5>追号内容</h5>
+                    <h5>追号总金额</h5>
+                    <h5>中奖后终止</h5>
+                    <h5>追号状态</h5>
+                    <h5>操作</h5>
+                </div>
                 <ul class="list">
                     <li v-for="(item,value) of userHistory" :key="value">
                         <span>{{item.updatetime}}</span>
@@ -95,46 +100,41 @@
                         >{{item.status==0?'进行中':'已完成'}}</span>
                         <span>
                             <Button
-                            @click="getDetailed(item.taskid)"
-                            style="height:30px;margin-top:-6px;padding:0;width: 80px;"
-                            type="primary"
+                                @click="getDetailed(item.taskid)"
+                                style="height:30px;margin-top:-6px;padding:0;width: 80px;"
+                                type="primary"
                             >详情</Button>
                         </span>
                     </li>
-                    
                 </ul>
                 <div class="totalList">
-                <span>取消总金额：{{total_cancelprice}}</span>
-                <span>完成总金额：{{total_finishprice}}</span>
-                <span>追号总金额：{{total_taskprice}}</span>
-            </div>
-            <div class="pageBox">
-                <Page
-                    ref="page"
-                    show-total
-                    :show-sizer="true"
-                    show-elevator
-                    size="small"
-                    transfer
-                    :page-size="this.orderHistoryList.pn"
-                    @on-change="handleReachBottom"
-                    @on-page-size-change="changePn"
-                    :total="Number(total)"
-                    class="page"
-                />
-                <Button @click="handleGo" class="btn">Go</Button>
+                    <span>取消总金额：{{total_cancelprice}}</span>
+                    <span>完成总金额：{{total_finishprice}}</span>
+                    <span>追号总金额：{{total_taskprice}}</span>
+                </div>
+                <div class="pageBox">
+                    <Page
+                        ref="page"
+                        show-total
+                        :show-sizer="true"
+                        show-elevator
+                        size="small"
+                        transfer
+                        :page-size="this.orderHistoryList.pn"
+                        @on-change="handleReachBottom"
+                        @on-page-size-change="changePn"
+                        :total="Number(total)"
+                        class="page"
+                    />
+                    <Button @click="handleGo" class="btn">Go</Button>
+                </div>
             </div>
         </div>
-        <div v-if="detailedOnoff" class="listContent" style="height:560px">
+        <div v-else class="listContent" style="height:950px">
             <Table width="100%" border :columns="columns2" :data="detailedTask"></Table>
-            <Table border ref="selection" :columns="columns4" :data="detailedList"></Table>
+            <Table border ref="selection" :columns="columns4" :data="detailedList" height="810"></Table>
         </div>
-        <Button
-            v-if="detailedOnoff"
-            @click="back"
-            style="float:right;margin-top:10px"
-            type="primary"
-        >返回</Button>
+        <Button v-if="detailedOnoff" @click="back" class="back" type="primary">返回</Button>
     </div>
 </template>
 
@@ -173,9 +173,9 @@ export default {
                 lotteryid: '0', //彩种名称
                 starttime: '', //起始时间
                 pn: 18, //请求的数据记录数量
-                p: 1, //请求的页面序号
+                p: 1 //请求的页面序号
             },
-            total:0,
+            total: 0,
             tasksList: [
                 { value: '-1', text: '所有状态' },
                 { value: '0', text: '进行中' },
@@ -607,7 +607,7 @@ export default {
         li
             display flex
             margin-bottom 10px
-            align-items: center;
+            align-items center
             span, >div
                 flex 1
                 text-align center
@@ -651,13 +651,16 @@ export default {
     text-indent 10px
     letter-spacing 10px
 .listContent
-    width 100%
-    height 100%
-    position absolute
-    top 0
-    z-index 2
-    overflow-y scroll
-    background #fff
+    width 975px
+    border-left 1px solid #fff
+    >>>.ivu-table th
+        background #000
+        color #fff
+    >>>.ivu-table td
+        background #202020
+        color #fff
+    >>>.ivu-table
+        background none
 .pageBox
     overflow hidden
     text-align center
@@ -687,4 +690,8 @@ export default {
         background-color rgb(234, 47, 76)
         border none
         color #fff
+.back
+    position absolute
+    right 10px
+    top 10px
 </style>

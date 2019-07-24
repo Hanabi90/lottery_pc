@@ -188,15 +188,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.notice
-    >>>.ivu-modal
-        width 1040px !important
-        position relative
-        .ivu-modal-body
-            padding 0
-            max-width 370px
-        .ivu-modal-header
-            max-width 370px
 >>>.ivu-modal-content
     border-radius 0
 >>>.ivu-modal-header

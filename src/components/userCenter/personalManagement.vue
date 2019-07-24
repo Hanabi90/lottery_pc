@@ -66,7 +66,7 @@
                     </div>
                     <div class="title_wrap">
                         <p>绑定银行卡</p>
-                        <span>最多可绑定5张银行卡</span>
+                        <span>最多可绑定1张银行卡</span>
                     </div>
                 </div>
                 <div @click="handleAlert('132','bank','绑定银行卡')">绑定银行卡</div>
@@ -91,7 +91,7 @@
                     <div class="title_wrap">
                         <p>站内信</p>
                         <span>
-                            <span style="color:#fbe5e5">0</span>
+                            <span style="color:#fbe5e5">{{unread}}</span>
                             条未读
                         </span>
                     </div>
@@ -123,12 +123,22 @@
                 <div @click="handleAlert('2','notice','系统公告')">查看公告</div>
             </li>
         </ul>
-        <Modal :class="{notice:alertComponent=='notice'}" width="640" v-model="alert">
+        <Modal
+            @on-visible-change="updateInformation"
+            :class="{notice:alertComponent=='notice'}"
+            width="640"
+            v-model="alert"
+        >
             <p slot="header" class="alertHeader">
                 <span>{{alertTitle}}</span>
             </p>
             <div>
-                <component v-if="alert" :params="comParams" :is="alertComponent"></component>
+                <component
+                    v-if="alert"
+                    :params="comParams"
+                    :parent="`${this}`"
+                    :is="alertComponent"
+                ></component>
             </div>
             <div slot="footer"></div>
         </Modal>
@@ -143,20 +153,19 @@ import bank from '../userCenter/bank'
 import information from '../userCenter/information'
 import bindquestion from '../userCenter/bindquestion'
 import notice from '../userCenter/notice'
+import { getunreadmessageamount } from '@/api/index'
 export default {
     data() {
         return {
             alertComponent: '',
             alertTitle: '',
             alert: false,
-            comParams: ''
+            comParams: '',
+            unread: 0
         }
     },
-    props: {
-        marqueeIndex: {
-            default: -1,
-            type: Number
-        }
+    mounted() {
+        this.updateInformation()
     },
     methods: {
         handleAlert(value, target, title) {
@@ -168,11 +177,12 @@ export default {
             this.alert = true
             this.alertTitle = title
             this.alertComponent = target
-        }
-    },
-    created() {
-        if (this.marqueeIndex !== -1) {
-            this.handleAlert(this.marqueeIndex, 'notice', '系统公告')
+        },
+        //更新消息
+        updateInformation() {
+            getunreadmessageamount().then(res => {
+                this.unread = res.data.unreadamount
+            })
         }
     },
     components: {

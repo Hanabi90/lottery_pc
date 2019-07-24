@@ -30,14 +30,14 @@ export default {
     name: 'notice',
     data() {
         return {
-             list: [],
+            list: [],
             activeIndex: '0',
             currentItem:null,
             alert:false
         }
     },
-    methods:{
-        handleTab(value,item){
+    methods: {
+        handleTab(value, item) {
             this.activeIndex = value
             this.currentItem = item
         },
@@ -76,10 +76,10 @@ export default {
         max-height: 500px;
         overflow-y: scroll;
 >>>.ivu-cell-title
-    width: 180px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width 180px
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
 .cell
     display flex
     justify-content space-between
@@ -89,9 +89,9 @@ export default {
         color #eb445b
     .left
         max-width 180px
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
 .notice
     width 100%
     height 600px

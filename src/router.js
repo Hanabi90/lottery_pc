@@ -29,6 +29,7 @@ export default new Router({
         {
             path: '/activityList',
             name: 'activityList',
+            props: true,
             component: () =>
                 import(/* webpackChunkName: "activityList" */ './views/activityList.vue')
         },

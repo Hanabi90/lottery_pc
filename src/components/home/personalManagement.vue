@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.onOff" class="dropDown" @mouseleave="close">
+    <div v-if="this.onOff" class="personalManagement" @mouseleave="close">
         <div class="box"></div>
         <div class="title">你好，{{$store.state.nickname}}</div>
         <ul>
@@ -23,7 +23,7 @@
 import { loginOut } from '@/api/index.js'
 import { Icon } from 'iview'
 export default {
-    name: 'dropDown',
+    name: 'personalManagement',
     data() {
         return {
             onOff: false
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.dropDown
+.personalManagement
     width 378px
     position absolute
     right -157px

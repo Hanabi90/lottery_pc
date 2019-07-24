@@ -18,7 +18,7 @@ let oState = {
     openList: [], //开奖历史
     unReadAmount: 0, //未读消息
     bonues: '', //奖金,
-    trace: false //追号开关
+    trace: false, //追号开关
 }
 export default new Vuex.Store({
     state: { ...oState },

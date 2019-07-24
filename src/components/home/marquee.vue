@@ -3,15 +3,19 @@
         <div class="box">
             <p>最新公告：</p>
             <p>
-                <marquee-text :duration="speed">{{textList}}</marquee-text>
+                <marquee-text :duration="speed">
+                    <div v-html="textList" @click="handleAlert($event)"></div>
+                </marquee-text>
             </p>
         </div>
+        <notice ref="notice"></notice>
     </div>
 </template>
 
 <script>
 import MarqueeText from 'vue-marquee-text-component'
 import { getnotice } from '@/api/index'
+import notice from '../userCenter/notice'
 export default {
     data() {
         return {
@@ -19,16 +23,23 @@ export default {
             speed: 40
         }
     },
+    methods:{
+        handleAlert(e){
+            var index = e.srcElement.getAttribute('data-index')
+            this.$refs.notice.handleAlert(index)
+        },
+    },
     mounted() {
         getnotice().then(res => {
             this.speed *= res.data.affects
-            res.data.results.forEach(item => {
-                this.textList += item.subject + item.content
+            res.data.results.forEach((item,index) => {
+                this.textList += `<span height="100%" style="display: inline-block;" data-index="${index}">${item.subject}${item.content}</span>`
             })
         })
     },
     components: {
-        MarqueeText
+        MarqueeText,
+        notice
     }
 }
 </script>

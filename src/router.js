@@ -77,6 +77,7 @@ export default new Router({
                 {
                     path: 'personalManagement',
                     name: 'personalManagement',
+                    props:true,
                     component: () =>
                         import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/personalManagement.vue')
                 },

@@ -24,7 +24,7 @@
             <router-link tag="li" to="noGameHistory">非游戏账变记录</router-link>
         </ul>
         <div class="container" :class="{personalManagement:$route.name=='personalManagement'}">
-            <router-view></router-view>
+            <router-view :ref="$route.name"></router-view>
         </div>
     </div>
 </template>

@@ -38,9 +38,13 @@ export default {
             })
         }
     },
-    filters:{
-        capitalize (value) {
-            return value.length > 3 ? value.substr(0, 3) + new Array(value.length - 2).join('*') + value.substr(-1) : value
+    filters: {
+        capitalize(value) {
+            return value.length > 3
+                ? value.substr(0, 3) +
+                      new Array(value.length - 2).join('*') +
+                      value.substr(-1)
+                : value
         }
     }
 }
@@ -56,7 +60,7 @@ export default {
     .mask
         margin-top 45px
         overflow hidden
-        height: 90%;
+        height 90%
     .winnerlist_ul
         color #fff
         animation listAnim 50s linear infinite
@@ -67,12 +71,9 @@ export default {
                 overflow hidden
                 &:nth-child(1)
                     text-align left
-@keyframes listAnim {
-    0%{
+@keyframes listAnim
+    0%
         transform translateY(0%)
-    }
-    100%{
+    100%
         transform translateY(-100%)
-    }
-}  
 </style>

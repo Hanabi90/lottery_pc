@@ -79,7 +79,13 @@
             <div v-show="!messageSendList.length">暂无数据...</div>
         </div>
         <div v-show="navIndex==3" class="content" style="padding:10px">
-            <Form ref="formInline" :model="formInline" :rules="ruleInline" :label-width="100" label-position="left">
+            <Form
+                ref="formInline"
+                :model="formInline"
+                :rules="ruleInline"
+                :label-width="100"
+                label-position="left"
+            >
                 <FormItem prop="childid" label="下级用户">
                     <Select v-model="formInline.childid">
                         <Option
@@ -89,7 +95,7 @@
                         >{{item.username}}</Option>
                     </Select>
                 </FormItem>
-                <FormItem prop="subject" label="信息标题" >
+                <FormItem prop="subject" label="信息标题">
                     <Input type="text" v-model="formInline.subject" placeholder="请输入标题" />
                 </FormItem>
                 <FormItem prop="content" label="消息内容">
@@ -101,8 +107,13 @@
                     ></Input>
                 </FormItem>
                 <FormItem>
-                    <Button size="large" shape="circle" type="error" @click="handleSubmit('formInline')">发送</Button>
-                    <Button style="margin-left:20px"  @click="handleInit">重置</Button>
+                    <Button
+                        size="large"
+                        shape="circle"
+                        type="error"
+                        @click="handleSubmit('formInline')"
+                    >发送</Button>
+                    <Button style="margin-left:20px" @click="handleInit">重置</Button>
                 </FormItem>
             </Form>
         </div>
@@ -146,8 +157,13 @@
                     ></Input>
                 </FormItem>
                 <FormItem>
-                    <Button shape="circle"  type="primary" @click="handleReply('replyLine')">发送</Button>
-                    <Button shape="circle"  style="margin-left:20px" type="primary" @click="handleInitReply">重置</Button>
+                    <Button shape="circle" type="primary" @click="handleReply('replyLine')">发送</Button>
+                    <Button
+                        shape="circle"
+                        style="margin-left:20px"
+                        type="primary"
+                        @click="handleInitReply"
+                    >重置</Button>
                 </FormItem>
             </Form>
         </div>
@@ -340,13 +356,6 @@ export default {
                             'content',
                             res.data.mes.content
                         )
-                        //已读数量减1
-                        if (!this.list[value[0]].readtime) {
-                            this.$store.dispatch(
-                                'handleUnReadAmount',
-                                res.data.unreadamount
-                            )
-                        }
                         //设置为已读·
                         this.$set(this.list[value[0]], 'readtime', 1)
                     }
@@ -585,8 +594,8 @@ export default {
         height 40px
         line-height 40px
         width 130px
-        border-top-right-radius: 7px;
-        border-top-left-radius: 7px;
+        border-top-right-radius 7px
+        border-top-left-radius 7px
         text-align center
         &.ivu-menu-item-active
             background #ea2f4c
@@ -597,10 +606,11 @@ export default {
         width 100px
     .reply
         position absolute
-        z-index 100
-        top 60px
-        width 100%
-        height 100%
+        z-index 999
+        top -16px
+        left -16px
+        width 640px
+        height 598px
         border 1px solid #dcdcdc
         border-radius 3px
         background rgba(0, 0, 0, 0.2)
@@ -648,5 +658,4 @@ export default {
     position absolute
     right 0
     top 0
-
 </style>

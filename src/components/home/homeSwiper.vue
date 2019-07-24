@@ -77,7 +77,7 @@ export default {
                         }
                     },
                     click(event) {
-                        if (event.target.dataset.index) {
+                        if (event.srcElement.dataset.index) {
                             sessionStorage.setItem('navIndex', 5)
                             that.handleJump(this.realIndex)
                             EventBus.$emit('updateNaveIndex')
@@ -90,8 +90,9 @@ export default {
     methods: {
         handleJump(index) {
             this.$router.push({
-                path: '/activityList',
-                query: { index: index }
+                name: 'activityList',
+                query: { index: index },
+                params: { navindex: 'test' }
             })
         }
     },

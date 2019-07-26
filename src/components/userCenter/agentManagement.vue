@@ -76,7 +76,7 @@
                                         type="primary"
                                         size="small"
                                         :disabled="istop!=1"
-                                        @click="handleSubordinateRecharge(item.userid)"
+                                        @click="handleAlert(item.userid,'SubordinateRecharge','下级充值')"
                                     >充值</Button>
                                     <Button
                                         type="primary"
@@ -249,33 +249,6 @@ export default {
             this.pointUserId = value
         },
 
-        //设置充值
-        handleSubordinateRecharge(value) {
-            this.backOnoff = true
-            this.pointUserId = value
-            this.subordinateRecharge = true
-        },
-        //设置返点
-        handlePoint(value) {
-            this.setPoint = true
-            this.pointUserId = value
-            this.backOnoff = true
-        },
-        //返回
-        back() {
-            this.teamAccount = false
-            this.gameHistory = false
-            this.setPoint = false
-            this.backOnoff = false
-            this.reputation = false
-            this.subordinateRecharge = false
-        },
-        //游戏帐变查询
-        getGameHistory(value) {
-            this.gameHistory = true
-            this.username = value
-            this.backOnoff = true
-        },
         //查询团队列表
         getGroupList(obj) {
             getgrouplist({ ...this.teamGroup, ...obj }).then(res => {

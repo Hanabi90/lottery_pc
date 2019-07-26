@@ -11,15 +11,19 @@
                 <Input type="password" v-model="formCustom.passwdCheck" string></Input>
             </FormItem>
             <FormItem>
-                <Button shape="circle" type="primary"  @click="handleSubmit('formCustom')">修改</Button>
-                <Button shape="circle" @click="handleReset('formCustom')" style="margin-left: 8px">清空</Button>
+                <Button shape="circle" type="primary" @click="handleSubmit('formCustom')">修改</Button>
+                <Button
+                    shape="circle"
+                    @click="handleReset('formCustom')"
+                    style="margin-left: 8px"
+                >清空</Button>
             </FormItem>
         </Form>
     </div>
 </template>
 
 <script>
-import { Form, FormItem, Input, Button, Menu, MenuItem } from 'iview'
+import { Form, FormItem, Input, Button } from 'iview'
 import md5 from 'js-md5'
 import {
     RSAencrypt,
@@ -71,10 +75,10 @@ export default {
             navIndex: 1
         }
     },
-    created(){
+    created() {
         this.navIndex = this.params
     },
-    props:['params'],
+    props: ['params'],
     methods: {
         handleSubmit(name) {
             this.$refs[name].validate(valid => {
@@ -118,9 +122,7 @@ export default {
         Form,
         FormItem,
         Input,
-        Button,
-        Menu,
-        MenuItem
+        Button
     }
 }
 </script>

@@ -41,6 +41,7 @@ export default {
                     this.$store.dispatch('handleReset')
                     this.$router.push('/')
                     this.close()
+                    this.$parent.changeNavIndex()
                 }
             })
         }

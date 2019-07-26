@@ -20,12 +20,7 @@ export default new Router({
             component: () =>
                 import(/* webpackChunkName: "lottery" */ './views/lottery.vue')
         },
-        {
-            path: '/test',
-            name: 'test',
-            component: () =>
-                import(/* webpackChunkName: "test" */ './views/test.vue')
-        },
+
         {
             path: '/activityList',
             name: 'activityList',
@@ -78,7 +73,7 @@ export default new Router({
                 {
                     path: 'personalManagement',
                     name: 'personalManagement',
-                    props:true,
+                    props: true,
                     component: () =>
                         import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/personalManagement.vue')
                 },

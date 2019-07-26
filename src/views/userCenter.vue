@@ -2,21 +2,16 @@
     <div class="userCenterBox">
         <ul class="userNav">
             <li>
-                <Icon type="md-people" size="20"/>
-                团队管理
+                <Icon type="md-people" size="20" />团队管理
             </li>
-            <router-link tag="li" to="agentManagement">
-                团队推广
-            </router-link>
+            <router-link tag="li" to="agentManagement">团队推广</router-link>
             <router-link tag="li" to="daySalary">彩票日工资契约</router-link>
             <router-link tag="li" to="lotteryShare">彩票分红契约</router-link>
             <router-link tag="li" to="personalManagement">
-                <Icon type="md-person" size="20"/>
-                个人管理
+                <Icon type="md-person" size="20" />个人管理
             </router-link>
-            <li @click="test">
-                <Icon type="ios-paper" size="20"/>
-                彩票报表
+            <li>
+                <Icon type="ios-paper" size="20" />彩票报表
             </li>
             <router-link tag="li" to="bettingRecord">投注记录</router-link>
             <router-link tag="li" to="traceHistory">游戏追号记录</router-link>
@@ -30,17 +25,13 @@
 </template>
 
 <script>
-import {Icon} from 'iview'
+import { Icon } from 'iview'
 export default {
     name: 'userCenter',
     data() {
         return {}
     },
-    methods: {
-        test(){
-            console.log(this.$route);
-        }
-    },
+
     components: {
         Icon
     }
@@ -55,6 +46,7 @@ export default {
     min-height 420px
     position relative
     margin-bottom 20px
+    padding-top 20px
     .userNav
         width 200px
         font-size 16px
@@ -73,12 +65,12 @@ export default {
                 background #ffd100
                 color #333333
             &>>>.ivu-icon
-                position: absolute;
-                top: 50%;
-                left: 20px;
-                transform: translateY(-50%);
-            &:nth-child(1),&:nth-child(5)
-                cursor: initial;
+                position absolute
+                top 50%
+                left 20px
+                transform translateY(-50%)
+            &:nth-child(1), &:nth-child(5)
+                cursor initial
     .container
         margin-left 20px
         min-height 1020px

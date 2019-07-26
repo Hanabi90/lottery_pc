@@ -4,11 +4,18 @@ import store from '../store'
 import Router from '../router'
 import { LoadingBar, Message, Modal } from 'iview'
 Vue.use(LoadingBar, Message, Modal)
+
+let CancelToken = axios.CancelToken //取消实例
+window._axiosPromiserArr = []
 //建立实例
 const service = axios.create({
     // 设置超时时间
     timeout: 14000,
-    baseURL: process.env.VUE_APP_BASE_URL
+    baseURL: process.env.VUE_APP_BASE_URL,
+    cancelToken: new CancelToken(function(cancel) {
+        window._axiosPromiserArr.push({ cancel })
+    }),
+    headers: {}
 })
 //用户活跃时间
 let USERTIMEOUT = 900 //15分钟
@@ -33,7 +40,13 @@ service.defaults.headers.post['Content-Type'] =
 let loading = null
 service.interceptors.request.use(
     config => {
-        USERTIMEOUT = 900 //重置倒计时
+        //如果是不是轮训接口，就重置倒计时
+
+        if (config.url.indexOf('getissue') == -1) {
+            //重置倒计时
+            USERTIMEOUT = 900
+        }
+
         // 在请求先展示加载框
         const token = sessionStorage.getItem('token')
         if (token) {
@@ -45,6 +58,7 @@ service.interceptors.request.use(
         return Promise.reject(error)
     }
 )
+
 /**
  * 请求响应拦截
  * 用于处理需要在请求返回后的操作
@@ -93,30 +107,29 @@ service.interceptors.response.use(
         if (!error.response) {
             // 请求超时状态
             if (error.message.includes('timeout')) {
-                return Promise.resolve('超时了')
+                Message.error('链接超时,请从新操作')
             } else {
-                // 可以展示断网组件
-                // return Promise.resolve('断网了')
+                Message.error('断网了')
             }
-            return
+        } else {
+            const responseCode = error.response.status
+            switch (responseCode) {
+                case 401:
+                case 403:
+                case 404:
+                case 500:
+                    Message.error('服务器链接错误...请稍后登录')
+                    store.dispatch('handleReset')
+                    sessionStorage.clear()
+                    Router.push('/')
+                default:
+            }
         }
-        // 服务器返回不是 2 开头的情况，会进入这个回调
-        // 可以根据后端返回的状态码进行不同的操作
-        const responseCode = error.response.status
-        console.log(error.response)
-
-        switch (responseCode) {
-            case 401:
-            case 403:
-            case 404:
-            case 500:
-                Message.error('服务器链接错误...请稍后登录')
-                store.dispatch('handleReset')
-                sessionStorage.clear()
-                Router.push('/')
-                return new Promise(() => {})
-            default:
-        }
+        window._axiosPromiserArr.forEach((ele, index) => {
+            ele.cancel()
+            delete window._axiosPromiseArr[index]
+        })
+        return new Promise(() => {})
     }
 )
 export default service

@@ -1,5 +1,5 @@
 <template>
-    <div id="certify">
+    <div id="certify" :style="{background:list.length?'none':'#000'}">
         <swiper v-if="list.length" :options="swiperOption" ref="mySwiper">
             <!-- slides -->
             <swiper-slide v-for="(item,index) of list" :key="index">
@@ -11,7 +11,6 @@
         </swiper>
     </div>
 </template>
-
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'

@@ -3,8 +3,8 @@
         <div class="box">
             <p>最新公告：</p>
             <p>
-                <marquee-text :duration="speed">
-                    <div v-html="textList" @click="handleAlert($event)"></div>
+                <marquee-text v-if="textList" :duration="speed">
+                    <div class="content" v-html="textList" @click="handleAlert($event)"></div>
                 </marquee-text>
             </p>
         </div>
@@ -23,17 +23,17 @@ export default {
             speed: 40
         }
     },
-    methods:{
-        handleAlert(e){
+    methods: {
+        handleAlert(e) {
             var index = e.srcElement.getAttribute('data-index')
             this.$refs.notice.handleAlert(index)
-        },
+        }
     },
     mounted() {
         getnotice().then(res => {
             this.speed *= res.data.affects
-            res.data.results.forEach((item,index) => {
-                this.textList += `<span height="100%" style="display: inline-block;" data-index="${index}">${item.subject}${item.content}</span>`
+            res.data.results.forEach((item, index) => {
+                this.textList += `<span  data-index="${index}">${item.subject}${item.content}</span>`
             })
         })
     },
@@ -61,4 +61,9 @@ export default {
         p:nth-child(2)
             overflow hidden
             float left
+            width 380px
+            >>>.content
+                span
+                    float left
+                    height 100%
 </style>

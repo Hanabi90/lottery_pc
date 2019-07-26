@@ -2,10 +2,10 @@
     <div>
         <div class="navTitle">彩票契约分红</div>
         <Form :model="orderHistoryList" :label-width="100" inline>
-            <FormItem >
+            <FormItem>
                 <span slot="label">
-                    <Icon type="ios-search"/>
-                    查询:&nbsp&nbsp&nbsp日期:
+                    <Icon type="ios-search" />
+                    <span stlye="margin-right:5px">查询:</span> 日期:
                 </span>
                 <DatePicker
                     v-model="orderHistoryList.starttime"
@@ -26,18 +26,17 @@
                 <h5>分红金额</h5>
                 <h5>状态</h5>
             </div>
-                <ul class="list">
-                    <li v-for="(item,value) of sharelist" :key="value">
-                        <span>{{item.username}}</span>
-                        <span>{{item.addtime}}</span>
-                        <span>{{item.lost_amount}}</span>
-                        <span>{{item.bonus}}</span>
-                        <span>{{item.gift_amount}}</span>
-                        <span>{{item.verify_status==1?'已领取':'-'}}</span>
-                    </li>
-                    <li v-if="pages<=orderHistoryList.p">
-                    </li>
-                </ul>
+            <ul class="list">
+                <li v-for="(item,value) of sharelist" :key="value">
+                    <span>{{item.username}}</span>
+                    <span>{{item.addtime}}</span>
+                    <span>{{item.lost_amount}}</span>
+                    <span>{{item.bonus}}</span>
+                    <span>{{item.gift_amount}}</span>
+                    <span>{{item.verify_status==1?'已领取':'-'}}</span>
+                </li>
+                <li v-if="pages<=orderHistoryList.p"></li>
+            </ul>
             <div class="total">
                 <span>亏损合计：{{`${Number(lost_amount).toFixed(2)}`}}</span>
                 <span>分红合计：{{`${Number(gift_amount).toFixed(2)}`}}</span>
@@ -63,27 +62,15 @@
 </template>
 
 <script>
-import {
-    Form,
-    FormItem,
-    Select,
-    Option,
-    DatePicker,
-    Button,
-    Checkbox,
-    Page,
-    Icon
-} from 'iview'
-import {
-    getmonthlycontractrecord,
-} from '@/api/index'
+import { Form, FormItem, DatePicker, Button, Page, Icon } from 'iview'
+import { getmonthlycontractrecord } from '@/api/index'
 export default {
     name: 'noGameHistory',
     data() {
         return {
             orderHistoryList: {
                 starttime: '', //起始时间
-                pn: 18, //请求的数据记录数量
+                pn: 10, //请求的数据记录数量
                 p: 1 //请求的页面序号
             },
             ordertypeid: [],
@@ -92,10 +79,9 @@ export default {
             scroll: true, //把滚动条置顶
             gift_amount: 0, //收入
             lost_amount: 0,
-            total:0//页数
+            total: 0 //页数
         }
     },
-
     methods: {
         handleGo() {
             let pageInput = this.$refs.page.$el
@@ -152,18 +138,25 @@ export default {
             orderHistoryList.p = 1
             this.$set(this.orderHistoryList, 'p', 1)
             getmonthlycontractrecord({ ...orderHistoryList }).then(res => {
-                if(res.data.page_data){
+                if (res.data.page_data) {
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
-                    this.lost_amount = isNaN(Number(res.data.total_count['lost_amount']))?0:res.data.total_count['lost_amount']
-                    this.gift_amount = isNaN(Number(res.data.total_count['gift_amount']))?0:res.data.total_count['gift_amount']
-                }else{
+                    this.lost_amount = isNaN(
+                        Number(res.data.total_count['lost_amount'])
+                    )
+                        ? 0
+                        : res.data.total_count['lost_amount']
+                    this.gift_amount = isNaN(
+                        Number(res.data.total_count['gift_amount'])
+                    )
+                        ? 0
+                        : res.data.total_count['gift_amount']
+                } else {
                     this.sharelist = []
                     this.total = 0 //总条数
                     this.lost_amount = 0
                     this.gift_amount = 0
                 }
-                
             })
         },
         handleReachBottom(value) {
@@ -176,18 +169,17 @@ export default {
             )
             orderHistoryList.p = value
             getmonthlycontractrecord({ ...orderHistoryList }).then(res => {
-                if(res.data.page_data){
+                if (res.data.page_data) {
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
                     this.lost_amount = res.data.total_count['lost_amount']
                     this.gift_amount = res.data.total_count['gift_amount']
-                }else{
+                } else {
                     this.sharelist = []
                     this.total = 0 //总条数
                     this.lost_amount = 0
                     this.gift_amount = 0
                 }
-                
             })
         },
         dataformat(str) {
@@ -221,11 +213,10 @@ export default {
     components: {
         Form,
         FormItem,
-        Select,
-        Option,
+
         DatePicker,
         Button,
-        Checkbox,
+
         Page,
         Icon
     }
@@ -257,7 +248,7 @@ export default {
             text-align center
             color #fff
             font-size 14px
-            &:nth-child(1),&:nth-child(3)
+            &:nth-child(1), &:nth-child(3)
                 flex 1.6
     .list
         height 590px
@@ -265,13 +256,13 @@ export default {
         li
             display flex
             margin-bottom 10px
-            align-items: center;
+            align-items center
             span, >div
                 flex 1
                 text-align center
                 font-size 14px
                 color #fff
-                &:nth-child(1),&:nth-child(3)
+                &:nth-child(1), &:nth-child(3)
                     flex 1.6
             .add
                 color #f00
@@ -288,6 +279,10 @@ export default {
         color #fff
         display flex
         justify-content space-evenly
+        span
+            flex 1
+            display block
+            text-align center
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

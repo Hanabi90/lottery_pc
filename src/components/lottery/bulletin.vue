@@ -2,14 +2,24 @@
     <div class="bullentin">
         <h5>平台公告</h5>
         <div class="boxContent">
-            <ul class="box">
-                <li class="list" v-for="(item,index) of list" :key="index" @click="handleAlert(index)">
+            <ul :class="{box:list.length>9}" class="boxs">
+                <li
+                    class="list"
+                    v-for="(item,index) of list"
+                    :key="index"
+                    @click="handleAlert(index)"
+                >
                     <div class="time">【公告】</div>
                     <p class="content">{{item.subject}}</p>
                 </li>
             </ul>
-            <ul class="box">
-                <li class="list" v-for="(item,index) of list" :key="index" @click="handleAlert(index)">
+            <ul :class="{box:list.length>9}" class="boxs">
+                <li
+                    class="list"
+                    v-for="(item,index) of list"
+                    :key="index"
+                    @click="handleAlert(index)"
+                >
                     <div class="time">【公告】</div>
                     <p class="content">{{item.subject}}</p>
                 </li>
@@ -29,8 +39,8 @@ export default {
             list: []
         }
     },
-    methods:{
-        handleAlert(index){
+    methods: {
+        handleAlert(index) {
             this.$refs.notice.handleAlert(index)
         }
     },
@@ -39,7 +49,7 @@ export default {
             this.list = res.data.results
         })
     },
-    components:{
+    components: {
         notice
     }
 }
@@ -64,6 +74,7 @@ export default {
         overflow hidden
         .box
             animation listAnim 50s linear infinite
+        .boxs
             .list
                 overflow hidden
                 margin 0 20px

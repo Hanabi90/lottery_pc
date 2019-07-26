@@ -2,10 +2,10 @@
     <div>
         <div class="navTitle">彩票契约分红</div>
         <Form :model="orderHistoryList" :label-width="100" inline>
-            <FormItem >
+            <FormItem>
                 <span slot="label">
-                    <Icon type="ios-search"/>
-                    查询:&nbsp&nbsp&nbsp日期:
+                    <Icon type="ios-search" />
+                    <span style="margin-right:5px">查询:</span> 日期:
                 </span>
                 <DatePicker
                     v-model="orderHistoryList.starttime"
@@ -28,20 +28,19 @@
                 <h5>获得工资百分比</h5>
                 <h5>工资</h5>
             </div>
-                <ul class="list">
-                    <li v-for="(item,value) of sharelist" :key="value">
-                        <span>{{item.username}}</span>
-                        <span>{{item.recorddate}}</span>
-                        <span>{{item.self_bet}}</span>
-                        <span>{{item.official_bet}}</span>
-                        <span>{{item.total_bet}}</span>
-                        <span>{{item.proportion}}</span>
-                        <span>{{item.bonus}}</span>
-                        <span>{{item.gift_amount}}</span>
-                    </li>
-                    <li v-if="pages<=orderHistoryList.p">
-                    </li>
-                </ul>
+            <ul class="list">
+                <li v-for="(item,value) of sharelist" :key="value">
+                    <span>{{item.username}}</span>
+                    <span>{{item.recorddate}}</span>
+                    <span>{{item.self_bet}}</span>
+                    <span>{{item.official_bet}}</span>
+                    <span>{{item.total_bet}}</span>
+                    <span>{{item.proportion}}</span>
+                    <span>{{item.bonus}}</span>
+                    <span>{{item.gift_amount}}</span>
+                </li>
+                <li v-if="pages<=orderHistoryList.p"></li>
+            </ul>
             <div class="total">
                 <span>合计官方彩总额：{{`${Number(official_bet).toFixed(2)}`}}</span>
                 <span>合计国外彩总额：{{`${Number(self_bet).toFixed(2)}`}}</span>
@@ -68,37 +67,25 @@
 </template>
 
 <script>
-import {
-    Form,
-    FormItem,
-    Select,
-    Option,
-    DatePicker,
-    Button,
-    Checkbox,
-    Page,
-    Icon
-} from 'iview'
-import {
-    getdailycontractrecord,
-} from '@/api/index'
+import { Form, FormItem, DatePicker, Button, Page, Icon } from 'iview'
+import { getdailycontractrecord } from '@/api/index'
 export default {
     name: 'noGameHistory',
     data() {
         return {
             orderHistoryList: {
                 starttime: '', //起始时间
-                pn: 18, //请求的数据记录数量
+                pn: 10, //请求的数据记录数量
                 p: 1 //请求的页面序号
             },
             ordertypeid: [],
             sharelist: [],
             pages: 1, //页数
             scroll: true, //把滚动条置顶
-            official_bet:0,
-            self_bet:0,
-            total_bet:0,
-            total:0//页数
+            official_bet: 0,
+            self_bet: 0,
+            total_bet: 0,
+            total: 0 //页数
         }
     },
 
@@ -158,23 +145,33 @@ export default {
             orderHistoryList.p = 1
             this.$set(this.orderHistoryList, 'p', 1)
             getdailycontractrecord({ ...orderHistoryList }).then(res => {
-                if(res.data.page_data){
+                if (res.data.page_data) {
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
-                    this.official_bet = isNaN(Number(res.data.total_count['official_bet']))?0:res.data.total_count['official_bet']
-                    this.self_bet = isNaN(Number(res.data.total_count['self_bet']))?0:res.data.total_count['self_bet']
-                    this.total_bet = isNaN(Number(res.data.total_count['total_bet']))?0:res.data.total_count['total_bet']
-                }else{
+                    this.official_bet = isNaN(
+                        Number(res.data.total_count['official_bet'])
+                    )
+                        ? 0
+                        : res.data.total_count['official_bet']
+                    this.self_bet = isNaN(
+                        Number(res.data.total_count['self_bet'])
+                    )
+                        ? 0
+                        : res.data.total_count['self_bet']
+                    this.total_bet = isNaN(
+                        Number(res.data.total_count['total_bet'])
+                    )
+                        ? 0
+                        : res.data.total_count['total_bet']
+                } else {
                     this.sharelist = []
                     this.total = 0 //总条数
                     this.lost_amount = 0
                     this.gift_amount = 0
                 }
-                
             })
         },
         handleReachBottom(value) {
-            console.log(value);
             let orderHistoryList = { ...this.orderHistoryList }
             orderHistoryList.starttime = this.dataformat(
                 this.orderHistoryList.starttime[0]
@@ -184,18 +181,17 @@ export default {
             )
             orderHistoryList.p = value
             getdailycontractrecord({ ...orderHistoryList }).then(res => {
-                if(res.data.page_data){
+                if (res.data.page_data) {
                     this.sharelist = res.data.page_data
                     this.total = res.data.record_count //总条数
                     this.lost_amount = res.data.total_count['lost_amount']
                     this.gift_amount = res.data.total_count['gift_amount']
-                }else{
+                } else {
                     this.sharelist = []
                     this.total = 0 //总条数
                     this.lost_amount = 0
                     this.gift_amount = 0
                 }
-                
             })
         },
         dataformat(str) {
@@ -229,11 +225,10 @@ export default {
     components: {
         Form,
         FormItem,
-        Select,
-        Option,
+
         DatePicker,
         Button,
-        Checkbox,
+
         Page,
         Icon
     }
@@ -265,7 +260,7 @@ export default {
             text-align center
             color #fff
             font-size 14px
-            &:nth-child(1),&:nth-child(3)
+            &:nth-child(1), &:nth-child(3)
                 flex 1.6
     .list
         height 590px
@@ -273,13 +268,13 @@ export default {
         li
             display flex
             margin-bottom 10px
-            align-items: center;
+            align-items center
             span, >div
                 flex 1
                 text-align center
                 font-size 14px
                 color #fff
-                &:nth-child(1),&:nth-child(3)
+                &:nth-child(1), &:nth-child(3)
                     flex 1.6
             .add
                 color #f00
@@ -296,6 +291,10 @@ export default {
         color #fff
         display flex
         justify-content space-evenly
+        span
+            display inline-block
+            flex 1
+            text-align center
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

@@ -80,9 +80,9 @@
                     <img id="logo" src="../assets/images/page_logo.png" />
                 </div>
                 <div class="nav_list" ref="navList">
-                    <div @click="clearActive" class="navAcitve">首页</div>
+                    <div style="padding:0 20px" @click="clearActive" class="navAcitve">首页</div>
                     <Dropdown>
-                        <a href="javascript:void(0)">时时彩</a>
+                        <a @click="checkToken" href="javascript:void(0)">时时彩</a>
                         <ul slot="list">
                             <li
                                 v-for="(item,index) of timesLottery"
@@ -92,7 +92,7 @@
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">11选五</a>
+                        <a @click="checkToken" href="javascript:void(0)">11选五</a>
                         <ul slot="list">
                             <li
                                 v-for="(item,index) of selected11"
@@ -102,7 +102,7 @@
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">快乐彩</a>
+                        <a @click="checkToken" href="javascript:void(0)">快乐彩</a>
                         <ul slot="list">
                             <li
                                 v-for="(item,index) of happyLottery"
@@ -112,7 +112,7 @@
                         </ul>
                     </Dropdown>
                     <Dropdown>
-                        <a href="javascript:void(0)">快3</a>
+                        <a @click="checkToken" href="javascript:void(0)">快3</a>
                         <ul slot="list">
                             <li
                                 v-for="(item,index) of fast3"
@@ -131,9 +131,9 @@
                 </div>
             </div>
         </div>
-        <Login :style="{left:x+'px'}" ref="login" />
-        <Registered :style="{left:x+'px'}" ref="registered" />
-        <PersonalManagement :style="{left:x+'px'}" ref="dropDown" />
+        <Login :style="{left:x+'px'}" style="z-index:2" ref="login" />
+        <Registered :style="{left:x+'px'}" style="z-index:2" ref="registered" />
+        <PersonalManagement :style="{left:x+'px'}" style="z-index:2" ref="dropDown" />
     </div>
 </template>
 <script>
@@ -214,6 +214,13 @@ export default {
         EventBus.$off('updateNaveIndex')
     },
     methods: {
+        //验证是否登录，是否跳转投注页面
+        checkToken() {
+            if (!sessionStorage.getItem('token')) {
+                this.$Message.error('请先登录')
+                this.open('login', 'loginPosition')
+            }
+        },
         //加载时更新激活导航
         changeNavIndex() {
             //导航样式调整
@@ -370,7 +377,6 @@ export default {
 
 <style lang="stylus" scoped>
 .nav
-    position fixed
     background #242424
     cursor pointer
     top 0
@@ -510,6 +516,10 @@ button
         float right
         display flex
         text-align center
+        a
+            display inline-block
+            height 100%
+            padding 0 20px
         a.home
             color #fff
             width 82px
@@ -517,7 +527,6 @@ button
                 background #ea2f4c
         &>div
             white-space nowrap
-            padding 0 20px
             &>>>.ivu-dropdown-rel>a
                 color #fff
             &:hover

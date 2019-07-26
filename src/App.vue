@@ -24,11 +24,7 @@ export default {
 @import 'styles/rest.styl'
 
 #app
-    padding-top 121px
     background url('./assets/images/homeBg.jpg')
-    &.adminHidden
-        height 100vh
-        overflow hidden
     .backtop
         background #ff0000
         color #fff

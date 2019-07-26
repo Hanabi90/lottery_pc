@@ -181,7 +181,6 @@ export default {
                 excludeNoBet: ''
             }).then(res => {
                 this.detailedList = res.data.page_data.sub_agents
-                console.log(res.data)
             })
         }
     },

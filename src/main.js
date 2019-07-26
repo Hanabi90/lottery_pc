@@ -10,7 +10,7 @@ Vue.prototype.$Message = Message
 Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Message.config({
-    duration: 4
+    duration: 3
 })
 Array.prototype.forEach =
     Array.prototype.forEach ||

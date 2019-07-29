@@ -214,6 +214,7 @@ export default {
                 text-align center
                 padding 5px 4px
                 display inline-block
+                font-size 17px
             i
                 color #ffa700
             span.active

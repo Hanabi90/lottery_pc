@@ -126,6 +126,7 @@ export default {
                 new Set([])
             ],
             quickDontShow: new Set([
+                'H2BD',
                 'QZUHZ',
                 'Q3BD',
                 'QZXHZ',
@@ -674,7 +675,7 @@ export default {
             } else {
                 arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
             }
-           
+
             switch (lable) {
                 case '全':
                     let count = []

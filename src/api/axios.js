@@ -35,20 +35,26 @@ let userUpdate = function() {
         }
     }, 1000)
 }
+if (sessionStorage.getItem('token')) {
+    userUpdate()
+}
 service.defaults.headers.post['Content-Type'] =
     'application/x-www-form-urlencoded'
 let loading = null
 service.interceptors.request.use(
     config => {
+        // 在请求先展示加载框
+        const token = sessionStorage.getItem('token')
         //如果是不是轮训接口，就重置倒计时
 
         if (config.url.indexOf('getissue') == -1) {
             //重置倒计时
             USERTIMEOUT = 900
         }
+        if (config.url.indexOf('userlogin') != -1) {
+            userUpdate()
+        }
 
-        // 在请求先展示加载框
-        const token = sessionStorage.getItem('token')
         if (token) {
             config.headers['Authorization'] = token
         }
@@ -76,9 +82,6 @@ service.interceptors.response.use(
             switch (code) {
                 //已从其他端口登录
                 case 0:
-                    if (response.config.url.indexOf('userlogin') != -1) {
-                        userUpdate()
-                    }
                     return Promise.resolve(response.data)
                 //其他地方登陆
                 case -15:

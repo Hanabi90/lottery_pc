@@ -20,7 +20,12 @@
                         :src="img"
                         alt
                     />
-                    <input class="yanzhengma" type="text" v-model="login.imgCode" placeholder="请输入验证码" />
+                    <input
+                        class="yanzhengma"
+                        type="text"
+                        v-model="login.imgCode"
+                        placeholder="请输入验证码"
+                    />
                 </div>
                 <button class="submint_button" @click="handlelogin">立即登录</button>
                 <div class="remanber">

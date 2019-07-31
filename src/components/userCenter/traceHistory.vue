@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position:relative">
         <div class="navTitle">游戏追号记录</div>
         <div v-if="!detailedOnoff">
             <Form :model="orderHistoryList" :label-width="72" inline>

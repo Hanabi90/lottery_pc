@@ -1,6 +1,10 @@
 <template>
     <ul class="lottery_show">
-        <li class="lottery_logo"></li>
+        <li
+            class="lottery_logo"
+            :style="{'backgroundImage':`url(${require('../../assets/images/lottery-icon/'+this.$route.query.menuId+'.png')})`}"
+        ></li>
+
         <li>
             <div>
                 <p>第{{issue}}期</p>

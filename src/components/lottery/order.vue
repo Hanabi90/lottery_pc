@@ -1393,9 +1393,9 @@ export default {
         li
             float left
             background #7b7b7b
-            width 26px
-            height 26px
-            line-height 26px
+            width 30px
+            height 30px
+            line-height 30px
             border-radius 6px
             text-align center
             margin-right 10px
@@ -1415,7 +1415,7 @@ export default {
                 background #312e2e
                 border 1px solid #ea314e
                 color #fff
-                height 26px
+                height 30px
                 width 80px
                 border-top-left-radius 3px
                 border-bottom-left-radius 3px
@@ -1431,8 +1431,8 @@ export default {
                 width 20px
             span
                 display block
-                height 13px
-                line-height 13px
+                height 15px
+                line-height 15px
                 width 40px
                 text-align center
                 background #ea314e
@@ -1449,7 +1449,7 @@ export default {
         button
             height 42px
             border none
-            background #ff6000
+            background #ea314e
             margin 0 10px
             color #fff
             padding 0 20px
@@ -1459,5 +1459,5 @@ export default {
             outline none
             box-shadow 0 3px 4px #1f1d1d
             &.buttonColor
-                background #e02569
+                background #ea314e
 </style>

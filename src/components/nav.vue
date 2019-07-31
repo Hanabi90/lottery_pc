@@ -497,7 +497,7 @@ button
     overflow hidden
     width 1200px
     margin auto
-    line-height 60px
+    line-height 70px
     >>>.ivu-select-dropdown
         border-radius 0
         padding 0
@@ -583,8 +583,8 @@ button
 .logo_left
     float left
     height 60px
+    margin 5px 0 0 0
     #logo
-        width 140px
         height auto
         margin-top 6px
         margin-right 20px

@@ -212,13 +212,15 @@ export default {
             margin-left 10px
             span, i
                 text-align center
-                padding 5px 4px
+                padding 5px 10px
                 display inline-block
+                font-style normal
+                font-size 14px
             i
-                color #ffa700
+                color #ffdc00
             span.active
-                color #ffa700
-                border 1px solid #ffa700
+                color #ffdc00
+                border 1px solid #ffdc00
                 border-radius 3px
             &.bonusGroup
                 position absolute

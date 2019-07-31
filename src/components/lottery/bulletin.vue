@@ -79,7 +79,7 @@ export default {
                 overflow hidden
                 margin 0 20px
                 color #bbbbbb
-                border-bottom 1px dashed #555
+                border-bottom 1px dashed #333
                 font-size 14px
                 line-height 30px
                 padding-top 4px

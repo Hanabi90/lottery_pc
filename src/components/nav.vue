@@ -9,9 +9,9 @@
                     </li>
                 </ul>
                 <ul class="line_help">
-                    <li>PC客户端</li>
-                    <li>手机客户端</li>
-                    <li>线路中心</li>
+                    <li @click="()=>{this.$Message.success('即将上线')}">PC客户端</li>
+                    <li @click="()=>{this.$Message.success('即将上线')}">手机客户端</li>
+                    <li @click="()=>{this.$Message.success('即将上线')}">线路中心</li>
                     <li class="marquee_container">
                         <Marquee />
                     </li>
@@ -77,7 +77,7 @@
         <div style="border-top: 1px solid #424141">
             <div class="nav_bottom fixed_layout">
                 <div class="logo_left">
-                    <img id="logo" src="../assets/images/page_logo.png" />
+                    <img @click="clearActive" id="logo" src="../assets/images/page_logo.png" />
                 </div>
                 <div class="nav_list" ref="navList">
                     <div style="padding:0 20px" @click="clearActive" class="navAcitve">首页</div>
@@ -209,9 +209,14 @@ export default {
         EventBus.$on('updateNaveIndex', () => {
             this.changeNavIndex()
         })
+        EventBus.$on('jump', oJson => {
+            let { lotteryId, menuId, index } = oJson
+            this.jump(lotteryId, menuId, index)
+        })
     },
     beforeDestroy() {
         EventBus.$off('updateNaveIndex')
+        EventBus.$off('jump')
     },
     methods: {
         //验证是否登录，是否跳转投注页面

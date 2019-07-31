@@ -779,6 +779,7 @@ export default {
                     background #2b2a2a
                     box-shadow 0 0 0 1.8px #262626, 0 0 4px 0 rgba(255, 255, 255, 0.6), 0 2px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2)
                     margin-right 8px
+                    border-radius 5px
                     text-align center
                     &.active
                         background #ea314e

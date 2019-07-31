@@ -20,7 +20,7 @@
                 <span>
                     <a
                         style="color:#ffdc00"
-                        :href="`http://tapi.hoyibet.com/?controller=game&action=bonuscode&crumid=${this.$route.query.menuId}&issuecount=100`"
+                        :href="`https://twww.hoyibet.com/?controller=game&action=bonuscode&crumid=2581&issuecount=50`"
                         target="_blank"
                     >号码走势</a>
                 </span>
@@ -216,7 +216,7 @@ export default {
         width 342px
         font-size 12px
         .lottery_history_issue
-            margin-top 4px
+            margin-top 8px
             overflow hidden
             span:first-child
                 float left

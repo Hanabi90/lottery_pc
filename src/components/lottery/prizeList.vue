@@ -38,7 +38,7 @@ export default {
             overflow hidden
             padding 0 10px
             color #dcdcdc
-            border-bottom 1px dashed #555
+            border-bottom 1px dashed #333
             font-size 14px
             line-height 30px
             padding-top 2px

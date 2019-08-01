@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="navTitle">游戏账变记录</div>
-        <Form :model="orderHistoryList" :label-width="72" inline>
+        <Form :model="orderHistoryList" :label-width="80" inline>
             <FormItem label="帐变类型">
                 <Select v-model="orderHistoryList.ordertypeid" style="width:100px">
                     <Option value="-1">所有类型</Option>
@@ -34,7 +34,7 @@
                     >{{item.username}}</Option>
                 </Select>
             </FormItem>
-            <FormItem label="下级">
+            <FormItem :label-width="40" label="下级">
                 <Checkbox true-value="1" false-value="0" v-model="orderHistoryList.includechild"></Checkbox>
             </FormItem>
             <Button class="button" @click="handleOrderHistory">查询</Button>
@@ -51,21 +51,22 @@
                 <h5>状态</h5>
                 <h5>备注</h5>
             </div>
-                <ul class="list">
-                    <li v-for="(item,value) of noGameList" :key="value">
-                        <span>{{item.orderno}}</span>
-                        <span>{{item.username}}</span>
-                        <span>{{item.times}}</span>
-                        <span :class="{add:item.cntitle.indexOf('-')!='-1',less:item.cntitle.indexOf('-')=='-1'}">{{item.cntitle}}</span>
-                        <span class="code">{{item.operations>0?item.amount:0}}</span>
-                        <span>{{item.operations==0?item.amount:0}}</span>
-                        <span>{{item.money}}</span>
-                        <span>{{(item.transferstatus==1||item.transferstatus==3)?'失败':'成功'}}</span>
-                        <span>{{item.description?item.description:'---'}}</span>
-                    </li>
-                    <li v-if="pages<=orderHistoryList.p">
-                    </li>
-                </ul>
+            <ul class="list">
+                <li v-for="(item,value) of noGameList" :key="value">
+                    <span>{{item.orderno}}</span>
+                    <span>{{item.username}}</span>
+                    <span>{{item.times}}</span>
+                    <span
+                        :class="{add:item.cntitle.indexOf('-')!='-1',less:item.cntitle.indexOf('-')=='-1'}"
+                    >{{item.cntitle}}</span>
+                    <span class="code">{{item.operations>0?item.amount:0}}</span>
+                    <span>{{item.operations==0?item.amount:0}}</span>
+                    <span>{{item.money}}</span>
+                    <span>{{(item.transferstatus==1||item.transferstatus==3)?'失败':'成功'}}</span>
+                    <span>{{item.description?item.description:'---'}}</span>
+                </li>
+                <li v-if="pages<=orderHistoryList.p"></li>
+            </ul>
             <div class="total">
                 <span>总收入：{{`${Number(total_income).toFixed(2)}`}}</span>
                 <span>总支出：{{`${Number(total_pay).toFixed(2)}`}}</span>
@@ -99,7 +100,7 @@ import {
     DatePicker,
     Button,
     Checkbox,
-    Page,
+    Page
 } from 'iview'
 import {
     getchildlist,
@@ -125,7 +126,7 @@ export default {
             scroll: true, //把滚动条置顶
             total_income: 0, //收入
             total_pay: 0,
-            total:0//页数
+            total: 0 //页数
         }
     },
 
@@ -267,7 +268,7 @@ export default {
         DatePicker,
         Button,
         Checkbox,
-        Page,
+        Page
     }
 }
 </script>
@@ -297,7 +298,7 @@ export default {
             text-align center
             color #fff
             font-size 14px
-            &:nth-child(1),&:nth-child(3)
+            &:nth-child(1), &:nth-child(3)
                 flex 1.6
     .list
         height 590px
@@ -305,13 +306,13 @@ export default {
         li
             display flex
             margin-bottom 10px
-            align-items: center;
+            align-items center
             span, >div
                 flex 1
                 text-align center
                 font-size 14px
                 color #fff
-                &:nth-child(1),&:nth-child(3)
+                &:nth-child(1), &:nth-child(3)
                     flex 1.6
             .add
                 color #f00
@@ -332,7 +333,7 @@ export default {
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)
     background-color #fbc434
-    width 107px
+    width 100px
     line-height 35px
     height 35px
     padding 0

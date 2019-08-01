@@ -1,7 +1,7 @@
 <template>
     <div class="countDownCard" @click="goto()">
         <div class="timer" v-if="timer">{{countDown}}</div>
-        <img :src="backgroundArr" alt />
+        <img ondragstart="return false" :src="backgroundArr" alt />
     </div>
 </template>
 

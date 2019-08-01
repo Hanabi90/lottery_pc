@@ -81,7 +81,7 @@
                         <span>6-16个字符</span>
                     </div>
                 </div>
-                <div @click="handleAlert('2','changePassword','提款密码')">提款密码</div>
+                <div @click="handleAlert('2','Secpass','提款密码')">提款密码</div>
             </li>
             <li>
                 <div>
@@ -153,7 +153,8 @@ import bank from '../userCenter/bank'
 import information from '../userCenter/information'
 import bindquestion from '../userCenter/bindquestion'
 import notice from '../userCenter/notice'
-import { getunreadmessageamount } from '@/api/index'
+import Secpass from '../userCenter/secpass'
+import { getunreadmessageamount, getsecpass } from '@/api/index'
 export default {
     data() {
         return {
@@ -172,6 +173,14 @@ export default {
             if (target == 'notice') {
                 this.$refs.notice.handleAlert(0)
                 return
+            }
+            if (target == 'Secpass') {
+                getsecpass().then(res => {
+                    this.comParams = value
+                    this.alert = true
+                    this.alertTitle = title
+                    this.alertComponent = 'changePassword'
+                })
             }
             this.comParams = value
             this.alert = true
@@ -192,7 +201,8 @@ export default {
         bank,
         information,
         bindquestion,
-        notice
+        notice,
+        Secpass
     }
 }
 </script>

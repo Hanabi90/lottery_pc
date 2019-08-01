@@ -35,7 +35,7 @@
                         >{{item.text}}</Option>
                     </Select>
                 </FormItem>
-                <FormItem label="类型">
+                <FormItem :label-width="42" label="类型">
                     <Select v-model="orderHistoryList.userpointtype" style="width:100px">
                         <Option
                             v-for="item of userpointtypeList"
@@ -44,7 +44,7 @@
                         >{{item.text}}</Option>
                     </Select>
                 </FormItem>
-                <FormItem label="下级用户名">
+                <FormItem :label-width="80" label="下级用户名">
                     <Select
                         placeholder="查询下级信息"
                         v-model="orderHistoryList.username"
@@ -60,7 +60,7 @@
                 <FormItem label="彩种奖期">
                     <Input v-model="orderHistoryList.issue" placeholder="请选择"></Input>
                 </FormItem>
-                <FormItem label="请选择日期">
+                <FormItem :label-width="80" label="请选择日期">
                     <DatePicker
                         v-model="orderHistoryList.starttime"
                         format="yyyy-MM-dd HH:mm:ss"

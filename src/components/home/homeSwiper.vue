@@ -1,10 +1,20 @@
 <template>
     <div id="certify" :style="{background:list.length?'none':'#000'}">
-        <swiper v-if="list.length" :options="swiperOption" ref="mySwiper">
+        <swiper :options="swiperOption" ref="mySwiper">
             <!-- slides -->
-            <swiper-slide v-for="(item,index) of list" :key="index">
-                <img :src="item.frontend_banner_picture" :data-index="index" />
+            <swiper-slide>
+                <img src="../../assets/images/activity/a.jpg" :data-index="1" />
             </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/activity/b.jpg" :data-index="2" />
+            </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/activity/c.jpg" :data-index="3" />
+            </swiper-slide>
+            <swiper-slide>
+                <img src="../../assets/images/activity/d.jpg" :data-index="4" />
+            </swiper-slide>
+
             <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-scrollbar" slot="scrollbar"></div>

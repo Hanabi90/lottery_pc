@@ -33,12 +33,14 @@
                         </FormItem>
                         <Button class="button" type="primary" @click="getGroupList">查询</Button>
                         <Button
+                            v-if="userType==1"
                             class="button"
                             style="margin:0 10px;letter-spacing:0"
                             type="primary"
                             @click="handleAlert('','OpenAccount','注册用户')"
                         >注册用户</Button>
                         <Button
+                            v-if="userType==1"
                             @click="handleAlert('','OpenLine','推广链接')"
                             class="button"
                             style="letter-spacing:0"
@@ -189,7 +191,8 @@ export default {
             total: 0, //总条数
             teamGroupUpdate: true, //下拉是否加载完
             userTree: [], //用户树结构
-            userId: JSON.parse(sessionStorage.getItem('userSeting')).userid
+            userId: JSON.parse(sessionStorage.getItem('userSeting')).userid,
+            userType: JSON.parse(sessionStorage.getItem('userSeting')).usertype
         }
     },
     methods: {

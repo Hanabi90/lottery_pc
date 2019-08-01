@@ -4,8 +4,10 @@
         <div class="title">你好，{{$store.state.nickname}}</div>
         <ul>
             <router-link tag="li" to="/userCenter/agentManagement">个人中心</router-link>
-            <li>代理管理</li>
-            <li>我的消息</li>
+
+            <router-link tag="li" to="/userCenter/agentManagement">代理管理</router-link>
+
+            <router-link tag="li" to="/userCenter/personalManagement">我的消息</router-link>
         </ul>
         <div class="logout" @click="loginOut">
             <Icon type="md-power" />

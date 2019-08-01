@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="navTitle">投注记录</div>
-        <Form :model="bettingRecord" :label-width="72" inline>
+        <Form :model="bettingRecord" :label-width="80" inline>
             <FormItem label="彩种名称">
                 <Select
                     @on-change="getUserLotterymethod"
@@ -37,6 +37,7 @@
                     type="datetimerange"
                     placeholder="请选择日期"
                     style="width: 190px"
+                    placement="bottom-end"
                 ></DatePicker>
             </FormItem>
             <FormItem label="下级用户名">

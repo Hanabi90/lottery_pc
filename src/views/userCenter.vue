@@ -69,7 +69,7 @@ export default {
                 top 50%
                 left 20px
                 transform translateY(-50%)
-            &:nth-child(1), &:nth-child(5)
+            &:nth-child(1), &:nth-child(6)
                 cursor initial
     .container
         margin-left 20px

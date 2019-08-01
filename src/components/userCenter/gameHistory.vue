@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="navTitle">游戏账变记录</div>
-        <Form :model="orderHistoryList" :label-width="72" inline>
+        <Form :model="orderHistoryList" :label-width="80" inline>
             <FormItem label="彩种名称">
                 <Select v-model="orderHistoryList.lottery" style="width:140px">
                     <Option v-for="(item,value) of lotteryList" :key="value" :value="value">{{item}}</Option>
@@ -29,6 +29,7 @@
                     type="datetimerange"
                     placeholder="请选择日期"
                     style="width: 190px"
+                    placement="bottom-end"
                 ></DatePicker>
             </FormItem>
             <FormItem label="下级用户名">

@@ -45,7 +45,11 @@ export default {
     },
     methods: {
         jump(lotteryId, menuId, index) {
-            EventBus.$emit('jump', { lotteryId, menuId, index })
+            if (sessionStorage.getItem('token')) {
+                EventBus.$emit('jump', { lotteryId, menuId, index })
+            } else {
+                this.$Message.error('请先登录')
+            }
         }
     }
 }

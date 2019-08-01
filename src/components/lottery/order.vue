@@ -26,7 +26,9 @@
             <span style="color:#ea314e">{{money}}</span>
             <span>元</span>
             <span>奖金</span>
-            <span style="color:#ea314e">{{bonus.prizeSort?(bonus.prizeSort[0]+'-'+bonus.prizeSort[bonus.prizeSort.length-1]):bonus}}</span>
+            <span
+                style="color:#ea314e"
+            >{{bonus.prizeSort?(bonus.prizeSort[0]+'-'+bonus.prizeSort[bonus.prizeSort.length-1]):bonus}}</span>
             <button class="buttonColor" @click="submint">一键投注</button>
             <button style="background:#6e8df9" @click="addOrder">添加投注</button>
         </div>
@@ -115,6 +117,12 @@ export default {
             if (arr.methods === '五星组选组120' && arr.list[0].size >= 5) {
                 nums = math.combo(Array.from(arr.list[0]), 5).length
             }
+            if (arr.methods === '四星组选组24' && arr.list[0].size >= 4) {
+                nums = math.combo(Array.from(arr.list[0]), 4).length
+            }
+            if (arr.methods === '四星组选组6' && arr.list[0].size >= 2) {
+                nums = math.combo(Array.from(arr.list[0]), 2).length
+            }
             if (
                 arr.methods === '五星组选组60' &&
                 arr.list[0].size >= 1 &&
@@ -130,6 +138,22 @@ export default {
                     }
                 }
             }
+            if (
+                arr.methods === '四星组选组12' &&
+                arr.list[0].size >= 1 &&
+                arr.list[1].size >= 2
+            ) {
+                for (let item of arr.list[0].values()) {
+                    if (arr.list[1].has(item)) {
+                        let element = new Set([...arr.list[1]])
+                        element.delete(item)
+                        nums += math.combo(Array.from(element), 2).length
+                    } else {
+                        nums += math.combo(Array.from(arr.list[1]), 2).length
+                    }
+                }
+            }
+
             if (
                 arr.methods === '五星组选组30' &&
                 arr.list[0].size >= 2 &&
@@ -163,6 +187,7 @@ export default {
             if (
                 (arr.methods === '五星组选组10' ||
                     arr.methods === '五星组选组5' ||
+                    arr.methods === '四星组选组4' ||
                     (arr.methods === '二码前二直选复式' &&
                         arr.methodname == 'SDZX2')) &&
                 arr.list[0].size >= 1 &&
@@ -943,19 +968,17 @@ export default {
                     lt_project: [lt_project]
                 }
             }
-            betting({ postdata: RSAencrypt(
+            betting({
+                postdata: RSAencrypt(
                     encodeURIComponent(JSON.stringify(postdata))
-                )}).then(
-                res => {
-                    this.$Message.success('投注成功')
-                    this.$store.dispatch('handleLotteryNumber', '')
-                    this.lotterynumber.reset()
-                    this.$store.dispatch('handleOrderHistory', [
-                        ...res.data.betlog
-                    ])
-                    this.$store.dispatch('handleMoney', res.data.amount)
-                }
-            )
+                )
+            }).then(res => {
+                this.$Message.success('投注成功')
+                this.$store.dispatch('handleLotteryNumber', '')
+                this.lotterynumber.reset()
+                this.$store.dispatch('handleOrderHistory', [...res.data.betlog])
+                this.$store.dispatch('handleMoney', res.data.amount)
+            })
         },
         //添加投注单
         addOrder() {

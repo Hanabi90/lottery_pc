@@ -20,7 +20,7 @@
                 <span>
                     <a
                         style="color:#ffdc00"
-                        :href="`https://twww.hoyibet.com/?controller=game&action=bonuscode&crumid=2581&issuecount=50`"
+                        :href="`https://twww.hoyibet.com/?controller=game&action=bonuscode&crumid=4327&issuecount=30`"
                         target="_blank"
                     >号码走势</a>
                 </span>

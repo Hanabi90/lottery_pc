@@ -79,6 +79,14 @@ service.interceptors.response.use(
         if (responseCode === 200) {
             LoadingBar.finish()
             let code = response.data.code
+            //如果是注册接口就跳过拦截
+            if (response.config.url.indexOf('addnewuser') != -1) {
+                if (code == 0) {
+                    return Promise.resolve(response.data)
+                } else {
+                    return Promise.reject(response.data)
+                }
+            }
             switch (code) {
                 //已从其他端口登录
                 case 0:
@@ -93,8 +101,6 @@ service.interceptors.response.use(
                     sessionStorage.clear()
                     Router.push('/')
                     return new Promise(() => {})
-                case -81:
-                    return Promise.reject(response.data)
                 default:
                     Message.error(response.data.msg)
                     return new Promise(() => {})

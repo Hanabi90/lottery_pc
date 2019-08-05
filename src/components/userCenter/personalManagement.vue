@@ -4,18 +4,8 @@
             <div>
                 <span class="name">{{$store.state.nickname}}</span>
                 <div>
-                    <span>彩票返点：</span>
-                    <span>7.8%</span>
-                </div>
-                <div>
                     <span>彩票余额：</span>
                     <span>{{$store.state.money}}</span>
-                    <Icon
-                        style="margin-top: -5px;margin-left: 5px;"
-                        type="ios-refresh"
-                        size="20"
-                        color="#fff"
-                    />
                 </div>
             </div>
             <div class="btns">
@@ -188,10 +178,12 @@ export default {
             this.alertComponent = target
         },
         //更新消息
-        updateInformation() {
-            getunreadmessageamount().then(res => {
-                this.unread = res.data.unreadamount
-            })
+        updateInformation(blo) {
+            if (!blo) {
+                getunreadmessageamount().then(res => {
+                    this.unread = res.data.unreadamount
+                })
+            }
         }
     },
     components: {
@@ -283,6 +275,8 @@ export default {
                 &:nth-child(1)
                     display flex
                     align-items center
+                &:nth-child(2)
+                    cursor pointer
                 &>.icon_bg
                     background #fbe5e5
                     height 60px

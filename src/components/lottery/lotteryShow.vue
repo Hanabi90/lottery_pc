@@ -18,11 +18,12 @@
             <p class="lottery_history_issue">
                 <span>第{{lotteryNumber.issue}}期</span>
                 <span>
-                    <a
+                    <router-link
                         style="color:#ffdc00"
-                        :href="`https://twww.hoyibet.com/?controller=game&action=bonuscode&crumid=4327&issuecount=30`"
                         target="_blank"
-                    >号码走势</a>
+                        tag="a"
+                        :to="{name:'history'}"
+                    >号码走势</router-link>
                 </span>
             </p>
             <p class="lottery_num_box">

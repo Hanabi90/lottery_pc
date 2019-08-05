@@ -234,6 +234,7 @@ export default {
         RadioGroup,
         Radio,
         Table,
+        // eslint-disable-next-line
         QrcodeVue
     }
 }

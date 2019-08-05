@@ -174,6 +174,7 @@ export default {
                 background #fff
                 outline none
                 text-indent 20px
+                user-select auto
                 &.yanzhengma
                     width 220px
     .submint_button

@@ -32,6 +32,7 @@ import {
 } from '@/api/index.js'
 export default {
     name: 'changePassword',
+    props: ['params'],
     data() {
         const validatePass = (rule, value, callback) => {
             if (value === '') {
@@ -71,14 +72,12 @@ export default {
                 oldPasswd: [{ validator: validateOldPasswd, trigger: 'blur' }],
                 passwd: [{ validator: validatePass, trigger: 'blur' }],
                 passwdCheck: [{ validator: validatePassCheck, trigger: 'blur' }]
-            },
-            navIndex: 1
+            }
         }
     },
     created() {
         this.navIndex = this.params
     },
-    props: ['params'],
     methods: {
         handleSubmit(name) {
             this.$refs[name].validate(valid => {
@@ -88,7 +87,7 @@ export default {
                         newpass: md5(this.formCustom.passwd),
                         confirm_newpass: md5(this.formCustom.passwdCheck)
                     }
-                    if (this.navIndex == 1) {
+                    if (this.params == 1) {
                         changeuserloginpass({
                             json: RSAencrypt(JSON.stringify(oJson))
                         }).then(res => {

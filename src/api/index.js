@@ -61,6 +61,13 @@ export const getsecpass = formData =>
         method: 'post',
         url: 'security/checksecpassexist'
     })
+//设定资金密码
+export const setsecpass = formData =>
+    service.request({
+        method: 'post',
+        url: 'security/setsecpass',
+        data: qs.stringify(formData)
+    })
 //验证资金密码
 export const checksecpass = formData =>
     service.request({

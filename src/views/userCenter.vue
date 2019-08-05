@@ -73,7 +73,6 @@ export default {
                 cursor initial
     .container
         margin-left 20px
-        min-height 1020px
         background #202020
         &.personalManagement
             background transparent

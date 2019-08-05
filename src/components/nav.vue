@@ -11,7 +11,7 @@
                 <ul class="line_help">
                     <li @click="()=>{this.$Message.success('即将上线')}">PC客户端</li>
                     <li @click="()=>{this.$Message.success('即将上线')}">手机客户端</li>
-                    <li @click="()=>{this.$Message.success('即将上线')}">线路中心</li>
+                    <router-link tag="li" to="/speedTest">线路中心</router-link>
                     <li class="marquee_container">
                         <Marquee />
                     </li>
@@ -315,6 +315,7 @@ export default {
                     sessionStorage.setItem('group', 'fast3')
                     break
             }
+            this.$store.dispatch('handleOrderHistory', [])
         },
         //刷新金额
         refresh() {
@@ -339,6 +340,10 @@ export default {
                     this.getElementLeft(this.$refs[targetButn]) +
                     this.$refs[targetButn].offsetWidth / 2 -
                     this.$refs[target].$el.offsetWidth / 2
+                if (this.x > window.innerWidth) {
+                    this.x =
+                        window.innerWidth - this.$refs[target].$el.offsetWidth
+                }
             })
 
             this.y =
@@ -353,7 +358,6 @@ export default {
                 actualLeft += current.offsetLeft
                 current = current.offsetParent
             }
-
             return actualLeft
         },
 

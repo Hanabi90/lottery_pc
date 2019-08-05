@@ -83,8 +83,8 @@
                 </li>
             </ul>
             <div class="total">
-                <span style="margin-left:20px;margin-right:420px">余额变动总计</span>
-                <span>{{totalMoney}}</span>
+                <span style="margin-left:20px;margin-right:580px">余额变动总计</span>
+                <span>{{totalMoney}}元</span>
             </div>
             <div class="pageBox">
                 <Page
@@ -212,7 +212,7 @@ export default {
                 if (res.data.page_data) {
                     this.userHistory = [...res.data.page_data] //当前数据
                     this.total = res.data.total_count //总条数
-                    this.totalMoney = res.data.money_change.toFixed(2) //金额格式化
+                    this.totalMoney = res.data.money_change.toFixed(4) //金额格式化
                 } else {
                     this.userHistory = []
                     this.totalMoney = 0
@@ -232,7 +232,7 @@ export default {
                 if (res.data.page_data) {
                     this.userHistory = [...res.data.page_data] //当前数据
                     this.total = res.data.total_count
-                    this.totalMoney = res.data.money_change.toFixed(2)
+                    this.totalMoney = res.data.money_change.toFixed(4)
                 } else {
                     this.userHistory = []
                     this.total = 0

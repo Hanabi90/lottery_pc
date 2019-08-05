@@ -39,15 +39,17 @@
                 <div class="numberTitle">
                     <div>
                         <p>
-                            <Tooltip transfer max-width="300" :content="methodList.methoddesc">
+                            <Tooltip transfer max-width="300">
                                 <i></i>
                                 <span>说明</span>
+                                <span slot="content" v-html="methodList.methoddesc"></span>
                             </Tooltip>
                         </p>
                         <p>
-                            <Tooltip transfer max-width="300" :content="methodList.methodexample">
+                            <Tooltip transfer max-width="300">
                                 <i></i>
                                 <span>示例</span>
+                                <span slot="content" v-html="methodList.methodexample"></span>
                             </Tooltip>
                         </p>
                     </div>

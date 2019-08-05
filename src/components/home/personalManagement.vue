@@ -3,7 +3,7 @@
         <div class="box"></div>
         <div class="title">你好，{{$store.state.nickname}}</div>
         <ul>
-            <router-link tag="li" to="/userCenter/agentManagement">个人中心</router-link>
+            <router-link tag="li" to="/userCenter/personalManagement">个人中心</router-link>
 
             <router-link tag="li" to="/userCenter/agentManagement">代理管理</router-link>
 

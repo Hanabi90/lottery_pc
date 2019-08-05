@@ -241,6 +241,8 @@ export default {
         checksequestion().then(res => {
             if (!(res.data instanceof Array)) {
                 this.listIndex = res.data
+            } else {
+                this.$Message.success('请先绑定密保')
             }
         })
     },

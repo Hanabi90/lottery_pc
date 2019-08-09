@@ -5,13 +5,25 @@
             <h5>登录您的账户</h5>
             <p>亚洲最好的博彩网站</p>
             <div class="form_list">
-                <div class="list">
+                <div class="list" @click="removeInputReadonly">
                     <label for="user"></label>
-                    <input id="user" type="text" v-model="login.username" placeholder="用户名" />
+                    <input
+                        id="user"
+                        type="text"
+                        v-model="login.username"
+                        placeholder="用户名"
+                        :readonly="readonly"
+                    />
                 </div>
-                <div class="list">
+                <div class="list" @click="removeInputReadonly">
                     <label for="password"></label>
-                    <input id="password" v-model="login.loginpass" type="password" placeholder="密码" />
+                    <input
+                        id="password"
+                        v-model="login.loginpass"
+                        type="password"
+                        placeholder="密码"
+                        :readonly="readonly"
+                    />
                 </div>
                 <div class="list">
                     <img
@@ -65,7 +77,8 @@ export default {
             },
             img: '',
             vvccookie: '',
-            rememberUserName: false
+            rememberUserName: false,
+            readonly: true
         }
     },
     mounted() {
@@ -76,10 +89,20 @@ export default {
         this.getPopularizereg()
     },
     methods: {
+        removeInputReadonly() {
+            this.readonly = false
+        },
         openRegistered() {
             this.$parent.open('registered', 'registeredPosition')
         },
         close() {
+            if (this.rememberUserName) {
+                this.$set(this.login, 'loginpass', '')
+            } else {
+                this.$set(this.login, 'loginpass', '')
+                this.$set(this.login, 'username', '')
+            }
+            this.readonly = true
             this.onOff = false
         },
         getPopularizereg() {

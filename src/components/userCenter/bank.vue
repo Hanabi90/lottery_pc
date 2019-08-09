@@ -196,11 +196,13 @@ export default {
                 updateuserbankcard(this.formInline).then(res => {
                     this.bankinfo = res.data.banklist
                     this.show = true
+                    this.$parent.$parent.alert = false
                 })
             } else {
                 adduserbank(this.formInline).then(res => {
                     this.bankinfo = res.data.banklist
                     this.show = true
+                    this.$parent.$parent.alert = false
                 })
             }
         },

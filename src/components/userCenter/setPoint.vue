@@ -82,6 +82,7 @@ export default {
             }).then(res => {
                 this.min = this.bonues
                 this.$Message.success(res.msg)
+                this.$parent.$parent.alert = false
             })
         }
     },

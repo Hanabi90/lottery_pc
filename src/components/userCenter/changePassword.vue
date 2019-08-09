@@ -91,13 +91,15 @@ export default {
                         changeuserloginpass({
                             json: RSAencrypt(JSON.stringify(oJson))
                         }).then(res => {
-                            this.$Message.success(res.msg)
+                            this.$Message.success('修改成功')
+                            this.$parent.$parent.alert = false
                         })
                     } else {
                         changeusersecpass({
                             json: RSAencrypt(JSON.stringify(oJson))
                         }).then(res => {
-                            this.$Message.success(res.msg)
+                            this.$Message.success('修改成功')
+                            this.$parent.$parent.alert = false
                         })
                     }
                 } else {

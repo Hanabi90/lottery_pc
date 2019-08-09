@@ -47,14 +47,13 @@
                             type="primary"
                         >推广链接</Button>
                         <FormItem :label-width="20">
-                            <Breadcrumb separator="<b class='demo-breadcrumb-separator'>></b>">
-                                <BreadcrumbItem
-                                    v-for="(item,index) of userTree"
-                                    style="color:#ea2f4c"
-                                    :key="index"
-                                    @click.native="getGroupList({uid:item.userid})"
-                                >{{item.username}}</BreadcrumbItem>
-                            </Breadcrumb>
+                            <Button
+                                v-if="userTree.length>=2"
+                                @click="getGroupList({uid:userTree[userTree.length-2].userid})"
+                                class="button"
+                                style="letter-spacing:20"
+                                type="primary"
+                            >返回</Button>
                         </FormItem>
                     </Form>
                     <div class="teamCenter">
@@ -139,16 +138,7 @@
     </div>
 </template>
 <script>
-import {
-    Form,
-    FormItem,
-    Input,
-    Button,
-    Page,
-    Breadcrumb,
-    BreadcrumbItem,
-    Modal
-} from 'iview'
+import { Form, FormItem, Input, Button, Page, Modal } from 'iview'
 import { getgrouplist } from '@/api/index'
 import GameHistory from './gameHistory'
 import SetPoint from './setPoint'
@@ -199,7 +189,9 @@ export default {
         //关闭弹窗更新数据
         updateList(blo) {
             if (!blo) {
-                this.getGroupList()
+                if (!this.userTree.length) {
+                    this.getGroupList()
+                }
             }
         },
         //跳转按钮
@@ -294,8 +286,6 @@ export default {
         Input,
         Button,
         Page,
-        Breadcrumb,
-        BreadcrumbItem,
         GameHistory,
         SetPoint,
         TeamAccount,
@@ -327,6 +317,7 @@ export default {
     width max-content !important
 .teamCenter
     border-radius 3px
+    width 100%
     overflow hidden
     .teamGroupListTitle
         background #000

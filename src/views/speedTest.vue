@@ -56,8 +56,8 @@ export default {
     data() {
         return {
             url: [
-                'https:www.obolbetonline.com',
-                'https:lottery-test.hoyibet.com'
+                'https://www.obolbetonline.com',
+                'https://lottery-test.hoyibet.com'
             ],
             pingList: []
         }

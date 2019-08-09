@@ -212,7 +212,8 @@ export default {
                     }
                     if (name == 'formInline') {
                         setsequestion({ ...this.formInline }).then(res => {
-                            this.$Message.success('Success!')
+                            this.$Message.success('设置成功!')
+                            this.$parent.$parent.alert = false
                         })
                     }
                     if (name == 'resetPassword') {
@@ -226,6 +227,7 @@ export default {
                             json: RSAencrypt(JSON.stringify(oJosn))
                         }).then(res => {
                             this.$Message.success('重置资金密码成功')
+                            this.$parent.$parent.alert = false
                         })
                     }
                 } else {

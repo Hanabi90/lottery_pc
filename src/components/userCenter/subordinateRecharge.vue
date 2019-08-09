@@ -62,6 +62,8 @@ export default {
                     res.data.aOwnFund.availablebalance
                 )
                 this.childrenMoney = res.data.aUserFund.availablebalance
+                this.$parent.$parent.alert = false
+                this.$Message.success('充值成功')
             })
         }
     },

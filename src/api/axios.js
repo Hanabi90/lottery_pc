@@ -17,7 +17,7 @@ const service = axios.create({
     }),
     headers: {}
 })
-//用户活跃时间
+//用户活跃时间-定制
 let USERTIMEOUT = 900 //15分钟
 let userUpdate = function() {
     let timeout = setInterval(() => {
@@ -35,9 +35,9 @@ let userUpdate = function() {
         }
     }, 1000)
 }
-if (sessionStorage.getItem('token')) {
-    userUpdate()
-}
+// if (sessionStorage.getItem('token')) {
+//     userUpdate()
+// }
 service.defaults.headers.post['Content-Type'] =
     'application/x-www-form-urlencoded'
 let loading = null
@@ -45,15 +45,15 @@ service.interceptors.request.use(
     config => {
         // 在请求先展示加载框
         const token = sessionStorage.getItem('token')
-        //如果是不是轮训接口，就重置倒计时
+        //如果是不是轮训接口，就重置倒计时 -暂时关闭
 
-        if (config.url.indexOf('getissue') == -1) {
-            //重置倒计时
-            USERTIMEOUT = 900
-        }
-        if (config.url.indexOf('userlogin') != -1) {
-            userUpdate()
-        }
+        // if (config.url.indexOf('getissue') == -1) {
+        //     //重置倒计时
+        //     USERTIMEOUT = 900
+        // }
+        // if (config.url.indexOf('userlogin') != -1) {
+        //     userUpdate()
+        // }
 
         if (token) {
             config.headers['Authorization'] = token

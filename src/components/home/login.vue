@@ -64,7 +64,13 @@
 </template>
 
 <script>
-import { login, getbalance, getMenu, popularizereg } from '@/api/index.js'
+import {
+    login,
+    getbalance,
+    getMenu,
+    popularizereg,
+    iglogin
+} from '@/api/index.js'
 export default {
     name: 'login',
     data() {
@@ -102,6 +108,7 @@ export default {
                 this.$set(this.login, 'loginpass', '')
                 this.$set(this.login, 'username', '')
             }
+            this.$forceUpdate()
             this.readonly = true
             this.onOff = false
         },
@@ -135,12 +142,10 @@ export default {
                 getbalance().then(res => {
                     this.$store.dispatch('handleMoney', res.data.money)
                 })
-                getMenu().then(res => {
-                    this.$store.dispatch('handleLotteryMenue', {
-                        ...res.data
-                    })
-                })
+                this.$set(this.login, 'loginpass', '')
+                this.readonly = true
             })
+            //验证码
             this.getPopularizereg()
         }
     }

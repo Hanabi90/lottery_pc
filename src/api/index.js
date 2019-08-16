@@ -455,3 +455,74 @@ export const getmonthlycontractrecord = formData =>
         url: 'contract/getmonthlycontractrecord',
         data: qs.stringify(formData)
     })
+//第三方接口
+//第三方充值类型列表
+export const getThreeDeposit = formData =>
+    service.request({
+        method: 'post',
+        url: 'deposit/main',
+        data: qs.stringify(formData)
+    })
+//充值
+export const unionpayaddcredit = (formData, url) =>
+    service.request({
+        method: 'post',
+        url: url,
+        data: qs.stringify(formData)
+    })
+//第三方游戏跳转
+export const igLogin = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/login',
+        data: qs.stringify(formData)
+    })
+//获取所有钱包余额
+export const getuserwallet = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/getuserwallet',
+        data: qs.stringify(formData)
+    })
+//获取选单
+export const getThirdMenu = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/getmenu',
+        data: qs.stringify(formData)
+    })
+//更新单一游戏钱包余额
+export const updatewallet = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/updatewallet',
+        data: qs.stringify(formData)
+    })
+//主平台转账至第三方游戏平台
+export const deposit = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/deposit',
+        data: qs.stringify(formData)
+    })
+//第三方游戏平台转账至主平台
+export const withdraw = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/withdraw',
+        data: qs.stringify(formData)
+    })
+//获取交易记录
+export const gettransreport = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/gettransreport',
+        data: qs.stringify(formData)
+    })
+//获取交易记录
+export const getgamereport = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/getgamereport',
+        data: qs.stringify(formData)
+    })

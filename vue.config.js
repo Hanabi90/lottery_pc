@@ -22,6 +22,12 @@ module.exports = {
         types.forEach(type =>
             addStyleResource(config.module.rule('stylus').oneOf(type))
         )
+    },
+
+    devServer: {
+        open: true,
+        host: 'ricci-test.hoyibet.com',
+        before: app => {}
     }
 }
 

@@ -59,24 +59,6 @@ export default new Router({
                         import(/* webpackChunkName: "agentManagement" */ '@/components/userCenter/agentManagement.vue')
                 },
                 {
-                    path: 'noGameHistory',
-                    name: 'noGameHistory',
-                    component: () =>
-                        import(/* webpackChunkName: "noGameHistory" */ '@/components/userCenter/noGameHistory.vue')
-                },
-                {
-                    path: 'gameHistory',
-                    name: 'gameHistory',
-                    component: () =>
-                        import(/* webpackChunkName: "gameHistory" */ '@/components/userCenter/gameHistory.vue')
-                },
-                {
-                    path: 'traceHistory',
-                    name: 'traceHistory',
-                    component: () =>
-                        import(/* webpackChunkName: "traceHistory" */ '@/components/userCenter/traceHistory.vue')
-                },
-                {
                     path: 'bettingRecord',
                     name: 'bettingRecord',
                     component: () =>
@@ -100,6 +82,12 @@ export default new Router({
                     name: 'lotteryShare',
                     component: () =>
                         import(/* webpackChunkName: "lotteryShare" */ '@/components/userCenter/lotteryShare.vue')
+                },
+                {
+                    path: 'transaction',
+                    name: 'transaction',
+                    component: () =>
+                        import(/* webpackChunkName: "lotteryShare" */ '@/components/userCenter/transaction.vue')
                 }
             ]
         }

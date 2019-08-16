@@ -381,14 +381,13 @@ export default {
         },
         handleDelete() {
             let arr = [], //拿到药删除的id
-                arrIndex = [], //拿到药删除的对象的下标
                 dataList =
                     this.navIndex == 1
                         ? [...this.list]
                         : [...this.messageSendList]
 
             dataList.forEach((item, index) => {
-                item.active && arr.push(item.entry) && arrIndex.push(index)
+                item.active && arr.push(item.entry)
             })
             if (arr.length) {
                 //是否有选中删除的对象
@@ -396,19 +395,7 @@ export default {
                     flag: this.navIndex == 1 ? 'receiveuser' : 'senduser',
                     msgid: arr
                 }).then(res => {
-                    arrIndex.forEach(item => {
-                        dataList.splice(item, 1)
-                    })
-                    this.navIndex == 1
-                        ? (this.list = [...dataList])
-                        : (this.messageSendList = [...dataList])
-                    this.activeIndex = ''
-                    if (this.all) {
-                        this.navIndex == 1
-                            ? (this.list = [])
-                            : (this.messageSendList = [])
-                        this.all = false
-                    }
+                    this.changeContent(this.navIndex)
                 })
             } else {
                 this.$Message.error('请选择要删除的信息')

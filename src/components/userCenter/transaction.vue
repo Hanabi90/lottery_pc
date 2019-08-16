@@ -2,60 +2,32 @@
     <div>
         <div class="navTitle">投注记录</div>
         <Form :model="bettingRecord" :label-width="80" inline>
-            <FormItem label="游戏玩法">
-                <Select placeholder="请先选择彩种" v-model="bettingRecord.model" style="width:140px">
-                    <Option value=" ">所有玩法</Option>
-                    <Option value="ig">IG</Option>
+            <FormItem label="交易类型">
+                <Select placeholder="请先选择彩种" v-model="bettingRecord.querytype" style="width:140px">
+                    <Option value=" ">所有类型</Option>
+                    <Option value="DEPOIST">存款</Option>
+                    <Option value="WITHDRAWAL">提款</Option>
                 </Select>
-            </FormItem>
-            <FormItem label="请选择日期">
-                <DatePicker
-                    v-model="bettingRecord.starttime"
-                    format="yyyy-MM-dd HH:mm:ss"
-                    type="datetimerange"
-                    placeholder="请选择日期"
-                    style="width: 190px"
-                    placement="bottom-end"
-                ></DatePicker>
             </FormItem>
             <Button class="button" @click="handleSeach" type="primary">查询</Button>
         </Form>
         <div class="content">
             <div class="title">
-                <h5>投注时间</h5>
-                <h5>投注馆别</h5>
-                <h5>投注内容</h5>
-                <h5>赔率</h5>
-                <h5>投注金额</h5>
-                <h5>输赢</h5>
-                <h5>流水</h5>
+                <h5>时间</h5>
+                <h5>交易类别</h5>
+                <h5>交易内容</h5>
+                <h5>金额</h5>
                 <h5>状态</h5>
                 <h5>交易单号</h5>
             </div>
-
             <ul class="list">
                 <li v-for="(item,value) of userHistory" :key="value">
-                    <Tooltip
-                        max-width="350px"
-                        :content="item.bet_time"
-                        placement="right-start"
-                    >{{item.bet_time.slice(0,10)}}{{item.bet_time>10?"...":''}}</Tooltip>
-                    <span>{{item.model_code}}</span>
-                    <Tooltip
-                        max-width="350px"
-                        :content="item.bet_content"
-                        placement="right-start"
-                    >{{item.bet_content.slice(0,8)}}{{item.bet_content>8?"...":''}}</Tooltip>
-                    <span>{{item.odds}}</span>
-                    <span>{{item.bet_money}}</span>
-                    <span :style="{'color':item.winorlose=='赢'?'#0eff00':'red'}">{{item.winorlose}}</span>
-                    <span>{{item.ts_flowing}}</span>
-                    <span>{{item.status}}</span>
-                    <Tooltip
-                        max-width="350px"
-                        :content="item.ref_id"
-                        placement="left-start"
-                    >{{item.ref_id.slice(0,4)}}{{item.ref_id>4?"...":''}}</Tooltip>
+                    <span>{{item.time}}</span>
+                    <span>{{item.transtype}}</span>
+                    <span>{{item.transcontent}}</span>
+                    <span>{{item.money}}</span>
+                    <span :style="{'color':item.status=='成功'?'#0eff00':'red'}">{{item.status}}</span>
+                    <span>{{item.trans_no}}</span>
                 </li>
             </ul>
         </div>
@@ -70,7 +42,7 @@
                 :page-size="this.bettingRecord.page_size"
                 @on-change="handleReachBottom"
                 @on-page-size-change="changePn"
-                :total="Number(total)"
+                :total="total"
                 class="page"
             />
             <Button @click="handleGo" class="btn">Go</Button>
@@ -79,38 +51,19 @@
 </template>
 
 <script>
-import {
-    Form,
-    FormItem,
-    Select,
-    Option,
-    DatePicker,
-    Button,
-    Page,
-    Tooltip
-} from 'iview'
-import {
-    getuserlottery,
-    getuserlotterymethod,
-    getchildlist,
-    getbethistory,
-    ordercancel,
-    getgamereport
-} from '@/api/index'
+import { Form, FormItem, Select, Option, Button, Page } from 'iview'
+import { gettransreport } from '@/api/index'
 export default {
     name: 'bettingRecord',
     data() {
         return {
             bettingRecord: {
-                model: 'ig', //游戏玩法
-                lotteryid: '0', //彩种名称
-                starttime: '', //起始时间
-                page_size: 10, //请求的数据记录数量
-                page: 1 //请求的页面序号
+                querytype: '0', //游戏玩法
+                page: 1, //请求的页面序号
+                page_size: 10 //请求的数据记录数量
             },
-
-            userHistory: [],
-            total: 0 //页数
+            total: 1,
+            userHistory: []
         }
     },
     methods: {
@@ -152,10 +105,7 @@ export default {
                 }
             }
             pageInput.dispatchEvent(evtObj)
-
-            // this.$refs.page.changePage()
         },
-        //切换显示条数
         //切换显示条数
         changePn(value) {
             this.$set(this.bettingRecord, 'page_size', value)
@@ -164,7 +114,9 @@ export default {
         },
 
         getBetHistory() {
-            getgamereport({ ...this.bettingRecord }).then(res => {
+            gettransreport({
+                ...this.bettingRecord
+            }).then(res => {
                 this.userHistory = [...res.data.data]
                 this.total = res.data.total
             })
@@ -172,30 +124,6 @@ export default {
         handleReachBottom(value) {
             this.$set(this.bettingRecord, 'page', value)
             this.getBetHistory()
-        },
-        dataformat(str) {
-            let time = new Date(str)
-            time =
-                time.getFullYear() +
-                '-' +
-                (time.getMonth() + 1 > 9
-                    ? time.getMonth() + 1
-                    : '0' + (time.getMonth() + 1)) +
-                '-' +
-                (time.getDate() > 9 ? time.getDate() : '0' + time.getDate()) +
-                ' ' +
-                (time.getHours() > 9
-                    ? time.getHours()
-                    : '0' + time.getHours()) +
-                ':' +
-                (time.getMinutes() > 9
-                    ? time.getMinutes()
-                    : '0' + time.getMinutes()) +
-                ':' +
-                (time.getSeconds() > 9
-                    ? time.getSeconds()
-                    : '0' + time.getSeconds())
-            return time
         }
     },
     mounted() {
@@ -206,12 +134,8 @@ export default {
         FormItem,
         Select,
         Option,
-        DatePicker,
         Button,
-
-        Page,
-
-        Tooltip
+        Page
     }
 }
 </script>
@@ -232,6 +156,7 @@ export default {
     border-radius 3px
     overflow hidden
     position relative
+    padding-bottom 46px
     .title
         background #000
         display flex
@@ -241,6 +166,10 @@ export default {
             line-height 45px
             text-align center
             color #fff
+            &:nth-child(3)
+                flex 1.2
+            &:last-child
+                flex 1.7
     .list
         height 590px
         overflow-y scroll
@@ -253,28 +182,10 @@ export default {
                 font-size 14px
                 line-height 50px
                 color #fff
-            &>div
-                flex 1
-                text-align center
-                font-size 14px
-                line-height 50px
-                color #fff
-                &:nth-child(2)
-                    flex 0.8
-            .code
-                overflow-x auto
-    .totalList
-        position absolute
-        bottom 0
-        width 100%
-        color #fff
-        background #ea2f4c
-        display flex
-        span
-            flex 1
-            text-align center
-            line-height 46px
-            font-size 14px
+                &:nth-child(3)
+                    flex 1.2
+                &:last-child
+                    flex 1.7
 .button
     border-radius 17px
     background-image linear-gradient(0, rgb(245, 96, 81) 0%, rgb(251, 196, 52) 100%)

@@ -1,5 +1,6 @@
 <template>
     <div class="box">
+        <div ref="clock"></div>
         <div class="activityList">
             <Menu
                 class="user"

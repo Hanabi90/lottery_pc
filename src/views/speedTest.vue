@@ -16,7 +16,7 @@
                     <li v-for="(item,index) of url" :key="index">
                         <span>线路1</span>
                         <span>
-                            {{item}} 线路检测
+                            线路检测
                             <i>{{pingList[index] | getTime}}秒</i>
                         </span>
                         <span @click="jump(item)">立即进入</span>
@@ -24,11 +24,12 @@
                 </ul>
             </div>
         </div>
+
         <div class="speedBottom">
             <div class="imgBox">
                 <img src="../assets/images/speedImg.png" alt />
             </div>
-            <div class="listContent">
+            <div ref="listContent" class="listContent">
                 <div class="list">
                     <p>IOS客户端</p>
                     <img src="../assets/images/qrcode.png" alt />
@@ -56,8 +57,10 @@ export default {
     data() {
         return {
             url: [
-                'https://www.obolbetonline.com',
-                'https://lottery-test.hoyibet.com'
+                'https://www.ods168.com',
+                'https://www.ods168.net',
+                'https://www.ods168.co',
+                'https://www.obolbetonline.com'
             ],
             pingList: []
         }
@@ -92,6 +95,9 @@ export default {
     },
     mounted() {
         this.newRequest()
+        if (this.$route.query.id == 'listContent') {
+            this.$refs['listContent'].scrollIntoView()
+        }
     }
 }
 </script>

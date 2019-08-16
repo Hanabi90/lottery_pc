@@ -5,18 +5,18 @@
                 <Icon type="md-people" size="20" />团队管理
             </li>
             <router-link tag="li" to="agentManagement">团队推广</router-link>
-            <router-link tag="li" to="daySalary">彩票日工资契约</router-link>
-            <router-link tag="li" to="lotteryShare">彩票分红契约</router-link>
+            <!-- <router-link tag="li" to="daySalary">彩票日工资契约</router-link>
+            <router-link tag="li" to="lotteryShare">彩票分红契约</router-link>-->
+            <li @click="jump('daySalary')">彩票日工资契约</li>
+            <li @click="jump('lotteryShare')">彩票分红契约</li>
             <router-link tag="li" to="personalManagement">
                 <Icon type="md-person" size="20" />个人管理
             </router-link>
             <li>
-                <Icon type="ios-paper" size="20" />彩票报表
+                <Icon type="ios-paper" size="20" />报表中心
             </li>
             <router-link tag="li" to="bettingRecord">投注记录</router-link>
-            <router-link tag="li" to="traceHistory">游戏追号记录</router-link>
-            <router-link tag="li" to="gameHistory">游戏账变记录</router-link>
-            <router-link tag="li" to="noGameHistory">非游戏账变记录</router-link>
+            <router-link tag="li" to="transaction">交易明细</router-link>
         </ul>
         <div class="container" :class="{personalManagement:$route.name=='personalManagement'}">
             <router-view :ref="$route.name"></router-view>
@@ -29,9 +29,28 @@ import { Icon } from 'iview'
 export default {
     name: 'userCenter',
     data() {
-        return {}
+        return {
+            userData: JSON.parse(sessionStorage.getItem('userSeting'))
+        }
     },
-
+    methods: {
+        jump(value) {
+            if (value == 'daySalary') {
+                if (this.userData.contractdaliy == 1) {
+                    this.$router.push('/daySalary')
+                } else {
+                    this.$Message.error('请联系客服洽谈')
+                }
+            }
+            if (value == 'lotteryShare') {
+                if (this.userData.contractmonthly == 1) {
+                    this.$router.push('/lotteryShare')
+                } else {
+                    this.$Message.error('请联系客服洽谈')
+                }
+            }
+        }
+    },
     components: {
         Icon
     }

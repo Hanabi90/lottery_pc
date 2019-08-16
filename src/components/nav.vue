@@ -2,22 +2,62 @@
     <div class="nav">
         <div class="topBox">
             <div class="nav_top fixed_layout">
-                <ul class="flag">
-                    <li>
-                        <i></i>
-                        <span>中国-简体中文</span>
-                    </li>
-                </ul>
                 <ul class="line_help">
-                    <li @click="()=>{this.$Message.success('即将上线')}">PC客户端</li>
-                    <li @click="()=>{this.$Message.success('即将上线')}">手机客户端</li>
+                    <router-link tag="li" to="/speedTest?id=listContent">PC客户端</router-link>
+                    <router-link tag="li" to="/speedTest?id=listContent">手机客户端</router-link>
                     <router-link tag="li" to="/speedTest">线路中心</router-link>
                     <li class="marquee_container">
                         <Marquee />
                     </li>
                 </ul>
                 <ul class="nav_top_right">
-                    <li v-if="this.$store.state.loginCode==1" class="money_content">
+                    <li v-if="this.$store.state.loginCode==0" class="btns login_box">
+                        <div class="btns_box">
+                            <button
+                                ref="loginPosition"
+                                class="border_style login"
+                                @click="open('login','loginPosition')"
+                            >登录</button>
+                        </div>
+                        <div class="btns_box">
+                            <button
+                                class="border_style register"
+                                ref="registeredPosition"
+                                @click="open('registered','registeredPosition')"
+                            >注册</button>
+                        </div>
+                    </li>
+                    <li class="btns login_box" v-else>
+                        <div class="btns_box">
+                            <button @click="handleRecharge('recharge')" class="border_style">
+                                <span>充值</span>
+                            </button>
+                        </div>
+                        <div class="btns_box">
+                            <button
+                                @click="handleRecharge('withdrawal')"
+                                class="border_style tikuan"
+                            >
+                                <span>提款</span>
+                            </button>
+                        </div>
+                        <div class="btns_box">
+                            <button
+                                @click="handleRecharge('transfer')"
+                                class="border_style zhuanzhang"
+                            >
+                                <span>转账</span>
+                            </button>
+                        </div>
+                        <div class="btns_box">
+                            <button class="border_style kefu">线上客服</button>
+                        </div>
+                    </li>
+                    <li
+                        v-if="this.$store.state.loginCode==1"
+                        class="money_content"
+                        style="float:right"
+                    >
                         <div>
                             <div class="money_content_div">
                                 <span>账号:</span>
@@ -43,97 +83,53 @@
                             </div>
                         </div>
                     </li>
-                    <li v-if="this.$store.state.loginCode==0" class="btns login_box">
-                        <div class="btns_box">
-                            <button
-                                ref="loginPosition"
-                                class="border_style login"
-                                @click="open('login','loginPosition')"
-                            >登录</button>
-                        </div>
-                        <div class="btns_box">
-                            <button
-                                class="border_style register"
-                                ref="registeredPosition"
-                                @click="open('registered','registeredPosition')"
-                            >注册</button>
-                        </div>
-                    </li>
-                    <li class="btns login_box" v-else>
-                        <div class="btns_box">
-                            <button class="border_style">
-                                <span>充值</span>
-                            </button>
-                        </div>
-                        <div class="btns_box">
-                            <button class="border_style tikuan">
-                                <span>提款</span>
-                            </button>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
         <div style="border-top: 1px solid #424141">
             <div class="nav_bottom fixed_layout">
                 <div class="logo_left">
-                    <img @click="clearActive" id="logo" src="../assets/images/page_logo.png" />
+                    <img id="logo" src="../assets/images/page_logo.png" />
                 </div>
                 <div class="nav_list" ref="navList">
-                    <div style="padding:0 20px" @click="clearActive" class="navAcitve">首页</div>
-                    <Dropdown>
-                        <a @click="checkToken" href="javascript:void(0)">时时彩</a>
-                        <ul slot="list">
-                            <li
-                                v-for="(item,index) of timesLottery"
-                                :key="index"
-                                @click="jump(item.lotteryid,item.menuid,1)"
-                            >{{item.title}}</li>
-                        </ul>
-                    </Dropdown>
-                    <Dropdown>
-                        <a @click="checkToken" href="javascript:void(0)">11选五</a>
-                        <ul slot="list">
-                            <li
-                                v-for="(item,index) of selected11"
-                                :key="index"
-                                @click="jump(item.lotteryid,item.menuid,2)"
-                            >{{item.title}}</li>
-                        </ul>
-                    </Dropdown>
-                    <Dropdown>
-                        <a @click="checkToken" href="javascript:void(0)">快乐彩</a>
-                        <ul slot="list">
-                            <li
-                                v-for="(item,index) of happyLottery"
-                                :key="index"
-                                @click="jump(item.lotteryid,item.menuid,3)"
-                            >{{item.title}}</li>
-                        </ul>
-                    </Dropdown>
-                    <Dropdown>
-                        <a @click="checkToken" href="javascript:void(0)">快3</a>
-                        <ul slot="list">
-                            <li
-                                v-for="(item,index) of fast3"
-                                :key="index"
-                                @click="jump(item.lotteryid,item.menuid,4)"
-                            >{{item.title}}</li>
-                        </ul>
-                    </Dropdown>
+                    <Menu
+                        ref="navMenu"
+                        mode="horizontal"
+                        style="height:70px;line-height:70px"
+                        :active-name="active"
+                        @on-select="changeActive"
+                    >
+                        <MenuItem to="/" name="1">首页</MenuItem>
 
-                    <div class="btn-sign">
-                        <button ref="openActivity" @click="openActivity">
-                            <i></i>
-                            <span>最新优惠</span>
-                        </button>
-                    </div>
+                        <Submenu name="2">
+                            <template slot="title">彩票</template>
+                            <MenuGroup title="IG">
+                                <MenuItem @click.native="jump('ig_ssc')" name="2-1">IG时时彩</MenuItem>
+                                <MenuItem @click.native="jump('ig_hk')" name="2-2">IG香港彩</MenuItem>
+                            </MenuGroup>
+                        </Submenu>
+                        <MenuItem name="3">体育</MenuItem>
+                        <MenuItem name="4">老虎机</MenuItem>
+                        <MenuItem name="5">棋牌</MenuItem>
+                        <MenuItem to="/activityList" name="6">最新优惠</MenuItem>
+                    </Menu>
                 </div>
             </div>
         </div>
         <Login :style="{left:x+'px'}" style="z-index:2" ref="login" />
         <Registered :style="{left:x+'px'}" style="z-index:2" ref="registered" />
-        <PersonalManagement :style="{left:x+'px'}" style="z-index:2" ref="dropDown" />
+        <PersonalManagement :style="{left:x+'px'}" style="z-index:901" ref="dropDown" />
+        <Modal :width="modalWidth" v-model="alert">
+            <p slot="header" class="alertHeader">
+                <span>{{handleAlertName()}}</span>
+            </p>
+            <div>
+                <Recharge v-if="alert&&alertName=='recharge'" />
+                <Withdrawal v-if="alert&&alertName=='withdrawal'" />
+                <Transfer v-if="alert&&alertName=='transfer'" />
+            </div>
+            <div slot="footer"></div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -141,12 +137,16 @@ import Login from '../components/home/login'
 import Registered from '../components/home/registered'
 import PersonalManagement from '../components/home/personalManagement'
 import Marquee from '@/components/home/marquee.vue'
-import { Dropdown, Icon } from 'iview'
+import Recharge from '@/components/userCenter/recharge'
+import Withdrawal from '@/components/userCenter/withdrawal'
+import Transfer from '@/components/userCenter/transfer'
+import { Menu, MenuItem, MenuGroup, Submenu, Icon, Modal } from 'iview'
 import {
     getbalance,
     loginOut,
     getMenu,
-    getunreadmessageamount
+    getunreadmessageamount,
+    igLogin
 } from '@/api/index.js'
 import { EventBus } from '@/api/eventBus.js'
 export default {
@@ -156,39 +156,11 @@ export default {
             nickname: '',
             id: '',
             x: 0,
-            y: 0
-        }
-    },
-    computed: {
-        timesLottery() {
-            if (this.$store.state.lotteryMenue.times_lottery) {
-                return this.$store.state.lotteryMenue.times_lottery.lottery_data
-            } else {
-                return []
-            }
-        },
-        selected11() {
-            if (this.$store.state.lotteryMenue['11selected5']) {
-                return this.$store.state.lotteryMenue['11selected5']
-                    .lottery_data
-            } else {
-                return []
-            }
-        },
-        fast3() {
-            if (this.$store.state.lotteryMenue['fast3']) {
-                return this.$store.state.lotteryMenue['fast3'].lottery_data
-            } else {
-                return []
-            }
-        },
-        happyLottery() {
-            if (this.$store.state.lotteryMenue['happy_lottery']) {
-                return this.$store.state.lotteryMenue['happy_lottery']
-                    .lottery_data
-            } else {
-                return []
-            }
+            y: 0,
+            alert: false,
+            alertName: '',
+            active: '1',
+            modalWidth: '1200px'
         }
     },
     mounted() {
@@ -201,122 +173,72 @@ export default {
             getbalance().then(res => {
                 this.$store.dispatch('handleMoney', res.data.money)
             })
-            getMenu().then(res => {
-                this.$store.dispatch('handleLotteryMenue', { ...res.data })
-            })
         }
-        this.changeNavIndex()
-        EventBus.$on('updateNaveIndex', () => {
-            this.changeNavIndex()
-        })
-        EventBus.$on('jump', oJson => {
-            let { lotteryId, menuId, index } = oJson
-            this.jump(lotteryId, menuId, index)
-        })
-    },
-    beforeDestroy() {
-        EventBus.$off('updateNaveIndex')
-        EventBus.$off('jump')
+        if (sessionStorage.getItem('navActive')) {
+            this.active = sessionStorage.getItem('navActive')
+        }
     },
     methods: {
-        //验证是否登录，是否跳转投注页面
-        checkToken() {
+        handleAlertName() {
+            switch (this.alertName) {
+                case 'recharge':
+                    return '充值'
+                    break
+                case 'withdrawal':
+                    return '提款'
+                    break
+                default:
+                    return '转账'
+                    break
+            }
+        },
+        jump(value) {
+            if (sessionStorage.getItem('token')) {
+                igLogin({
+                    gamecode: value,
+                    device: 'PC'
+                }).then(res => {
+                    window.open(res.data.data_code, '_black')
+                })
+            } else {
+                this.$Message.success('请先登录')
+            }
+        },
+        //保存navActive
+        changeActive(name) {
+            if (name == 1 || name == '2-1' || name == '2-2' || name == 6) {
+                sessionStorage.setItem('navActive', name)
+            } else {
+                this.$Message.success('即将上线')
+                this.$refs['navMenu'].currentActiveName = this.active = '1'
+            }
+        },
+        //验证是否登录，再打开充值界面
+        handleRecharge(value) {
             if (!sessionStorage.getItem('token')) {
                 this.$Message.error('请先登录')
                 this.open('login', 'loginPosition')
-            }
-        },
-        //加载时更新激活导航
-        changeNavIndex() {
-            //导航样式调整
-            let index = sessionStorage.getItem('navIndex')
-            for (
-                let index = 0;
-                index < this.$refs.navList.childNodes.length;
-                index++
-            ) {
-                let item = this.$refs.navList.childNodes[index]
-                item.classList.remove('navAcitve')
-            }
-            this.$refs['openActivity'].classList.remove('navAcitve')
-            if (index != 5) {
-                if (index) {
-                    this.$refs.navList.childNodes[index].classList.add(
-                        'navAcitve'
-                    )
-                } else {
-                    this.$refs.navList.childNodes[0].classList.add('navAcitve')
-                }
             } else {
-                this.$refs['openActivity'].classList.add('navAcitve')
+                if (value == 'transfer') {
+                    this.modalWidth = '820px'
+                }
+                if (value == 'recharge') {
+                    this.modalWidth = '760px'
+                }
+                this.alert = true
+                this.alertName = value
             }
         },
-        //清除激活样式
-        clearActive() {
-            sessionStorage.setItem('navIndex', 0)
-            for (
-                let index = 0;
-                index < this.$refs.navList.childNodes.length;
-                index++
-            ) {
-                let item = this.$refs.navList.childNodes[index]
-                item.classList.remove('navAcitve')
+        //验证是否登录，是否跳转投注页面
+        checkToken(value) {
+            if (!sessionStorage.getItem('token')) {
+                this.$Message.error('请先登录')
+                this.open('login', 'loginPosition')
+            } else {
+                window.open(sessionStorage.getItem('igUrl'), '_black')
             }
-            this.$refs['openActivity'].classList.remove('navAcitve')
-            this.$router.push({ path: '/' })
-            this.$refs.navList.childNodes[0].classList.add('navAcitve')
         },
-        //个人中心
-        openActivity() {
-            for (
-                let index = 0;
-                index < this.$refs.navList.childNodes.length;
-                index++
-            ) {
-                let item = this.$refs.navList.childNodes[index]
-                item.classList.remove('navAcitve')
-            }
-            this.$refs['openActivity'].classList.add('navAcitve')
-            this.$router.push({ path: '/activityList' })
-            sessionStorage.setItem('navIndex', 5)
-        },
-        //跳转
-        jump(lotteryId, menuId, index) {
-            sessionStorage.setItem('navIndex', index)
-            for (
-                let index = 0;
-                index < this.$refs.navList.childNodes.length;
-                index++
-            ) {
-                let item = this.$refs.navList.childNodes[index]
-                item.classList.remove('navAcitve')
-            }
-            this.$refs['openActivity'].classList.remove('navAcitve')
-            this.$refs.navList.childNodes[index].classList.add('navAcitve')
-            this.$router.push({ path: '/lottery', query: { menuId: menuId } })
-            sessionStorage.setItem('lotteryId', lotteryId)
-            this.$store.dispatch('handleHackReset', false)
-            this.$nextTick(() => {
-                this.$store.dispatch('handleHackReset', true)
-                this.$store.dispatch('handleOrderList', { type: 'clear' })
-                this.$store.dispatch('handleTrace', false)
-            })
-            switch (index) {
-                case 1:
-                    sessionStorage.setItem('group', 'times_lottery')
-                    break
-                case 2:
-                    sessionStorage.setItem('group', '11selected5')
-                    break
-                case 3:
-                    sessionStorage.setItem('group', 'happy_lottery')
-                    break
-                case 4:
-                    sessionStorage.setItem('group', 'fast3')
-                    break
-            }
-            this.$store.dispatch('handleOrderHistory', [])
-        },
+
         //刷新金额
         refresh() {
             getbalance().then(res => {
@@ -378,13 +300,27 @@ export default {
         Registered,
         Icon,
         Marquee,
-        Dropdown,
-        PersonalManagement
+        Menu,
+        MenuItem,
+        MenuGroup,
+        Submenu,
+        PersonalManagement,
+        Modal,
+        Recharge,
+        Withdrawal,
+        Transfer
     }
 }
 </script>
 
 <style lang="stylus" scoped>
+>>>.ivu-modal-content
+    border-radius 0
+>>>.ivu-modal-header
+    background #000
+    p
+        color #fff
+        text-align center
 .nav
     background #242424
     cursor pointer
@@ -406,11 +342,11 @@ export default {
         .nav_top_right
             float right
             overflow hidden
-            width 394px
+            width 512px
             .border_style
                 border-left 1px solid #424141
                 padding 0 10px
-                background linear-gradient(#3ee2ea, #5959ab)
+                background-image linear-gradient(rgb(234, 47, 76) 0%, rgb(255, 106, 129) 100%)
                 border-radius 4px
                 height 30px
                 line-height 30px
@@ -424,6 +360,10 @@ export default {
                     background linear-gradient(rgb(255, 106, 129) 0%, rgb(234, 47, 76) 100%)
                 &.register
                     background linear-gradient(rgb(251, 196, 52) 0%, rgb(245, 96, 81) 100%)
+                &.zhuanzhang
+                    background-image linear-gradient(rgb(91, 47, 234) 0%, rgb(106, 141, 255) 100%)
+                &.kefu
+                    background-image linear-gradient(rgb(111, 135, 250) 0%, rgb(95, 245, 233) 100%)
             li
                 float left
                 color #fff
@@ -450,20 +390,6 @@ export default {
                     margin-top 6px
                     &.refresh
                         background #d49815
-        .flag
-            color #aaa
-            line-height 50px
-            font-size 13px
-            float left
-            margin-right 10px
-            i
-                background url('../assets/images/flag.png')
-                display inline-block
-                height 17px
-                width 17px
-                margin-bottom -4px
-                margin-right 10px
-                background-position -17px 0
         .line_help
             float left
             color #aaa
@@ -503,10 +429,12 @@ button
 .nav_bottom
     color #fff
     font-size 14px
-    overflow hidden
+    height 70px
     width 1200px
     margin auto
     line-height 70px
+    >>>.ivu-menu
+        z-index 2
     >>>.ivu-select-dropdown
         border-radius 0
         padding 0
@@ -521,74 +449,25 @@ button
                 &:hover
                     background #444444
                     color #f7c858
+    >>>.ivu-menu-light
+        background #242424
+    >>>.ivu-menu-item-selected, .ivu-menu-opened, .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item:hover, .ivu-menu-child-item-active
+        background #ff0000
+        color #fff !important
+        border none !important
+    >>>.ivu-menu-item, .ivu-menu-submenu
+        color #fff !important
+        border none !important
+        &:hover
+            background #ff0000
+            color #fff !important
+            border none !important
+    >>>.ivu-menu-light:after
+        width 0
     .nav_list
         float right
         display flex
         text-align center
-        a
-            display inline-block
-            height 100%
-            padding 0 20px
-        a.home
-            color #fff
-            width 82px
-            &:hover
-                background #ea2f4c
-        &>div
-            white-space nowrap
-            &>>>.ivu-dropdown-rel>a
-                color #fff
-            &:hover
-                background #ea2f4c
-                color #fff
-            &:last-child:hover
-                background none
-            &[data-lottery='ture']:hover
-                div
-                    display block
-            &[data-lottery='ture']
-                div
-                    position absolute
-                    background #000000
-                    overflow hidden
-                    line-height 26px
-                    left 50%
-                    display none
-                    ul
-                        float left
-                        margin 10px
-                        h5
-                            font-size 14px
-                            margin-bottom 10px
-                        li
-                            font-size 12px
-                            color #e8e8e8
-                            span
-                                padding 6px 10px
-                                border-radius 6px
-                            &:hover
-                                span
-                                    background #ea2f4c
-                                    color #fff
-.btn-sign
-    button:hover
-        i
-            background url('../assets/images/ic-nav-gift-2.png') bottom no-repeat
-            background-size 16px auto
-    button
-        background #fff
-        color #000
-        padding 10px 14px
-        height 36px
-        line-height 0
-        i
-            display inline-block
-            background url('../assets/images/ic-nav-gift.png') bottom no-repeat
-            background-size 16px auto
-            width 16px
-            height 14px
-            margin-right 4px
-            margin-bottom -2px
 .logo_left
     float left
     height 60px
@@ -597,12 +476,4 @@ button
         height auto
         margin-top 6px
         margin-right 20px
-.is-active
-    background #ea2f4c
-.navAcitve
-    background #ea2f4c !important
-    color #fff !important
-.login_content
-    position relative
-    line-height 50px
 </style>

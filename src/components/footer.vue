@@ -15,16 +15,6 @@
                             <li></li>
                         </ul>
                     </div>
-                </div>
-                <div class="bottom">
-                    <div class="list">
-                        <h5>合作伙伴</h5>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
                     <div class="list">
                         <h5>博彩责任</h5>
                         <ul>
@@ -36,6 +26,17 @@
                     <div class="list">
                         <h5>信息安全</h5>
                         <div></div>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="list">
+                        <h5>合作伙伴</h5>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -57,13 +58,17 @@
                 <li class="proxy">
                     <div class="contact">
                         <i></i>
+                        <p>代理加盟</p>
+                    </div>
+                    <div class="contact1">
+                        <i></i>
                         <p>
                             <span>400-120-8228</span>
-                            <span>国内24小时服务电话</span>
+                            <span>即可联系客服</span>
                         </p>
                     </div>
-                    <div>
-                        <p>2009-2019  奥赛德娱乐 Odyssey Entertainment 版权所有 菲律宾政府 PAGCOR 博彩拍照认证</p>
+                    <div style="clear:both">
+                        <p>2009-2019 奥赛德娱乐 Odyssey Entertainment 版权所有 菲律宾政府 PAGCOR 博彩拍照认证</p>
                         <p>奥德赛娱乐郑重提示：彩票有风险，投注须谨慎。不向未满18岁的青年出手彩票</p>
                         <p>建议使用Google Chorome浏览器，并将屏幕解析度设定为1920x1080，以获得最佳浏览效果</p>
                     </div>
@@ -91,7 +96,7 @@ export default {
 .list_container
     display flex
     flex-direction column
-    .top,.bottom
+    .top, .bottom
         display flex
 .top
     .list
@@ -121,30 +126,7 @@ export default {
                     &:nth-child(3)
                         width 125px
                         background url('../assets/images/unionPay_hover.png') no-repeat 0 0
-.bottom
-    .list
-        color #fff
-        font-size 12px
-        height 82px
-        margin-bottom 30px
-        margin-right: 30px;
-        &:nth-child(1)
-            ul
-                li
-                    height 82px
-                    float left
-                    margin-right 10px
-                    &:nth-child(1)
-                        width 84px
-                        margin-top 10px
-                        background url('../assets/images/iapp.png') no-repeat 0 0
-                    &:nth-child(2)
-                        width 150px
-                        background url('../assets/images/page_logo.png') no-repeat 0 0
-                    &:nth-child(3)
-                        width 164px
-                        background url('../assets/images/jockeyclub_hover.png') no-repeat 0 0
-        &:nth-child(2)
+        &:nth-child(3)
             ul
                 li
                     height 82px
@@ -159,13 +141,39 @@ export default {
                     &:nth-child(3)
                         width 84px
                         background url('../assets/images/stop_hover.png') no-repeat 0 0
-        &:nth-child(3)
+        &:nth-child(4)
             margin-right 29px
             div
                 width 160px
                 height 82px
                 background url('../assets/images/iovation_hover.png') no-repeat 0 0
-div.bottom>div,div.top>div,ul>li
+.bottom
+    .list
+        color #fff
+        font-size 12px
+        height 82px
+        margin-bottom 30px
+        margin-right 30px
+        &:nth-child(1)
+            ul
+                li
+                    height 82px
+                    float left
+                    margin-right 10px
+                    &:nth-child(1)
+                        width 84px
+                        margin-top 10px
+                        background url('../assets/images/iapp.png') no-repeat 0 0
+                    &:nth-child(2)
+                        width 150px
+                        background url('../assets/images/anyingkeji.png') no-repeat 0 0
+                    &:nth-child(3)
+                        width 164px
+                        background url('../assets/images/ig_icon.png') no-repeat 0 0
+                    &:nth-child(4)
+                        width 164px
+                        background url('../assets/images/jockeyclub_hover.png') no-repeat 0 0
+div.bottom>div, div.top>div, ul>li
     background-size auto 50px
     filter grayscale(1) opacity(0.5)
     transition all 0.2s linear
@@ -196,10 +204,53 @@ div.bottom>div,div.top>div,ul>li
             &:hover
                 color #fff
     li.proxy
+        filter none
         margin-right 0
+        overflow hidden
         .contact
-            width 300px
+            float left
+            margin-right 10px
+            width 180px
             margin-bottom 20px
+            padding 14px 0
+            border-radius 5px
+            padding-left 25px
+            background #ea2f4c
+            overflow hidden
+            i, p
+                float left
+            i
+                width 34px
+                height 34px
+                background url('../assets/images/hezuojiameng.png') no-repeat 0 0
+                margin-top 5px
+                margin-right 10px
+            p
+                line-height 40px
+                font-size 16px
+                color #fff
+        .contact1
+            float left
+            margin-right 10px
+            width 160px
+            margin-bottom 20px
+            padding 10px 0
+            border-radius 5px
+            border 2px solid #545556
+            padding-left 10px
+            overflow hidden
+            i, p
+                float left
+            i
+                width 34px
+                height 34px
+                background url('../assets/images/icon-call.png') no-repeat 0 0
+                margin-top 5px
+                margin-right 10px
+            p
+                span
+                    display block
+                    line-height 20px
 .wechat, .webo, .youku
     .icon
         width 27px
@@ -262,24 +313,6 @@ button
         left -200px
     100%
         left 100%
-.contact
-    padding 10px 0
-    border-radius 5px
-    border 2px solid #545556
-    padding-left 74px
-    overflow hidden
-    i, p
-        float left
-    i
-        width 34px
-        height 34px
-        background url('../assets/images/icon-call.png') no-repeat 0 0
-        margin-top 5px
-        margin-right 10px
-    p
-        span
-            display block
-            line-height 20px
 .visitor
     font-size 12px
     margin-top 20px

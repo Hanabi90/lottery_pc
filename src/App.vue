@@ -14,6 +14,11 @@ import Footer from '@/components/footer.vue'
 import { BackTop } from 'iview'
 export default {
     name: 'app',
+    data() {
+        return {
+            alert: false
+        }
+    },
     components: {
         Nav,
         Footer,

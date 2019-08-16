@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="btns">
-                <span>
+                <span @click="handleAlert(2, 'Recharge', '充值')">
                     <Icon
                         style="position: absolute;
                             top: 50%;
@@ -22,7 +22,7 @@
 
                     <button>充值</button>
                 </span>
-                <span>
+                <span @click="handleAlert(2, 'Withdrawal', '提款')">
                     <Icon
                         style="position: absolute;
                             top: 50%;
@@ -33,6 +33,18 @@
                         color="#fff"
                     />
                     <button>提款</button>
+                </span>
+                <span @click="handleAlert(2, 'Transfer', '转账')">
+                    <Icon
+                        style="position: absolute;
+                            top: 50%;
+                            left: 30%;
+                            transform: translateY(-50%);"
+                        type="ios-cash"
+                        size="20"
+                        color="#fff"
+                    />
+                    <button>转账</button>
                 </span>
             </div>
         </div>
@@ -116,7 +128,7 @@
         <Modal
             @on-visible-change="updateInformation"
             :class="{notice:alertComponent=='notice'}"
-            width="640"
+            :width="modelWidth"
             v-model="alert"
         >
             <p slot="header" class="alertHeader">
@@ -144,6 +156,9 @@ import information from '../userCenter/information'
 import bindquestion from '../userCenter/bindquestion'
 import notice from '../userCenter/notice'
 import Secpass from '../userCenter/secpass'
+import Recharge from '../userCenter/recharge'
+import Withdrawal from '@/components/userCenter/withdrawal'
+import Transfer from '@/components/userCenter/transfer'
 import { getunreadmessageamount, getsecpass } from '@/api/index'
 export default {
     data() {
@@ -152,7 +167,8 @@ export default {
             alertTitle: '',
             alert: false,
             comParams: '',
-            unread: 0
+            unread: 0,
+            modelWidth: 640
         }
     },
     mounted() {
@@ -172,6 +188,16 @@ export default {
                     this.alertComponent = 'changePassword'
                 })
             }
+            if (
+                target == 'Transfer' ||
+                target == 'Withdrawal' ||
+                target == 'Recharge'
+            ) {
+                this.modelWidth = '820px'
+            } else {
+                this.modelWidth = '640'
+            }
+
             this.comParams = value
             this.alert = true
             this.alertTitle = title
@@ -183,6 +209,7 @@ export default {
                 getunreadmessageamount().then(res => {
                     this.unread = res.data.unreadamount
                 })
+                this.modelWidth = '640px'
             }
         }
     },
@@ -194,7 +221,10 @@ export default {
         information,
         bindquestion,
         notice,
-        Secpass
+        Secpass,
+        Recharge,
+        Withdrawal,
+        Transfer
     }
 }
 </script>
@@ -241,8 +271,8 @@ export default {
                 display flex
                 justify-content center
                 position relative
-                &:nth-child(1)
-                    margin-right 20px
+                &:nth-child(2)
+                    margin 0 10px
                 button
                     background none
                     border none

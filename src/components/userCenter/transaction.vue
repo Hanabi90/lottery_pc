@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="navTitle">投注记录</div>
+        <div class="navTitle">交易明细</div>
         <Form :model="bettingRecord" :label-width="80" inline>
             <FormItem label="交易类型">
-                <Select placeholder="请先选择彩种" v-model="bettingRecord.querytype" style="width:140px">
-                    <Option value=" ">所有类型</Option>
+                <Select placeholder="请选择交易类型" v-model="bettingRecord.querytype" style="width:140px">
+                    <Option :value="0">所有类型</Option>
                     <Option value="DEPOIST">存款</Option>
                     <Option value="WITHDRAWAL">提款</Option>
                 </Select>
@@ -54,11 +54,11 @@
 import { Form, FormItem, Select, Option, Button, Page } from 'iview'
 import { gettransreport } from '@/api/index'
 export default {
-    name: 'bettingRecord',
+    name: 'transaction',
     data() {
         return {
             bettingRecord: {
-                querytype: '0', //游戏玩法
+                querytype: 0, //游戏玩法
                 page: 1, //请求的页面序号
                 page_size: 10 //请求的数据记录数量
             },
@@ -166,8 +166,10 @@ export default {
             line-height 45px
             text-align center
             color #fff
-            &:nth-child(3)
+            &:nth-child(1)
                 flex 1.2
+            &:nth-child(3)
+                flex 1.4
             &:last-child
                 flex 1.7
     .list
@@ -182,8 +184,10 @@ export default {
                 font-size 14px
                 line-height 50px
                 color #fff
-                &:nth-child(3)
+                &:nth-child(1)
                     flex 1.2
+                &:nth-child(3)
+                    flex 1.4
                 &:last-child
                     flex 1.7
 .button

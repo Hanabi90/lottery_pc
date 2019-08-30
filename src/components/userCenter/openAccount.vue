@@ -49,7 +49,7 @@
 
 <script>
 import { Form, FormItem, Input, Button, Slider, RadioGroup, Radio } from 'iview'
-import { addnewuser, RSAencrypt } from '@/api/index'
+import { addnewuser, RSAencrypt, getreglink } from '@/api/index'
 export default {
     name: 'openAccountLine',
     data() {
@@ -122,6 +122,12 @@ export default {
                 }
             })
         }
+    },
+    mounted() {
+        getreglink().then(res => {
+            this.bonusGroup.minodds = res.data.minodds
+            this.bonusGroup.maxodds = res.data.maxodds
+        })
     },
     components: {
         Form,

@@ -1,5 +1,6 @@
 <template>
     <div class="bank">
+        <Secpass v-if="secpassShow" />
         <div v-if="show" style="background:#eee;padding: 20px">
             <Card v-for="(item,value) of bankinfo" :key="value" :bordered="false">
                 <p slot="title">
@@ -116,10 +117,12 @@ import {
     Option,
     Card
 } from 'iview'
+import Secpass from './secpass.vue'
 export default {
     name: 'bank',
     data() {
         return {
+            secpassShow: true, //资金密码
             show: false, //是否显示添加银行卡
             branchList: [], //获取银行列表
             provinceList: [], //省市列表
@@ -238,7 +241,8 @@ export default {
         Button,
         Select,
         Option,
-        Card
+        Card,
+        Secpass
     }
 }
 </script>

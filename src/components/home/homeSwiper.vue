@@ -14,7 +14,9 @@
             <swiper-slide>
                 <img src="../../assets/images/activity/d.jpg" :data-index="4" />
             </swiper-slide>
-
+            <swiper-slide>
+                <img src="../../assets/images/activity/e.jpg" :data-index="4" />
+            </swiper-slide>
             <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
             <div class="swiper-scrollbar" slot="scrollbar"></div>
@@ -87,7 +89,7 @@ export default {
                     },
                     click(event) {
                         if (event.srcElement.dataset.index) {
-                            sessionStorage.setItem('navIndex', 5)
+                            sessionStorage.setItem('navActive', '6')
                             that.handleJump(this.realIndex)
                             EventBus.$emit('updateNaveIndex')
                         }
@@ -136,11 +138,11 @@ export default {
     .swiper-slide
         width 90%
         height 400px
-        background #fff
         box-shadow 0px 2px 12px 0px #191919
         img
             width 100%
             height 100%
+            border-radius 20px
     .swiper-slide
         img
             display block

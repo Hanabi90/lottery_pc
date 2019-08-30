@@ -37,7 +37,7 @@
         </div>
         <div class="right">
             <ul class="title">
-                <li class="active">全部</li>
+                <!-- <li class="active">全部</li>
                 <li>
                     <img src="../../assets/images/football.png" alt /> 体育
                 </li>
@@ -49,6 +49,15 @@
                 </li>
                 <li>
                     <img src="../../assets/images/laohuji_icon.png" alt />老虎机
+                </li>-->
+                <li @click="chosenType(' ')" :class="{active:!active}">全部</li>
+                <li
+                    @click="chosenType(item.type_code)"
+                    v-for="(item,index) of typeList"
+                    :key="index"
+                >
+                    <img src alt />
+                    {{item.type_name}}
                 </li>
             </ul>
             <ul class="list">
@@ -86,10 +95,18 @@ export default {
             type2: '',
             money: '',
             typeList: [],
-            contentList: []
+            contentList: [],
+            active: ''
         }
     },
     methods: {
+        chosenType(type_code) {
+            getuserwallet({
+                typecode: type_code
+            }).then(res => {
+                this.contentList = res.data
+            })
+        },
         handleRefresh(walletcode, index) {
             updatewallet({
                 walletcode

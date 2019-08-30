@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.onOff" class="personalManagement" @mouseleave="close">
+    <div class="personalManagement" @mouseleave="close">
         <div class="box"></div>
         <div class="title">你好，{{$store.state.nickname}}</div>
         <ul>
@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         close() {
-            this.onOff = false
+            this.$parent.dropDown = false
         },
         loginOut() {
             loginOut().then(res => {

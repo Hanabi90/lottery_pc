@@ -37,14 +37,14 @@ export default {
         jump(value) {
             if (value == 'daySalary') {
                 if (this.userData.contractdaliy == 1) {
-                    this.$router.push('/daySalary')
+                    this.$router.push('daySalary')
                 } else {
                     this.$Message.error('请联系客服洽谈')
                 }
             }
             if (value == 'lotteryShare') {
                 if (this.userData.contractmonthly == 1) {
-                    this.$router.push('/lotteryShare')
+                    this.$router.push('lotteryShare')
                 } else {
                     this.$Message.error('请联系客服洽谈')
                 }

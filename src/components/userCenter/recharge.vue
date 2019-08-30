@@ -15,7 +15,7 @@
                 @click="chosenActive(item)"
                 :class="{active:onOff.title==item.title}"
             >
-                <i></i>
+                <i :class="handleClass(item.url)"></i>
                 <span>{{item.title}}</span>
                 <i class="active"></i>
             </li>
@@ -149,6 +149,7 @@ export default {
                 )
             }
             m *= 100
+            m = parseFloat(m.toPrecision(12))
             m += ''
             var length = m.length
 
@@ -178,6 +179,10 @@ export default {
             }
             result += result.charAt(result.length - 1) == '元' ? '整' : ''
             this.text = result
+        },
+        handleClass(value) {
+            let index = value.indexOf('/') + 1
+            return value.substring(index)
         }
     },
     mounted() {
@@ -227,14 +232,17 @@ export default {
     ul
         display flex
         margin 20px 0
+        flex-wrap wrap
+        width 100%
         li
-            width 154px
             height 40px
             border 1px solid #dcdcdc
             text-align left
             line-height 40px
-            margin 0 16px
+            margin 0 4px
             border-radius 6px
+            padding-right 10px
+            margin-bottom 10px
             &.active
                 border-color blue
                 overflow hidden
@@ -259,34 +267,42 @@ export default {
                     border-top 0
                     border-left 0
                     transform rotate(45deg) scale(1)
-    li:nth-child(1)
-        i:nth-child(1)
-            display inline-block
-            width 45px
-            height 40px
-            background url('../../assets/images/zhifubao.png') no-repeat center
-            vertical-align top
-    li:nth-child(2)
-        i:nth-child(1)
-            display inline-block
-            width 45px
-            height 40px
-            background url('../../assets/images/yinlianzhifu.png') no-repeat center
-            vertical-align top
-    li:nth-child(3)
-        i:nth-child(1)
-            display inline-block
-            width 74px
-            height 40px
-            background url('../../assets/images/yunshanfu.png') no-repeat center
-            vertical-align top
-    li:nth-child(4)
-        i:nth-child(1)
-            display inline-block
-            width 45px
-            height 40px
-            background url('../../assets/images/weixinzhifu.png') no-repeat center
-            vertical-align top
+    .alipayaddcredit
+        display inline-block
+        width 45px
+        height 40px
+        background url('../../assets/images/zhifubao.png') no-repeat center
+        vertical-align top
+    .unionpayaddcredit
+        display inline-block
+        width 45px
+        height 40px
+        background url('../../assets/images/yinlianzhifu.png') no-repeat center
+        vertical-align top
+    .yspayaddcredit
+        display inline-block
+        width 74px
+        height 40px
+        background url('../../assets/images/yunshanfu.png') no-repeat center
+        vertical-align top
+    .wechataddcredit
+        display inline-block
+        width 45px
+        height 40px
+        background url('../../assets/images/weixinzhifu.png') no-repeat center
+        vertical-align top
+    .quickpayaddcredit
+        display inline-block
+        width 45px
+        height 40px
+        background url('../../assets/images/kuaijiezhifu.png') no-repeat center
+        vertical-align top
+    .dsfchongzhi
+        display inline-block
+        width 45px
+        height 40px
+        background url('../../assets/images/wangyinzhifu.png') no-repeat center
+        vertical-align top
     .money
         span:nth-child(1)
             font-size 20px

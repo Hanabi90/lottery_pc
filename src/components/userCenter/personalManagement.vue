@@ -182,11 +182,20 @@ export default {
             }
             if (target == 'Secpass') {
                 getsecpass().then(res => {
-                    this.comParams = value
+                    this.comParams = 2
                     this.alert = true
                     this.alertTitle = title
                     this.alertComponent = 'changePassword'
                 })
+            }
+            if (target == 'bank') {
+                getsecpass().then(res => {
+                    this.comParams = value
+                    this.alert = true
+                    this.alertTitle = title
+                    this.alertComponent = target
+                })
+                return
             }
             if (
                 target == 'Transfer' ||
@@ -208,6 +217,10 @@ export default {
             if (!blo) {
                 getunreadmessageamount().then(res => {
                     this.unread = res.data.unreadamount
+                    this.$store.dispatch(
+                        'handleUnReadAmount',
+                        res.data.unreadamount
+                    )
                 })
                 this.modelWidth = '640px'
             }

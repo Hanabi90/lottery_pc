@@ -16,7 +16,7 @@
                 <FormItem prop="password" label="用户密码">
                     <Input type="password" v-model="formInline.password" placeholder="请输入密码"></Input>
                 </FormItem>
-                <FormItem prop="password" label="确认密码">
+                <FormItem prop="confirm" label="确认密码">
                     <Input type="password" v-model="formInline.confirm" placeholder="请确认密码"></Input>
                 </FormItem>
                 <FormItem prop="code" label="特邀代码">
@@ -31,6 +31,7 @@
                     <img
                         @click="getPopularizereg"
                         style="position:absolute;z-index:1;right:0"
+                        height="100%"
                         :src="img"
                         alt
                     />
@@ -41,7 +42,6 @@
                 </FormItem>
             </Form>
         </div>
-        <div @click="close" class="close"></div>
     </div>
 </template>
 
@@ -60,24 +60,27 @@ export default {
             }
         }
         const validatePass = (rule, value, callback) => {
+            console.log(value)
             if (value === '') {
                 callback(new Error('请输入密码'))
             } else {
-                if (this.formInline.confirm !== '') {
+                if (this.formInline.confirm != '') {
                     // 对第二个密码框单独验证
                     this.$refs.formInline.validateField('confirm')
                 }
-                callback()
             }
+            callback()
         }
         const validateConfirm = (rule, value, callback) => {
-            if (value === '') {
+            if (value == '') {
                 callback(new Error('请再次输入密码'))
-            } else if (value !== this.formInline.password) {
+            } else if (value != this.formInline.password) {
                 callback(new Error('两次密码输入不一致'))
             } else {
                 callback()
             }
+            console.log(value)
+            callback()
         }
         const validateImgCode = (rule, value, callback) => {
             if (value == '') {
@@ -169,13 +172,6 @@ export default {
     top 45px
     line-height normal
     animation fadeInDown ease 1s
-    .arrow
-        width 0
-        height 0
-        border-style solid
-        border-width 0 10px 10px 5px
-        border-color transparent transparent #fff transparent
-        margin auto
     .container
         border-radius 10px
         background #202020
@@ -183,31 +179,13 @@ export default {
         h5
             text-align center
             font-size 20px
-            color #000
-    .remanber
-        color #000
-        margin-top 10px
-        overflow hidden
-        i
-            display inline-block
-            width 15px
-            height 15px
-            border 1px solid #dcdcdc
-            border-radius 3px
-            vertical-align bottom
-            margin-right 5px
-    .close
-        width 24px
-        height 24px
-        position absolute
-        right 20px
-        top 24px
-        background url('../assets/images/btn-close.png') no-repeat 0 0
-        background-size 24px
-        filter grayscale(1) opacity(0.5)
-        transition all 0.5s line
-        &:hover
-            filter grayscale(0) opacity(1)
+            color #fff
+            line-height 50px
+        >>>.ivu-form-item-label
+            color #fff
+        >>>.ivu-btn.ivu-btn-primary
+            background #ea2f4c
+            border none
 @keyframes fadeInDown
     from
         transform translate3d(0, -100%, 0)

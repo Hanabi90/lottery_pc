@@ -526,3 +526,18 @@ export const getgamereport = formData =>
         url: 'thirdgame/getgamereport',
         data: qs.stringify(formData)
     })
+//提款需求
+
+export const handleThreeWithdraw = formData =>
+    service.request({
+        method: 'post',
+        url: 'withdraw/withdraw',
+        data: qs.stringify(formData)
+    })
+//取得游戏类型与关联大厅
+export const getgametypeandlobby = formData =>
+    service.request({
+        method: 'post',
+        url: 'thirdgame/getgametypeandlobby',
+        data: qs.stringify(formData)
+    })

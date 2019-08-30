@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.onOff" class="login">
+    <div class="login">
         <div class="arrow"></div>
         <div class="container">
             <h5>登录您的账户</h5>
@@ -32,12 +32,7 @@
                         :src="img"
                         alt
                     />
-                    <input
-                        class="yanzhengma"
-                        type="text"
-                        v-model="login.imgCode"
-                        placeholder="请输入验证码"
-                    />
+                    <input class="yanzhengma" type="text" v-model="login.code" placeholder="请输入验证码" />
                 </div>
                 <button class="submint_button" @click="handlelogin">立即登录</button>
                 <div class="remanber">
@@ -69,17 +64,18 @@ import {
     getbalance,
     getMenu,
     popularizereg,
-    iglogin
+    iglogin,
+    getunreadmessageamount
 } from '@/api/index.js'
+import md5 from 'js-md5'
 export default {
     name: 'login',
     data() {
         return {
-            onOff: false,
             login: {
                 username: '',
                 loginpass: '',
-                imgCode: ''
+                code: ''
             },
             img: '',
             vvccookie: '',
@@ -102,15 +98,7 @@ export default {
             this.$parent.open('registered', 'registeredPosition')
         },
         close() {
-            if (this.rememberUserName) {
-                this.$set(this.login, 'loginpass', '')
-            } else {
-                this.$set(this.login, 'loginpass', '')
-                this.$set(this.login, 'username', '')
-            }
-            this.$forceUpdate()
-            this.readonly = true
-            this.onOff = false
+            this.$parent.login = false
         },
         getPopularizereg() {
             popularizereg().then(res => {
@@ -131,11 +119,16 @@ export default {
             if (this.rememberUserName && this.login.username) {
                 localStorage.setItem('userName', this.login.username)
             }
-            login(this.login).then(res => {
+            login({
+                username: this.login.username,
+                loginpass: this.login.loginpass,
+                code: md5(this.login.code),
+                vvccookie: this.vvccookie
+            }).then(res => {
                 sessionStorage.setItem('token', res.data.token)
                 sessionStorage.setItem('nickname', res.data.nickname)
                 sessionStorage.setItem('userSeting', JSON.stringify(res.data))
-                this.onOff = false
+                this.$parent.login = false
                 this.$store.dispatch('handleLogin', 1)
                 this.$store.dispatch('handleNickName', res.data.nickname)
                 this.$Message.info('登录成功')
@@ -144,6 +137,12 @@ export default {
                 })
                 this.$set(this.login, 'loginpass', '')
                 this.readonly = true
+                getunreadmessageamount().then(res => {
+                    this.$store.dispatch(
+                        'handleUnReadAmount',
+                        res.data.unreadamount
+                    )
+                })
             })
             //验证码
             this.getPopularizereg()

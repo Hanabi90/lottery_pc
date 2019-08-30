@@ -2,60 +2,66 @@
     <div>
         <div class="navTitle">投注记录</div>
         <Form :model="bettingRecord" :label-width="80" inline>
-            <FormItem label="游戏玩法">
-                <Select placeholder="请先选择彩种" v-model="bettingRecord.model" style="width:140px">
-                    <Option value=" ">所有玩法</Option>
-                    <Option value="ig">IG</Option>
+            <FormItem label="游戏类型">
+                <Select
+                    placeholder="请先选择游戏类型"
+                    v-model="bettingRecord.main_type"
+                    style="width:140px"
+                    @on-change="getSubType"
+                >
+                    <Option
+                        v-for="(item,index) of typeList"
+                        :key="index"
+                        :value="item.main_type"
+                    >{{item.name}}</Option>
                 </Select>
             </FormItem>
-            <FormItem label="请选择日期">
-                <DatePicker
-                    v-model="bettingRecord.starttime"
-                    format="yyyy-MM-dd HH:mm:ss"
-                    type="datetimerange"
-                    placeholder="请选择日期"
-                    style="width: 190px"
-                    placement="bottom-end"
-                ></DatePicker>
+            <FormItem label="游戏大厅">
+                <Select placeholder="请先选择游戏类型" v-model="bettingRecord.sub_type" style="width:140px">
+                    <Option
+                        v-for="(item,index) of subList"
+                        :key="index"
+                        :value="item.sub_type"
+                    >{{item.name}}</Option>
+                </Select>
             </FormItem>
             <Button class="button" @click="handleSeach" type="primary">查询</Button>
         </Form>
         <div class="content">
             <div class="title">
-                <h5>投注时间</h5>
-                <h5>投注馆别</h5>
+                <h5>游戏帐号</h5>
+                <h5>投注游戏</h5>
                 <h5>投注内容</h5>
                 <h5>赔率</h5>
                 <h5>投注金额</h5>
                 <h5>输赢</h5>
                 <h5>流水</h5>
-                <h5>状态</h5>
-                <h5>交易单号</h5>
+                <h5>投注时间</h5>
+                <h5>游戏模组名称</h5>
+                <h5>游戏类型名称</h5>
+                <h5>游戏大厅名称</h5>
             </div>
-
             <ul class="list">
                 <li v-for="(item,value) of userHistory" :key="value">
                     <Tooltip
                         max-width="350px"
-                        :content="item.bet_time"
+                        :content="item.game_account"
                         placement="right-start"
-                    >{{item.bet_time.slice(0,10)}}{{item.bet_time>10?"...":''}}</Tooltip>
-                    <span>{{item.model_code}}</span>
-                    <Tooltip
-                        max-width="350px"
-                        :content="item.bet_content"
-                        placement="right-start"
-                    >{{item.bet_content.slice(0,8)}}{{item.bet_content>8?"...":''}}</Tooltip>
+                    >{{item.game_account.slice(0,4)}}{{item.game_account>4?"...":''}}</Tooltip>
+                    <span>{{item.bet_game}}</span>
+                    <span>{{item.bet_content}}</span>
                     <span>{{item.odds}}</span>
                     <span>{{item.bet_money}}</span>
                     <span :style="{'color':item.winorlose=='赢'?'#0eff00':'red'}">{{item.winorlose}}</span>
                     <span>{{item.ts_flowing}}</span>
-                    <span>{{item.status}}</span>
                     <Tooltip
                         max-width="350px"
-                        :content="item.ref_id"
-                        placement="left-start"
-                    >{{item.ref_id.slice(0,4)}}{{item.ref_id>4?"...":''}}</Tooltip>
+                        :content="item.bet_time"
+                        placement="right-start"
+                    >{{item.bet_time.slice(0,4)}}{{item.bet_time>4?"...":''}}</Tooltip>
+                    <span>{{item.model_name}}</span>
+                    <span>{{item.main_type}}</span>
+                    <span>{{item.sub_type}}</span>
                 </li>
             </ul>
         </div>
@@ -79,41 +85,40 @@
 </template>
 
 <script>
-import {
-    Form,
-    FormItem,
-    Select,
-    Option,
-    DatePicker,
-    Button,
-    Page,
-    Tooltip
-} from 'iview'
+import { Form, FormItem, Select, Option, Button, Page, Tooltip } from 'iview'
 import {
     getuserlottery,
     getuserlotterymethod,
     getchildlist,
     getbethistory,
     ordercancel,
-    getgamereport
+    getgamereport,
+    getgametypeandlobby
 } from '@/api/index'
 export default {
     name: 'bettingRecord',
     data() {
         return {
             bettingRecord: {
-                model: 'ig', //游戏玩法
-                lotteryid: '0', //彩种名称
-                starttime: '', //起始时间
+                main_type: ' ', //游戏类型
+                sub_type: ' ', //游戏大厅
                 page_size: 10, //请求的数据记录数量
                 page: 1 //请求的页面序号
             },
-
+            typeList: [],
+            subList: [],
             userHistory: [],
             total: 0 //页数
         }
     },
     methods: {
+        getSubType() {
+            getgametypeandlobby({
+                typecode: this.bettingRecord.main_type
+            }).then(res => {
+                this.subList = res.data
+            })
+        },
         handleSeach() {
             this.handleReachBottom(1)
             this.$refs.page.currentPage = 1
@@ -172,45 +177,22 @@ export default {
         handleReachBottom(value) {
             this.$set(this.bettingRecord, 'page', value)
             this.getBetHistory()
-        },
-        dataformat(str) {
-            let time = new Date(str)
-            time =
-                time.getFullYear() +
-                '-' +
-                (time.getMonth() + 1 > 9
-                    ? time.getMonth() + 1
-                    : '0' + (time.getMonth() + 1)) +
-                '-' +
-                (time.getDate() > 9 ? time.getDate() : '0' + time.getDate()) +
-                ' ' +
-                (time.getHours() > 9
-                    ? time.getHours()
-                    : '0' + time.getHours()) +
-                ':' +
-                (time.getMinutes() > 9
-                    ? time.getMinutes()
-                    : '0' + time.getMinutes()) +
-                ':' +
-                (time.getSeconds() > 9
-                    ? time.getSeconds()
-                    : '0' + time.getSeconds())
-            return time
         }
     },
     mounted() {
         this.getBetHistory()
+        //获取游戏类型与关联大厅
+        getgametypeandlobby().then(res => {
+            this.typeList = res.data
+        })
     },
     components: {
         Form,
         FormItem,
         Select,
         Option,
-        DatePicker,
         Button,
-
         Page,
-
         Tooltip
     }
 }

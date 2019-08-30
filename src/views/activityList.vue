@@ -97,16 +97,15 @@ export default {
                 color #fff
         >>>.ivu-menu-item-active:not(.ivu-menu-submenu)
             background #ea2f4c
-            color #fff
+            color #ffefc1
         .info
             flex 0.8
             line-height 30px
-            text-align center
             overflow hidden
             font-size 14px
             padding 20px
             margin-left 10px
-            background #202020
+            background #e0cb9f
             .infoContent>>>table
                 width 100%
 </style>

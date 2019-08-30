@@ -1,27 +1,30 @@
 <template>
     <div class="withdrawal">
+        <Secpass v-if="secpassShow" />
         <Steps class="steps" :current="step">
             <Step title="设置提款请求" content></Step>
             <Step title="确认提款信息" content></Step>
             <Step title="完成申请" content></Step>
         </Steps>
-        <p class="description">** 注意：每天限制提款10次，您已提款0次，提款时间为 00:01 至 00:00 您今日剩余提款额度为600,000.00元</p>
+        <p
+            class="description"
+        >** 注意：每天限制提款{{list.times}}次，您已提款{{list.count}}次，提款时间为 00:01 至 00:00 您今日剩余提款额度为{{list.availablebalance}}元</p>
         <ul class="list">
             <li v-if="step!=2">
                 <span>用户账号</span>
-                <span>testricci</span>
+                <span>{{userName}}</span>
             </li>
             <li v-if="step==0">
                 <span>可提款额度</span>
-                <span>8888888.88</span>
+                <span>{{list.availablebalance}}</span>
             </li>
             <li v-if="step!=2">
                 <span>提款金额</span>
                 <InputNumber
                     v-if="step==0"
                     class="inputStyle"
-                    :max="100000"
-                    :min="100"
+                    :max="list.max_money"
+                    :min="list.min_money"
                     v-model="money"
                     placeholder="请输入金额"
                     :active-change="false"
@@ -30,19 +33,12 @@
             </li>
             <li v-if="step==0">
                 <span></span>
-                <span>单笔最低提现金额：100元</span>
-                <span>最高：100000元</span>
+                <span>单笔最低提现金额：{{list.min_money}}元</span>
+                <span>最高：{{list.max_money}}元</span>
             </li>
             <li v-if="step!=2">
                 <span>收款银行卡</span>
-                <Input
-                    v-if="step==0"
-                    class="inputStyle"
-                    type="number"
-                    v-model="bank"
-                    placeholder="请输入银行卡"
-                ></Input>
-                <span v-if="step==1">{{bank}}</span>
+                <span>{{bankNumber}}</span>
             </li>
 
             <li v-if="step==1">
@@ -51,11 +47,11 @@
             </li>
             <li v-if="step==1">
                 <span>开户行所在地</span>
-                <span>中国</span>
+                <span>{{province}}</span>
             </li>
             <li v-if="step==1">
                 <span>开户名</span>
-                <span>陈冠希</span>
+                <span>{{accountName}}</span>
             </li>
             <li v-if="step==2" class="finsh">
                 <Icon type="ios-checkmark-circle" />
@@ -65,39 +61,75 @@
                 </div>
             </li>
             <li>
-                <Button class="submit" @click="HandleSubmint" type="primary">下一步</Button>
+                <Button
+                    v-if="list.times-list.count"
+                    class="submit"
+                    @click="HandleSubmint"
+                    type="primary"
+                >下一步</Button>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { Steps, Step, InputNumber, Input, Icon } from 'iview'
+import { Steps, Step, InputNumber, Icon } from 'iview'
+import { handleThreeWithdraw } from '@/api/index'
+import Secpass from './secpass.vue'
 export default {
     name: 'withdrawal',
     data() {
         return {
+            secpassShow: true,
             money: null,
             bank: null,
-            step: 0
+            step: 0,
+            bankNumber: '',
+            bankName: '',
+            accountName: '',
+            province: '',
+            list: '',
+            userName: ''
         }
     },
     methods: {
         HandleSubmint() {
-            if (this.step != 2) {
+            if (this.step == 1) {
+                handleThreeWithdraw({
+                    flag: 'withdraw',
+                    bankinfo: `${this.list.banks[0].id}#${this.list.banks[0].bank_id}`,
+                    money: this.money
+                }).then(res => {
+                    this.list = res.data
+                    this.$Message.success(res.msg)
+                    this.$store.dispatch(
+                        'handleMoney',
+                        res.data.availablebalance
+                    )
+                    this.step++
+                })
+            } else {
                 this.step++
             }
         }
     },
     mounted() {
         this.$parent.$parent.modalWidth = '800px'
+        handleThreeWithdraw().then(res => {
+            this.bankNumber = res.data.banks[0].account
+            this.bankName = res.data.banks[0].bank_name
+            this.accountName = res.data.banks[0].account_name
+            this.province = res.data.banks[0].province
+            this.list = res.data
+            this.userName = res.data.user.username
+        })
     },
     components: {
         Steps,
         Step,
         InputNumber,
-        Input,
-        Icon
+        Icon,
+        Secpass
     }
 }
 </script>

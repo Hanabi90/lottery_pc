@@ -49,9 +49,9 @@
                                 <span>转账</span>
                             </button>
                         </div>
-                        <div class="btns_box">
-                            <button class="border_style kefu">线上客服</button>
-                        </div>
+                        <!-- <div class="btns_box">
+                            <button @click="openService" class="border_style kefu">线上客服</button>
+                        </div>-->
                     </li>
                     <li
                         v-if="this.$store.state.loginCode==1"
@@ -70,7 +70,15 @@
                                     type="md-arrow-dropdown"
                                     style="font-size:16px;color:#ecc04a;height: 25px;"
                                 />
-                                <!-- <span class="member"></span> -->
+
+                                <router-link
+                                    tag="span"
+                                    class="member"
+                                    to="/userCenter/personalManagement"
+                                >
+                                    未读
+                                    <i>{{this.$store.state.unReadAmount}}</i>
+                                </router-link>
                             </div>
                             <div class="money_content_div">
                                 <span>余额:</span>
@@ -88,7 +96,7 @@
         </div>
         <div style="border-top: 1px solid #424141">
             <div class="nav_bottom fixed_layout">
-                <div class="logo_left">
+                <div @click="goBack" class="logo_left">
                     <img id="logo" src="../assets/images/page_logo.png" />
                 </div>
                 <div class="nav_list" ref="navList">
@@ -108,17 +116,23 @@
                                 <MenuItem @click.native="jump('ig_hk')" name="2-2">IG香港彩</MenuItem>
                             </MenuGroup>
                         </Submenu>
-                        <MenuItem name="3">体育</MenuItem>
-                        <MenuItem name="4">老虎机</MenuItem>
+                        <MenuItem @click.native="jump('im_sport_1')" name="3">体育</MenuItem>
+                        <MenuItem name="4">电子</MenuItem>
                         <MenuItem name="5">棋牌</MenuItem>
+                        <MenuItem @click.native="jump('im_sunbet_1')" name="7">真人</MenuItem>
                         <MenuItem to="/activityList" name="6">最新优惠</MenuItem>
                     </Menu>
                 </div>
             </div>
         </div>
-        <Login :style="{left:x+'px'}" style="z-index:2" ref="login" />
-        <Registered :style="{left:x+'px'}" style="z-index:2" ref="registered" />
-        <PersonalManagement :style="{left:x+'px'}" style="z-index:901" ref="dropDown" />
+        <Login :style="{left:x+'px'}" style="z-index:2" ref="login" v-if="login" />
+        <Registered :style="{left:x+'px'}" style="z-index:2" ref="registered" v-if="registered" />
+        <PersonalManagement
+            :style="{left:x+'px'}"
+            style="z-index:901"
+            ref="dropDown"
+            v-if="dropDown"
+        />
         <Modal :width="modalWidth" v-model="alert">
             <p slot="header" class="alertHeader">
                 <span>{{handleAlertName()}}</span>
@@ -160,7 +174,10 @@ export default {
             alert: false,
             alertName: '',
             active: '1',
-            modalWidth: '1200px'
+            modalWidth: '1200px',
+            login: false,
+            registered: false,
+            dropDown: false
         }
     },
     mounted() {
@@ -173,12 +190,43 @@ export default {
             getbalance().then(res => {
                 this.$store.dispatch('handleMoney', res.data.money)
             })
+            getunreadmessageamount().then(res => {
+                this.$store.dispatch(
+                    'handleUnReadAmount',
+                    res.data.unreadamount
+                )
+            })
         }
         if (sessionStorage.getItem('navActive')) {
-            this.active = sessionStorage.getItem('navActive')
+            this.$refs[
+                'navMenu'
+            ].currentActiveName = this.active = sessionStorage.getItem(
+                'navActive'
+            )
         }
+        EventBus.$on('updateNaveIndex', () => {
+            this.$refs[
+                'navMenu'
+            ].currentActiveName = this.active = sessionStorage.getItem(
+                'navActive'
+            )
+        })
     },
     methods: {
+        goBack() {
+            this.$router.push('/')
+            this.$refs['navMenu'].currentActiveName = this.active = '1'
+            sessionStorage.setItem('navActive', '1')
+            this.$nextTick(() => {
+                this.$refs['navMenu'].updateActiveName()
+            })
+        },
+        openService() {
+            window.open(
+                'https://myquick.y2ss.com/chat/Hotline/channel.jsp?cid=5029118&cnfid=18447&j=7651687265&lan=zh&subject=%E5%92%A8%E8%AF%A2&prechatinfoexist=1&s=1',
+                '_black'
+            )
+        },
         handleAlertName() {
             switch (this.alertName) {
                 case 'recharge':
@@ -206,11 +254,19 @@ export default {
         },
         //保存navActive
         changeActive(name) {
-            if (name == 1 || name == '2-1' || name == '2-2' || name == 6) {
+            if (
+                name == 1 ||
+                name == '2-1' ||
+                name == '2-2' ||
+                name == 3 ||
+                name == 6 ||
+                name == 7
+            ) {
                 sessionStorage.setItem('navActive', name)
             } else {
                 this.$Message.success('即将上线')
                 this.$refs['navMenu'].currentActiveName = this.active = '1'
+                sessionStorage.setItem('navActive', '1')
             }
         },
         //验证是否登录，再打开充值界面
@@ -251,20 +307,38 @@ export default {
             let e = window.event || $event,
                 domTarget = event.target || event.srcElement
             //把所有弹窗都关掉
-            this.$refs.login.onOff = false //登录
-            this.$refs.registered.onOff = false //注册
-            this.$refs.dropDown.onOff = false //
+            this.login = false //登录
+            this.registered = false //注册
+            this.dropDown = false //
             //打开目标弹窗
-            this.$refs[target].onOff = true
+            switch (target) {
+                case 'login':
+                    this.login = true
+                    break
+                case 'registered':
+                    this.registered = true
+                    break
+                case 'dropDown':
+                    this.dropDown = true
+                    break
+                default:
+                    break
+            }
 
             this.$nextTick(() => {
                 this.x =
                     this.getElementLeft(this.$refs[targetButn]) +
                     this.$refs[targetButn].offsetWidth / 2 -
                     this.$refs[target].$el.offsetWidth / 2
-                if (this.x > window.innerWidth) {
+
+                if (
+                    this.x + this.$refs[target].$el.offsetWidth + 20 >
+                    window.innerWidth
+                ) {
                     this.x =
-                        window.innerWidth - this.$refs[target].$el.offsetWidth
+                        window.innerWidth -
+                        this.$refs[target].$el.offsetWidth -
+                        20
                 }
             })
 
@@ -376,13 +450,21 @@ export default {
                 overflow hidden
                 height 100%
                 .member
-                    background-image url('../assets/images/member_1.png')
                     width 70px
                     display inline-block
                     height 20px
                     float right
-                    margin-top 4px
                     background-repeat no-repeat
+                    i
+                        display inline-block
+                        color #ff0000
+                        background #ecc04a
+                        border-radius 30px
+                        height 14px
+                        width 14px
+                        line-height 12px
+                        text-indent 2px
+                        font-style normal
                 &>div
                     float left
                     line-height 25px

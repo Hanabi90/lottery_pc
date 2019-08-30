@@ -1,7 +1,7 @@
 <template>
     <div class="openLine">
         <Form ref="addUserLine" :model="addUserLine" :label-width="80">
-            <FormItem label="奖金组">
+            <!-- <FormItem label="奖金组">
                 <Slider
                     :min="Number(bonusGroup.minodds)"
                     :max="Number(bonusGroup.maxodds)"
@@ -10,7 +10,7 @@
                     show-input
                     input-size="small"
                 ></Slider>
-            </FormItem>
+            </FormItem>-->
             <FormItem label="用户类型">
                 <RadioGroup v-model="addUserLine.usertype">
                     <Radio label="1">代理</Radio>
@@ -70,6 +70,7 @@ export default {
                 },
                 {
                     title: '开户链接地址',
+                    width: '380',
                     key: 'url'
                 },
                 {
@@ -78,7 +79,7 @@ export default {
                 },
                 {
                     title: '奖金组',
-                    width: '70',
+                    width: '90',
                     key: 'odds'
                 },
                 {
@@ -230,7 +231,6 @@ export default {
         Form,
         FormItem,
         Button,
-        Slider,
         RadioGroup,
         Radio,
         Table,
@@ -241,7 +241,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .openLine
-    width 1000px
+    width 1100px
     overflow hidden
     >>>.ivu-table-cell
         span

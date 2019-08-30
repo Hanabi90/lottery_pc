@@ -80,7 +80,11 @@ service.interceptors.response.use(
             LoadingBar.finish()
             let code = response.data.code
             //如果是注册接口就跳过拦截
-            if (response.config.url.indexOf('addnewuser') != -1) {
+
+            if (
+                response.config.url.indexOf('addnewuser') != -1 ||
+                response.config.url.indexOf('popularizereg') != -1
+            ) {
                 if (code == 0) {
                     return Promise.resolve(response.data)
                 } else {

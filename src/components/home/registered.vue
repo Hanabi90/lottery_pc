@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { popularizereg, getunreadmessageamount } from '@/api/index'
+import { popularizereg, getunreadmessageamount,getbalance } from '@/api/index'
 import { Form, FormItem, Input, Button } from 'iview'
 import md5 from 'js-md5'
 export default {

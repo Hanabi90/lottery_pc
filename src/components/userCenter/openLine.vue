@@ -214,6 +214,7 @@ export default {
             for (const key in res.data) {
                 this.$set(this.bonusGroup, key, res.data[key])
             }
+            this.$set(this.addUserLine,'keepodds',res.data.maxodds)
             if (res.data.tuiguan.length) {
                 this.userLineData = []
                 res.data.tuiguan.forEach(item => {

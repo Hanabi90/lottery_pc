@@ -20,7 +20,7 @@
             <FormItem label="密码" prop="password">
                 <Input type="password" v-model="addUserList.password" placeholder="请输入密码"></Input>
             </FormItem>
-            <FormItem label="奖金组">
+            <!-- <FormItem label="奖金组">
                 <Slider
                     :min="Number(bonusGroup.minodds)"
                     :max="Number(bonusGroup.maxodds)"
@@ -30,7 +30,7 @@
                     :active-change="false"
                     input-size="small"
                 ></Slider>
-            </FormItem>
+            </FormItem> -->
             <FormItem label="用户类型">
                 <RadioGroup v-model="addUserList.userType">
                     <Radio label="1">代理</Radio>
@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import { Form, FormItem, Input, Button, Slider, RadioGroup, Radio } from 'iview'
+// import { Form, FormItem, Input, Button, Slider, RadioGroup, Radio } from 'iview'
+import { Form, FormItem, Input, Button, RadioGroup, Radio } from 'iview'
 import { addnewuser, RSAencrypt, getreglink } from '@/api/index'
 export default {
     name: 'openAccountLine',
@@ -98,7 +99,7 @@ export default {
                 if (valid) {
                     this.loading = true
                     let dataJson = {
-                        onekeyodds: this.addUserList.bonus, //奖金
+                        onekeyodds: this.bonusGroup.maxodds, //奖金
                         usertype: this.addUserList.userType, //用户类型
                         username: this.addUserList.userName, //用户名
                         userpass: this.addUserList.password //密码
@@ -134,7 +135,7 @@ export default {
         FormItem,
         Input,
         Button,
-        Slider,
+        // Slider,
         RadioGroup,
         Radio
     }

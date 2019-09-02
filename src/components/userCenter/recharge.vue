@@ -20,6 +20,12 @@
                 <i class="active"></i>
             </li>
         </ul>
+        <div class="wangyin" v-show="actionname=='dsfchongzhi'">
+            <span class="selectBank">选择网银银行:</span>
+            <Select v-model="selectedBank_code" style="width:200px">
+                <Option v-for="item in banklist" :value="item.bank_code" :key="item.bank_code">{{ item.bank_name }}</Option>
+            </Select>
+        </div>
         <div class="money">
             <span>充值金额(人民币)</span>
             <InputNumber
@@ -55,7 +61,7 @@
 
 <script>
 import { unionpayaddcredit, getThreeDeposit } from '@/api/index'
-import { Button, InputNumber, Divider } from 'iview'
+import { Button, InputNumber, Divider, Select,Option } from 'iview'
 export default {
     name: 'recharge',
     data() {
@@ -80,7 +86,10 @@ export default {
                 '',
                 '角',
                 '分'
-            )
+            ),
+            actionname: '',
+            selectedBank_code: '',
+            banklist: []
         }
     },
     methods: {
@@ -94,7 +103,7 @@ export default {
                         alertmin: this.alertmin,
                         alertmax: this.alertmax,
                         typename: this.typename,
-                        bank_code: this.bank_code
+                        bank_code: this.actionname=="dsfchongzhi"?this.selectedBank_code:this.bank_code
                     },
                     this.onOff.url
                 ).then(res => {
@@ -113,7 +122,12 @@ export default {
                 this.alertmax = res.data.loadmax
                 this.typename = res.data.typename
                 this.bank_code = res.data.banklist[0].bank_code
+                this.actionname = res.data.actionname
                 this.onOff = item
+                if (this.actionname == 'dsfchongzhi') {
+                    this.banklist = res.data.banklist
+                    this.selectedBank_code = res.data.banklist[0].bank_code
+                }
             })
         },
         toDx(n) {
@@ -193,7 +207,9 @@ export default {
     components: {
         Button,
         InputNumber,
-        Divider
+        Divider,
+        Select,
+        Option
     }
 }
 </script>
@@ -229,7 +245,7 @@ export default {
                 display inline-block
                 font-size 20px
                 line-height 20px
-    ul
+    ul.backList
         display flex
         margin 20px 0
         flex-wrap wrap
@@ -307,6 +323,20 @@ export default {
         span:nth-child(1)
             font-size 20px
             margin-right 20px
+            &.selectBank
+                margin-right 48px
+        input
+            font-size 20px
+    .wangyin
+        margin-bottom 30px
+        >>>.ivu-select-selection,>>>.ivu-select-selected-value
+            height 40px
+            line-height 40px
+        span:nth-child(1)
+            font-size 20px
+            margin-right 20px
+            &.selectBank
+                margin-right 48px
         input
             font-size 20px
     .moneyDescription

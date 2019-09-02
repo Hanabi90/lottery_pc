@@ -20,6 +20,12 @@ export default new Router({
             component: () =>
                 import(/* webpackChunkName: "lottery" */ './views/lottery.vue')
         },
+        {
+            path: '/electronics',
+            name: 'electronics',
+            component: () =>
+                import(/* webpackChunkName: "electronics" */ './views/electronics.vue')
+        },
 
         {
             path: '/activityList',

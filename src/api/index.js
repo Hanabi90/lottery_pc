@@ -541,3 +541,10 @@ export const getgametypeandlobby = formData =>
         url: 'thirdgame/getgametypeandlobby',
         data: qs.stringify(formData)
     })
+//获取游戏列表
+export const getgamelist = formData =>
+    service.request({
+        method: 'post',
+        url: '/thirdgame/getgamelist',
+        data: qs.stringify(formData)
+    })

@@ -91,12 +91,12 @@
                                         :disabled="systemtype!=1||userId!=item.parentid"
                                         @click="handleAlert(item.userid,'Reputation','信誉设置')"
                                     >信用设置</Button>
-                                    <Button
+                                    <!-- <Button
                                         type="primary"
                                         size="small"
                                         :disabled="systemtype!=0||userId!=item.parentid "
                                         @click="handleAlert(item.userid,'SetPoint','返点设置')"
-                                    >返点设置</Button>
+                                    >返点设置</Button> -->
                                     <Button
                                         type="primary"
                                         size="small"

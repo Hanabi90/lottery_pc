@@ -60,7 +60,6 @@ export default {
             }
         }
         const validatePass = (rule, value, callback) => {
-            console.log(value)
             if (value === '') {
                 callback(new Error('请输入密码'))
             } else {
@@ -79,7 +78,6 @@ export default {
             } else {
                 callback()
             }
-            console.log(value)
             callback()
         }
         const validateImgCode = (rule, value, callback) => {
@@ -133,6 +131,7 @@ export default {
                             imgCode: ''
                         }
                         this.$Message.success(res.msg)
+                        this.$router.push('/')
                     })
                 } else {
                     this.$Message.error('Fail!')

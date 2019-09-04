@@ -1,6 +1,6 @@
 <template>
     <div id="certify" :style="{background:list.length?'none':'#000'}">
-        <swiper :options="swiperOption" ref="mySwiper">
+        <swiper v-if="list.length" :options="swiperOption" ref="mySwiper">
             <!-- slides -->
             <swiper-slide v-for="(item, index) in list" :key="index">
                 <img :src="item.pc_banner" :data-index="1" />

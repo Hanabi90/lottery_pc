@@ -2,9 +2,9 @@
     <div class="transfer">
         <div class="left">
             <ul class="list">
-                <li>
+                <!-- <li>
                     <Button type="primary">切换为自动转账模式</Button>
-                </li>
+                </li>-->
                 <li>
                     <span>转账从</span>
                     <Select v-model="type1" style="width:200px">
@@ -50,7 +50,7 @@
                 <li>
                     <img src="../../assets/images/laohuji_icon.png" alt />老虎机
                 </li>-->
-                <li @click="chosenType(' ')" :class="{active:!active}">全部</li>
+                <!-- <li @click="chosenType(' ')" :class="{active:!active}">全部</li>
                 <li
                     @click="chosenType(item.type_code)"
                     v-for="(item,index) of typeList"
@@ -58,7 +58,7 @@
                 >
                     <img src alt />
                     {{item.type_name}}
-                </li>
+                </li>-->
             </ul>
             <ul class="list">
                 <li v-for="(item,index) of contentList" :key="index">

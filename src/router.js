@@ -94,6 +94,12 @@ export default new Router({
                     name: 'transaction',
                     component: () =>
                         import(/* webpackChunkName: "lotteryShare" */ '@/components/userCenter/transaction.vue')
+                },
+                {
+                    path: 'teamProfitLossStatement',
+                    name: 'teamProfitLossStatement',
+                    component: () =>
+                        import(/* webpackChunkName: "lotteryShare" */ '@/components/userCenter/teamProfitLossStatement.vue')
                 }
             ]
         }

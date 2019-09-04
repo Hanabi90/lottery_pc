@@ -119,6 +119,9 @@ export default {
             }).then(res => {
                 this.userHistory = [...res.data.data]
                 this.total = res.data.total
+                if (!res.data.data.length) {
+                    this.$Message.success('暂无数据')
+                }
             })
         },
         handleReachBottom(value) {

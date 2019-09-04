@@ -49,9 +49,9 @@
                                 <span>转账</span>
                             </button>
                         </div>
-                        <!-- <div class="btns_box">
+                        <div class="btns_box">
                             <button @click="openService" class="border_style kefu">线上客服</button>
-                        </div>-->
+                        </div>
                     </li>
                     <li
                         v-if="this.$store.state.loginCode==1"
@@ -108,7 +108,6 @@
                         @on-select="changeActive"
                     >
                         <MenuItem to="/" name="1">首页</MenuItem>
-
                         <Submenu name="2">
                             <template slot="title">彩票</template>
                             <MenuGroup title="IG">
@@ -116,10 +115,9 @@
                                 <MenuItem @click.native="jump('ig_hk')" name="2-2">IG香港彩</MenuItem>
                             </MenuGroup>
                         </Submenu>
-                        <MenuItem @click.native="jump('im_sport_1')" name="3">体育</MenuItem>
+                        <MenuItem name="3">体育</MenuItem>
+                        <MenuItem name="7">真人</MenuItem>
                         <MenuItem name="4">电子</MenuItem>
-                        <MenuItem name="5">棋牌</MenuItem>
-                        <MenuItem @click.native="jump('im_sunbet_1')" name="7">真人</MenuItem>
                         <MenuItem to="/activityList" name="6">最新优惠</MenuItem>
                     </Menu>
                 </div>
@@ -222,10 +220,7 @@ export default {
             })
         },
         openService() {
-            window.open(
-                'https://myquick.y2ss.com/chat/Hotline/channel.jsp?cid=5029118&cnfid=18447&j=7651687265&lan=zh&subject=%E5%92%A8%E8%AF%A2&prechatinfoexist=1&s=1',
-                '_black'
-            )
+            window.globalVisitHandle.openInitiatedChat(!1)
         },
         handleAlertName() {
             switch (this.alertName) {
@@ -254,17 +249,10 @@ export default {
         },
         //保存navActive
         changeActive(name) {
-            if (
-                name == 1 ||
-                name == '2-1' ||
-                name == '2-2' ||
-                name == 3 ||
-                name == 6 ||
-                name == 7
-            ) {
+            if (name == 1 || name == '2-1' || name == '2-2' || name == 6) {
                 sessionStorage.setItem('navActive', name)
             } else {
-                this.$Message.success('即将上线')
+                this.$Message.success('即将开放')
                 this.$refs['navMenu'].currentActiveName = this.active = '1'
                 sessionStorage.setItem('navActive', '1')
             }

@@ -58,14 +58,7 @@
                 <li class="proxy">
                     <div class="contact">
                         <i></i>
-                        <p>代理加盟</p>
-                    </div>
-                    <div class="contact1">
-                        <i></i>
-                        <p>
-                            <span>400-120-8228</span>
-                            <span>即可联系客服</span>
-                        </p>
+                        <p>商务代理</p>
                     </div>
                     <div style="clear:both">
                         <p>2009-2019 奥赛德娱乐 Odyssey Entertainment 版权所有 菲律宾政府 PAGCOR 博彩拍照认证</p>

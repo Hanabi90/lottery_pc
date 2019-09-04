@@ -62,7 +62,7 @@
                             <li>用户类型</li>
                             <li>奖金组</li>
                             <li>{{`${systemtype==0?'用户余额':'信用余额'}`}}</li>
-                            <li style="flex:4">用户操作</li>
+                            <li style="flex:3.2">用户操作</li>
                         </ul>
 
                         <ul class="teamList">
@@ -71,7 +71,7 @@
                                 <span>{{item.groupname}}</span>
                                 <span>{{item.prizeGroup.toFixed()}}</span>
                                 <span>{{item.money}}</span>
-                                <span style="flex:4">
+                                <span style="flex:3">
                                     <Button
                                         v-if="systemtype!=1"
                                         type="primary"
@@ -96,7 +96,7 @@
                                         size="small"
                                         :disabled="systemtype!=0||userId!=item.parentid "
                                         @click="handleAlert(item.userid,'SetPoint','返点设置')"
-                                    >返点设置</Button> -->
+                                    >返点设置</Button>-->
                                     <Button
                                         type="primary"
                                         size="small"
@@ -234,7 +234,7 @@ export default {
         //切换显示条数
         changePn(value) {
             this.$set(this.teamGroup, 'pn', value)
-            this.getgrouplist()
+            this.getGroupList()
         },
         //弹窗
         handleAlert(value, target, title) {

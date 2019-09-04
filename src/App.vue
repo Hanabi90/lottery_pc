@@ -56,4 +56,6 @@ export default {
 #app
     background url('./assets/images/homeBg.jpg')
     min-width 1200px
+#lim_mini
+    display none !important
 </style>

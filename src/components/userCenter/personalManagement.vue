@@ -79,7 +79,7 @@
                         <Icon type="md-key" size="30" color="#ea2f4c" />
                     </div>
                     <div class="title_wrap">
-                        <p>提款密码</p>
+                        <p>资金密码</p>
                         <span>6-16个字符</span>
                     </div>
                 </div>

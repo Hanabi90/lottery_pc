@@ -17,6 +17,7 @@
             </li>
             <router-link tag="li" to="bettingRecord">投注记录</router-link>
             <router-link tag="li" to="transaction">交易明细</router-link>
+            <router-link tag="li" to="teamProfitLossStatement">团队报表</router-link>
         </ul>
         <div class="container" :class="{personalManagement:$route.name=='personalManagement'}">
             <router-view :ref="$route.name"></router-view>

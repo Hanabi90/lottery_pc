@@ -16,7 +16,7 @@
                 >{{item.title}}</MenuItem>
             </Menu>
             <div class="info">
-                <img width="100%" :src="activityInfo.frontend_banner_picture" alt />
+                <img width="100%" :src="activityInfo.mb" alt />
                 <div class="infoContent" v-html="activityInfo.content"></div>
             </div>
         </div>

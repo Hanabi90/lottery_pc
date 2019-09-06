@@ -35,7 +35,12 @@
                         :src="img"
                         alt
                     />
-                    <Input type="text" v-model="formInline.imgCode" placeholder="请输入验证码"></Input>
+                    <Input
+                        type="text"
+                        v-model="formInline.imgCode"
+                        placeholder="请输入验证码"
+                        @keyup.enter="handleSubmit('formInline')"
+                    ></Input>
                 </FormItem>
                 <FormItem>
                     <Button type="primary" @click="handleSubmit('formInline')">确定</Button>

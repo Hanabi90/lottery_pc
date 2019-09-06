@@ -20,12 +20,12 @@
                 <i class="active"></i>
             </li>
         </ul>
-        <div class="wangyin" v-show="actionname=='dsfchongzhi'">
+        <!-- <div class="wangyin" v-show="actionname=='dsfchongzhi'">
             <span class="selectBank">选择网银银行:</span>
             <Select v-model="selectedBank_code" style="width:200px">
                 <Option v-for="item in banklist" :value="item.bank_code" :key="item.bank_code">{{ item.bank_name }}</Option>
             </Select>
-        </div>
+        </div>-->
         <div class="money">
             <span>充值金额(人民币)</span>
             <InputNumber
@@ -61,7 +61,7 @@
 
 <script>
 import { unionpayaddcredit, getThreeDeposit } from '@/api/index'
-import { Button, InputNumber, Divider, Select,Option } from 'iview'
+import { Button, InputNumber, Divider, Select, Option } from 'iview'
 export default {
     name: 'recharge',
     data() {
@@ -103,7 +103,10 @@ export default {
                         alertmin: this.alertmin,
                         alertmax: this.alertmax,
                         typename: this.typename,
-                        bank_code: this.actionname=="dsfchongzhi"?this.selectedBank_code:this.bank_code
+                        bank_code:
+                            this.actionname == 'dsfchongzhi'
+                                ? this.selectedBank_code
+                                : this.bank_code
                     },
                     this.onOff.url
                 ).then(res => {
@@ -207,9 +210,9 @@ export default {
     components: {
         Button,
         InputNumber,
-        Divider,
-        Select,
-        Option
+        Divider
+        // Select,
+        // Option
     }
 }
 </script>
@@ -329,7 +332,7 @@ export default {
             font-size 20px
     .wangyin
         margin-bottom 30px
-        >>>.ivu-select-selection,>>>.ivu-select-selected-value
+        >>>.ivu-select-selection, >>>.ivu-select-selected-value
             height 40px
             line-height 40px
         span:nth-child(1)

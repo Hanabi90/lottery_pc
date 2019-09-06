@@ -26,6 +26,9 @@
                                 @click="open('registered','registeredPosition')"
                             >注册</button>
                         </div>
+                         <div class="btns_box">
+                            <button @click="openService" class="border_style kefu">线上客服</button>
+                        </div>
                     </li>
                     <li class="btns login_box" v-else>
                         <div class="btns_box">
@@ -267,7 +270,7 @@ export default {
                     this.modalWidth = '820px'
                 }
                 if (value == 'recharge') {
-                    this.modalWidth = '760px'
+                    this.modalWidth = '800px'
                 }
                 this.alert = true
                 this.alertName = value
@@ -404,7 +407,7 @@ export default {
         .nav_top_right
             float right
             overflow hidden
-            width 512px
+            width 534px
             .border_style
                 border-left 1px solid #424141
                 padding 0 10px

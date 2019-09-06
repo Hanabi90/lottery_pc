@@ -7,7 +7,7 @@
                 </li>-->
                 <li>
                     <span>转账从</span>
-                    <Select v-model="type1" style="width:200px">
+                    <Select v-model="type1" style="width:200px" @on-change="getItem">
                         <Option
                             v-for="(item,index) in contentList"
                             :value="item.wallet_code"
@@ -27,9 +27,16 @@
                 </li>
                 <li>
                     <span>转出金额</span>
-                    <Input v-model="money" placeholder="金额" style="width: 200px" />
+                    <Input v-model="money" type="number" placeholder="金额-只能输入整数" style="width: 200px"  />
                 </li>
-
+                <li class="moneyList">
+                    <span @click="changeMoney(10)">10</span>
+                    <span @click="changeMoney(50)">50</span>
+                    <span @click="changeMoney(100)">100</span>
+                    <span @click="changeMoney(500)">500</span>
+                    <span @click="changeMoney(1000)">1000</span>
+                    <span @click="changeMoney(0)">全部</span>
+                </li>
                 <li>
                     <Button @click="handleSubmit" type="error" style="width:290px">确认并提交</Button>
                 </li>
@@ -96,7 +103,8 @@ export default {
             money: '',
             typeList: [],
             contentList: [],
-            active: ''
+            active: '',
+            allMoney:''
         }
     },
     methods: {
@@ -105,6 +113,13 @@ export default {
                 typecode: type_code
             }).then(res => {
                 this.contentList = res.data
+            })
+        },
+        getItem(value){
+            this.contentList.forEach(item => {
+                if(item.wallet_code == value){
+                        this.allMoney = ~~item.wallet_balance
+                }
             })
         },
         handleRefresh(walletcode, index) {
@@ -118,7 +133,19 @@ export default {
                 )
             })
         },
+        //快速添加金额
+        changeMoney(value) {
+            if (value) {
+                this.money = value
+            } else {
+                this.money = this.allMoney
+            }
+        },
         handleSubmit() {
+            if(`${this.money}`.indexOf('.')!=-1){
+                this.$Message.success('只能输入整数')
+                return 
+            }
             if (this.type1 == '_main' && this.type2 != '_main') {
                 //转入
                 deposit({
@@ -136,6 +163,10 @@ export default {
                             this.$set(
                                 this.contentList[index],
                                 'wallet_balance',
+                                res.data.main_wallet_balance
+                            )
+                            this.$store.dispatch(
+                                'handleMoney',
                                 res.data.main_wallet_balance
                             )
                         }
@@ -167,6 +198,10 @@ export default {
                                 'wallet_balance',
                                 res.data.main_wallet_balance
                             )
+                            this.$store.dispatch(
+                                'handleMoney',
+                                res.data.main_wallet_balance
+                            )
                         }
                         if (element.wallet_code == res.data.wallet_code) {
                             this.$set(
@@ -178,7 +213,7 @@ export default {
                     }
                 })
             } else {
-                this.$Message.error('第三方不能互相转账')
+                this.$Message.error('没有选择或第三方不能互相转账')
             }
         }
     },
@@ -215,6 +250,22 @@ export default {
                     width 80px
                     padding-right 20px
                     text-align right
+            .moneyList
+                display flex
+                span
+                    flex 1
+                    text-align center
+                    line-height 30px
+                    margin-right 4px
+                    padding-right 0
+                    border-radius 6px
+                    color #000
+                    border 1px solid #dcdcdc
+                    cursor pointer
+                    font-size 12px
+                    &:hover
+                        background #fd3502
+                        color #fff
     .right
         margin-left 20px
         .title

@@ -25,6 +25,7 @@
                 active-name="1"
                 @on-select="changeContent"
                 style="margin-bottom:10px"
+                ref="menu"
             >
                 <MenuItem name="1">密保重置</MenuItem>
                 <MenuItem name="2">资金密码重置</MenuItem>
@@ -236,7 +237,12 @@ export default {
             })
         },
         changeContent(value) {
-            this.tableIndex = value
+            if (value == 2 && !this.listIndex) {
+                this.$Message.error('您还未设定密保，请先设定密保')
+                this.$refs['menu'].currentActiveName = '1'
+            } else {
+                this.tableIndex = value
+            }
         }
     },
     mounted() {

@@ -9,6 +9,7 @@
                 type="datetimerange"
                 placeholder="请选择日期"
                 style="width: 300px;margin:0 10px"
+                :options="maxDay"
             ></DatePicker>
             <RadioGroup v-model="quickDate" @on-change="changeDate">
                 <Radio label="durationToday">今天</Radio>
@@ -37,7 +38,7 @@
                     <span>{{item.deposit}}</span>
                     <span>{{item.withdraw}}</span>
                     <span>{{item.bonus_amount}}</span>
-                    <span>{{item.gift_money_1}}</span>
+                    <span>{{item.promotion}}</span>
                     <span>{{item.profit}}</span>
                 </li>
             </ul>
@@ -82,7 +83,15 @@ export default {
             detailedList: [],
             totalCount: 0, //总页数
             p: 1, //当前页
-            pn: 10 //一页数量
+            pn: 10, //一页数量
+            maxDay: {
+                disabledDate: date => {
+                    return (
+                        date.valueOf() < Date.now() - 86400000 * 35 ||
+                        date.valueOf() > Date.now()
+                    )
+                }
+            }
         }
     },
     mounted() {
@@ -268,13 +277,13 @@ export default {
                     flex 1
                     text-align center
                     font-size 14px
-                    line-height 50px
+                    line-height 30px
                     color #fff
                 &>div
                     flex 1
                     text-align center
                     font-size 14px
-                    line-height 50px
+                    line-height 30px
                     color #fff
                     &:nth-child(2)
                         flex 0.8

@@ -38,6 +38,7 @@
                     placeholder="请选择日期"
                     style="width: 190px"
                     placement="bottom-end"
+                    :options="maxDay"
                 ></DatePicker>
             </FormItem>
             <Button class="button" @click="handleSeach" type="primary">查询</Button>
@@ -135,7 +136,15 @@ export default {
             userHistory: [],
             total: 0, //页数
             stake_sum: 0, //投注额总计
-            valid_sum: 0 //有效投注额总计
+            valid_sum: 0, //有效投注额总计
+            maxDay: {
+                disabledDate: date => {
+                    return (
+                        date.valueOf() < Date.now() - 86400000 * 35 ||
+                        date.valueOf() > Date.now()
+                    )
+                }
+            }
         }
     },
     methods: {

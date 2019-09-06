@@ -29,7 +29,12 @@
                         height="100%"
                         :src="img"
                     />
-                    <Input type="text" v-model="formInline.imgCode" placeholder="请输入验证码"></Input>
+                    <Input
+                        type="text"
+                        v-model="formInline.imgCode"
+                        placeholder="请输入验证码"
+                        @keyup.enter="handleSubmit('formInline')"
+                    ></Input>
                 </FormItem>
                 <FormItem>
                     <Button type="primary" :loading="loading" @click="handleSubmit('formInline')">
@@ -44,7 +49,7 @@
 </template>
 
 <script>
-import { popularizereg, getunreadmessageamount,getbalance } from '@/api/index'
+import { popularizereg, getunreadmessageamount, getbalance } from '@/api/index'
 import { Form, FormItem, Input, Button } from 'iview'
 import md5 from 'js-md5'
 export default {

@@ -33,17 +33,18 @@
                 <div class="list">
                     <p>IOS客户端</p>
                     <img src="../assets/images/qrcode.png" alt />
-                    <button>扫一扫下载IOS APP版本</button>
+                    <a>扫一扫下载IOS APP版本</a>
                 </div>
                 <div class="list">
                     <p>安卓客户端</p>
-                    <img src="../assets/images/qrcode.png" alt />
-                    <button>扫一扫下载安卓 APP版本</button>
+                    <!-- <QrcodeVue value="ods168.com/download/ods168.apk"> -->
+                     <qrcode-vue value="https://dl.hoyibet100.net/download/ods168.apk"  level="H" style="margin:22px 0"></qrcode-vue>
+                    <a href="https://dl.hoyibet100.net/download/ods168.apk" download="app">扫一扫下载安卓 APP版本</a>
                 </div>
                 <div class="list">
                     <p>Pc/Mac客户端</p>
                     <img src="../assets/images/qrcode.png" alt />
-                    <button>扫一扫下载Pc/Mac版本</button>
+                    <a>扫一扫下载Pc/Mac版本</a>
                 </div>
             </div>
         </div>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import QrcodeVue from 'qrcode.vue'
 export default {
     name: 'speedTest',
     data() {
@@ -91,6 +93,9 @@ export default {
         },
         jump(url) {
             window.open(url, '_blank')
+        },
+        downLoade(url){
+            window.open(url)
         }
     },
     mounted() {
@@ -98,6 +103,9 @@ export default {
         if (this.$route.query.id == 'listContent') {
             this.$refs['listContent'].scrollIntoView()
         }
+    },
+    components:{
+        QrcodeVue
     }
 }
 </script>
@@ -187,7 +195,7 @@ export default {
                     color #fff
                 img
                     margin 20px 0
-                button
+                a
                     border-radius 5px
                     background-color rgb(255, 35, 69)
                     width 202px
@@ -196,5 +204,7 @@ export default {
                     color #fff
                     cursor pointer
                     outline none
+                    display inline-block
+                    line-height 38px
 </style>
 

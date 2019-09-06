@@ -63,6 +63,7 @@ export default {
             float left
             width 380px
             >>>.content
+                padding-left 380px
                 span
                     float left
                     height 100%

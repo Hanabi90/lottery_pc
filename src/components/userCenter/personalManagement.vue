@@ -83,7 +83,7 @@
                         <span>6-16个字符</span>
                     </div>
                 </div>
-                <div @click="handleAlert('2','Secpass','提款密码')">提款密码</div>
+                <div @click="handleAlert('2','Secpass','资金密码')">资金密码</div>
             </li>
             <li>
                 <div>

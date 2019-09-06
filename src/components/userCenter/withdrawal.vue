@@ -62,7 +62,7 @@
             </li>
             <li>
                 <Button
-                    v-if="list.times-list.count"
+                    v-if="list.times-list.count&&step!=2"
                     class="submit"
                     @click="HandleSubmint"
                     type="primary"

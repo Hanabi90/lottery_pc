@@ -206,6 +206,7 @@ export default {
                     this.bankinfo = res.data.banklist
                     this.show = true
                     this.$parent.$parent.alert = false
+                    this.$Message.success('银行卡绑定成功')
                 })
             }
         },

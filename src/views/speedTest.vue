@@ -182,7 +182,7 @@ export default {
         .imgBox
             position absolute
             left 80px
-            top -60px
+            top -88px
         .listContent
             padding 20px 10px
             display flex

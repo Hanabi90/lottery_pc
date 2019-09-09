@@ -77,11 +77,11 @@ export default {
                     title: '推广代码',
                     key: 'code'
                 },
-                {
-                    title: '奖金组',
-                    width: '90',
-                    key: 'odds'
-                },
+                // {
+                //     title: '奖金组',
+                //     width: '90',
+                //     key: 'odds'
+                // },
                 {
                     title: '二维码',
                     width: '130',
@@ -175,7 +175,8 @@ export default {
         downloadFile(index, odds) {
             let qrcodeUrl = this.$refs.img0.$refs['qrcode-vue'].toDataURL(),
                 aLink = document.createElement('a')
-            aLink.download = `推广二维码:奖金${odds}`
+            aLink.download = `推广二维码`
+            // aLink.download = `推广二维码:奖金${odds}`
             aLink.href = qrcodeUrl
             aLink.click()
         },

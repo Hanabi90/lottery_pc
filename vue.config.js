@@ -26,7 +26,7 @@ module.exports = {
 
     devServer: {
         open: true,
-        host: 'ricci-test.hoyibet.com',
+        host: 'sid-test.hoyibet.com',
         before: app => {}
     }
 }

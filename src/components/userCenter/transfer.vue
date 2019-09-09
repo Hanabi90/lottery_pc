@@ -131,6 +131,7 @@ export default {
                     'wallet_balance',
                     res.data.wallet_balance
                 )
+                this.allMoney = res.data.wallet_balance
             })
         },
         //快速添加金额
@@ -178,6 +179,7 @@ export default {
                             )
                         }
                     }
+                    this.$parent.$parent.alert = false
                 })
             } else if (this.type1 != '_main' && this.type2 == '_main') {
                 //转出
@@ -211,6 +213,7 @@ export default {
                             )
                         }
                     }
+                    this.$parent.$parent.alert = false
                 })
             } else {
                 this.$Message.error('没有选择或第三方不能互相转账')

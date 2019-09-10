@@ -94,6 +94,10 @@ export default {
     },
     methods: {
         handleRecharge() {
+            if(this.typeList==null||this.typeList.length<1){
+                this.$Message.error('充值渠道维护中，请联系客服')
+                return
+            }
             if (this.money) {
                 unionpayaddcredit(
                     {
@@ -205,6 +209,9 @@ export default {
     mounted() {
         getThreeDeposit().then(res => {
             this.typeList = res.data
+            if(this.typeList==null){
+                this.$Message.error('充值渠道维护中，请联系客服')
+            }
         })
     },
     components: {

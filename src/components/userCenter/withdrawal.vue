@@ -94,6 +94,10 @@ export default {
     },
     methods: {
         HandleSubmint() {
+            if(this.money<100){
+                this.$Message.error('请输入正确的金额')
+                return
+            }
             if (this.step == 1) {
                 handleThreeWithdraw({
                     flag: 'withdraw',
